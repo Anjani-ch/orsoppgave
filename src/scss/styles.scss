@@ -181,4 +181,11 @@ nav {
 footer {
     @include set-contrast($primary);
     font-size: 1.15rem;
+
+    &.footer-bottom {
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+    }
 }

@@ -1,7 +1,23 @@
 <%- include('./partials/head.ejs') %>
 
-    <main class="container d-flex align-items-center justify-content-space-around mt-3 mb-3 ml-auto mr-auto py-2" id="home">
-        <h1>Login Form</h1>
+    <main class="container ml-auto mr-auto py-2" id="login">
+        <div class="form-container">
+            <h1 class="form-heading">Login</h1>
+
+            <form action="/login" method="POST">
+                <div class="form-field">
+                    <label for="email">Email</label>
+                    <input type="text" name="email" id="email">
+                </div>
+
+                <div class="form-field">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password">
+                </div>
+
+                <button type="submit">Login</button>
+            </form>
+        </div>
     </main>
 
 <%- include('./partials/footer.ejs') %>
