@@ -1,7 +1,7 @@
 {
-  "name": "anjanichapparapu.com",
-  "version": "1.5.0",
-  "description": "My Website",
+  "name": "orsoppgave",
+  "version": "1.0.0",
+  "description": "Årsoppgave",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",

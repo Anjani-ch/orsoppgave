@@ -26,6 +26,11 @@ $btn-transition-duration: .3s;
 
         &:hover, &:focus { @include set-contrast($primary); }
     }
+
+    &-lightend {
+        @extend %btn;
+        @include set-contrast(lighten($primary, 10%));
+    }
 }
 
 .btn-github {
@@ -34,9 +39,4 @@ $btn-transition-duration: .3s;
     @include set-contrast(purple);
     
     i { margin-right: 2px; }
-}
-
-.btn-lightend {
-    @extend %btn;
-    @include set-contrast(lighten($primary, 10%));
 }
