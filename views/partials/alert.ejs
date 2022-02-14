@@ -1,0 +1,15 @@
+<% if (typeof errors != 'undefined') { %>
+    <% errors.forEach(error => { %>
+        <div class="alert error">
+            <p><%= error %></p>
+            <i class="fa-solid fa-xmark alert-icon"></i>
+        </div>
+    <% }); %>
+<% } %>
+
+<% if (typeof success != 'undefined') { %>
+    <div class="alert success">
+        <p><%= success.msg %></p>
+        <i class="fa-solid fa-xmark alert-icon"></i>
+    </div>
+<% } %>
