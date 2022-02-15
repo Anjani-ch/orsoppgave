@@ -7,9 +7,23 @@
     <% }); %>
 <% } %>
 
-<% if (typeof success != 'undefined') { %>
+<% if (successMsg != '') { %>
     <div class="alert success">
-        <p><%= success.msg %></p>
+        <p><%= successMsg %></p>
+        <i class="fa-solid fa-xmark alert-icon"></i>
+    </div>
+<% } %>
+
+<% if (errorMsg != '') { %>
+    <div class="alert error">
+        <p><%= errorMsg %></p>
+        <i class="fa-solid fa-xmark alert-icon"></i>
+    </div>
+<% } %>
+
+<% if (error != '') { %>
+    <div class="alert error">
+        <p><%= error %></p>
         <i class="fa-solid fa-xmark alert-icon"></i>
     </div>
 <% } %>
