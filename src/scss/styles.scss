@@ -21,8 +21,6 @@ a { text-decoration: none; }
 
 ul { list-style: none; }
 
-i { cursor: pointer; }
-
 // Navbar
 nav {
     background-color: $primary;
@@ -30,21 +28,36 @@ nav {
     left: 0;
     padding: 10px 0px;
 
-    a {
-        color: set-text-color($primary);
-        font-size: 1.15rem;
-    }
-
     .container {
         div {
             .btn-primary-lightend {
                 margin-top: 0;
                 margin-bottom: 0;
+                font-size: .9rem;
+            }
+        }
+
+        a {
+            color: set-text-color($primary);
+            font-size: 1.15rem;
+        }
+
+        #profile-dropdown-wrapper {
+            :first-child {
+                cursor: pointer;
+                color: set-text-color($primary);
             }
         }
     }
 
     &.authenticated {
+        #inbox-icon-wrapper {
+            span {
+                bottom: 0;
+                left: 0;
+            }
+        }
+
         @include media-md() {
             .container {
                 #menu-btn {

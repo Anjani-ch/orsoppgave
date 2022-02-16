@@ -34,21 +34,16 @@
                 <!-- Menu 1 -->
                 <!-- <div class="d-flex align-items-center justify-content-space-between">
                     <a class="btn-primary-lightend" href="/inbox">Inbox(<span>0</span>)</a>
-                    <form action="/logout" method="POST"><button class="btn-primary-lightend" type="submit">Logout</button></form>
+                    <form action="/logout" method="post"><button class="btn-primary-lightend" type="submit">Logout</button></form>
                 </div> -->
                 <!-- Menu 2 -->
-                <div>
-                    <div id="inbox-icon-wrapper">
+                <div class="d-flex align-items-center">
+                    <div id="inbox-icon-wrapper" class="position-relative mr-1">
                         <a href="/inbox" class="fa-solid fa-bell"></a>
-                        <span>2</span>
+                        <span class="position-absolute">2</span>
                     </div>
-                    <div id="profile-dropdown-wrapper">
+                    <div id="profile-dropdown-wrapper" class="position-relative">
                         <div><%= user.username %> <i class="fa-solid fa-chevron-down"></i></div>
-
-                        <!-- <div id="profile-dropdown">
-                            <div class="profile-dropdown-item">Settings</div>
-                            <div class="profile-dropdown-item">Logout</div>
-                        </div> -->
                     </div>
                 </div>
             <% } else { %>

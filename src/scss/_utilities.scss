@@ -97,6 +97,7 @@ $space-amounts: (1, 2, 3, 4, 5, auto);
         :first-child { font-size: $collapse-heading-font-size; }
 
         i {
+            cursor: pointer;
             font-size: $collapse-heading-font-size;
             @include transition(transform $collapse-transition-duration);
         }

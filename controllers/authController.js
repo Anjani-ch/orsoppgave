@@ -70,8 +70,7 @@ const handleSignup = (req, res) => {
             .catch(err => console.log(err));
     } else {
         // Validation Failed
-        // TODO: Keep Form Values On Re-render
-        res.render('signup', { title: 'Signup', year: getYear(), errors });
+        res.render('signup', { title: 'Signup', year: getYear(), errors, ...req.body });
     }
 }
 

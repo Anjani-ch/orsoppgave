@@ -8,7 +8,7 @@ const path = require('path');
 
 const initPassport = require('./config/passport.js');
 
-// Init App
+// Init Express App
 const app = express();
 
 const PORT = process.env.PORT || 3000;
@@ -20,12 +20,13 @@ dotenv.config();
 initPassport(passport);
 
 // Connect To DB
-try {
-    mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true, });
-    console.log('DB Connected...');
-} catch(err) {
-    console.log(err);
-}
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true, })
+    .then(_ => {
+        console.log('Connected to DB...');
+        // Start Server
+        app.listen(PORT, _ => console.log(`Server running on port ${PORT}`));
+    })
+    .catch(err => console.log(err));
 
 // Set EJS Engine
 app.set('view engine', 'ejs');
@@ -52,15 +53,14 @@ app.use(flash());
 
 // Global Variables
 app.use((req, res, next) => {
+    // Flash Messages
     res.locals.successMsg = req.flash('successMsg');
     res.locals.errorMsg = req.flash('errorMsg');
     res.locals.error = req.flash('error');
+    // User
     res.locals.user = req.user;
     next();
 });
 
 // Routes
 app.use('/', require('./router/routes.js'));
-
-// Start Server
-app.listen(PORT, _ => console.log(`Server running on port ${PORT}`));
