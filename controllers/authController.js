@@ -25,10 +25,7 @@ const handleSignup = (req, res) => {
     if (password.length < passwordMinChars) errors.push(`Password must be minimum characters ${passwordMinChars} long`);
 
 
-    if (errors.length) {
-        // TODO: Keep Form Values On Re-render
-        res.render('signup', { title: 'Signup', year: getYear(), errors });
-    } else {
+    if (!errors.length) {
         // Form Validation Passed
         User.findOne({ email })
             .then(user => {
@@ -38,7 +35,7 @@ const handleSignup = (req, res) => {
 
                 User.findOne({ username })
                     .then(user => {
-                    let isDuplicateUsername = user ? true : false;
+                        let isDuplicateUsername = user ? true : false;
 
                         if (user) {
                             errors.push('Username already in use');
@@ -69,9 +66,12 @@ const handleSignup = (req, res) => {
                             });
                         }
                     })
-                    .catch(err => console.log(err));
             })
             .catch(err => console.log(err));
+    } else {
+        // Validation Failed
+        // TODO: Keep Form Values On Re-render
+        res.render('signup', { title: 'Signup', year: getYear(), errors });
     }
 }
 
@@ -79,7 +79,7 @@ const handleLogin = (req, res, next) => {
     passport.authenticate('local', {
         successRedirect: '/',
         failureRedirect: '/login',
-        failureFlash: true
+        failureFlash: true,
     })(req, res, next);
 }
 

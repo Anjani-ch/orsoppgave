@@ -2,22 +2,22 @@ const express = require('express');
 
 const { getYear } = require('../modules/date.js');
 
-const { isLoggedIn, isLoggedOut } = require('../config/auth.js');
+const { isLoggedIn, isLoggedOut } = require('../middleware/auth.js');
 
 const { handleLogin, handleSignup, handleLogout } = require('../controllers/authController.js');
 
 const router = express.Router();
 
-// Index Routes
+// Index Route
 router.get('/', (req, res) => res.render('index', { title: 'Home', year: getYear() }));
 
-// Job Experience Routes
+// Job Experience Route
 router.get('/job-experience', isLoggedIn, (req, res) => res.render('jobExperience', { title: 'Job Experience', year: getYear() }));
 
 // Education Routes
 router.get('/education', isLoggedIn, (req, res) => res.render('education', { title: 'Education', year: getYear() }));
 
-// Projects
+// Projects Route
 router.get('/projects', isLoggedIn, (req, res) => res.render('projects', { title: 'Projects', year: getYear() }));
 
 // Signup Routes
@@ -32,6 +32,6 @@ router.post('/login', handleLogin);
 router.post('/logout', handleLogout);
 
 // Download Routes
-router.get('/download/resume', (req, res) => res.download('src/docs/cv.pdf'));
+router.get('/download/resume', isLoggedIn, (req, res) => res.download('src/docs/cv.pdf'));
 
 module.exports = router;

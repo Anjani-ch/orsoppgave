@@ -35,80 +35,91 @@ nav {
         font-size: 1.15rem;
     }
 
-    @include media-md() {
-        .container {
-            #menu-btn {
-                display: flex;
-                width: 45px;
-                height: 45px;
-                cursor: pointer;
-                z-index: 100;
-                @include transition(all .5s ease-in-out);
-
-                // Main menu line
-                div {
-                    width: 30px;
-                    height: 6px;
-                    background: set-text-color($primary);
-                    border-radius: 5px;
-                    @include transition(transform .5s ease-in-out);
-
-                    // Add line on top and bottom of main line
-                    &::before,
-                    &::after {
-                        content: '';
-                        position: absolute;
-                        width: 45px;
-                        height: 6px;
-                        background-color: set-text-color($primary);
-                        border-radius: 5px;
-                        @include transition(all .5s ease-in-out);
-                    }
-
-                    &::before { @include transform(translateY(-16px)); }
-                    &::after { @include transform(translateY(16px)); }
-                }
-
-                // Menu animation
-                &.open {
-                    div {
-                        background-color: set-text-color($secondary);
-
-                        &::before,
-                        &::after { background-color: set-text-color($secondary); }
-                    }
-
-                    div {
-                        @include transform(translateX(-50px));
-                        background-color: set-bg-color(transparent);
-
-                        &::before { @include transform(rotate(45deg) translate(35px, -35px)); }
-                        &::after { @include transform(rotate(-45deg) translate(35px, 35px)); }
-                    }
-
-                    + ul { left: 0%; }
-                }
+    .container {
+        div {
+            .btn-primary-lightend {
+                margin-top: 0;
+                margin-bottom: 0;
             }
+        }
+    }
 
-            ul {
-                position: absolute;
-                top: 0;
-                left: -200%;
-                width: 100%;
-                height: 100%;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                background-color: set-bg-color($secondary);
-                @include transition(left .5s);
-
-                li {
-                    margin: 5px 0px;
-
-                    a {
-                        color: set-text-color($secondary);
-                        font-size: 2.3rem;
+    &.authenticated {
+        @include media-md() {
+            .container {
+                #menu-btn {
+                    display: flex;
+                    width: 45px;
+                    height: 45px;
+                    cursor: pointer;
+                    z-index: 100;
+                    @include transition(all .5s ease-in-out);
+    
+                    // Main menu line
+                    div {
+                        width: 30px;
+                        height: 6px;
+                        background: set-text-color($primary);
+                        border-radius: 5px;
+                        @include transition(transform .5s ease-in-out);
+    
+                        // Add line on top and bottom of main line
+                        &::before,
+                        &::after {
+                            content: '';
+                            position: absolute;
+                            width: 45px;
+                            height: 6px;
+                            background-color: set-text-color($primary);
+                            border-radius: 5px;
+                            @include transition(all .5s ease-in-out);
+                        }
+    
+                        &::before { @include transform(translateY(-16px)); }
+                        &::after { @include transform(translateY(16px)); }
+                    }
+    
+                    // Menu animation
+                    &.open {
+                        div {
+                            background-color: set-text-color($secondary);
+    
+                            &::before,
+                            &::after { background-color: set-text-color($secondary); }
+                        }
+    
+                        div {
+                            @include transform(translateX(-50px));
+                            background-color: set-bg-color(transparent);
+    
+                            &::before { @include transform(rotate(45deg) translate(35px, -35px)); }
+                            &::after { @include transform(rotate(-45deg) translate(35px, 35px)); }
+                        }
+    
+                        + ul { left: 0%; }
+                    }
+                }
+    
+                ul {
+                    position: absolute;
+                    top: 0;
+                    left: -200%;
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: set-bg-color($secondary);
+                    @include transition(left .5s);
+    
+                    li {
+                        margin: 5px 0px;
+    
+                        a {
+                            color: set-text-color($secondary);
+                            font-size: 2.3rem;
+                        }
                     }
                 }
             }

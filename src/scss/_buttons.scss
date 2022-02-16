@@ -7,7 +7,10 @@ $btn-transition-duration: .3s;
     border-radius: 5px;
     padding: 10px 15px;
     margin: 5px;
-    font-size: 1.2rem;
+    font-size: 1.2rem !important;
+    outline: 0;
+    border: 0;
+
     @include transition(transform $btn-transition-duration);
 
     &:hover, &:focus { @include transform(scale(.97)); }

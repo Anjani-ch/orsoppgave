@@ -9,22 +9,37 @@
     <title>Anjani Chapparapu | <%= title %></title>
 </head>
 <body>
-    <nav>
+    <% if (user) { %>
+        <nav class="authenticated">
+    <% } else { %>
+        <nav>
+    <% } %>
         <div class="container ml-auto mr-auto d-flex align-items-center justify-content-space-between">
-            <div id="menu-btn" class="d-none position-relative justify-content-center align-items-center">
-                <div id="menu-main-line"></div>
-            </div>
+            <% if (user) { %>
+                <div id="menu-btn" class="d-none position-relative justify-content-center align-items-center">
+                    <div id="menu-main-line"></div>
+                </div>
+            <% } %>
 
             <ul>
                 <li class="d-inline mx-1"><a href="/">Home</a></li>
-                <li class="d-inline mx-1"><a href="/job-experience">Job Experience</a></li>
-                <li class="d-inline mx-1"><a href="/education">Education</a></li>
-                <li class="d-inline mx-1"><a href="/projects">Projects</a></li>
+                <% if (user) { %>
+                    <li class="d-inline mx-1"><a href="/job-experience">Job Experience</a></li>
+                    <li class="d-inline mx-1"><a href="/education">Education</a></li>
+                    <li class="d-inline mx-1"><a href="/projects">Projects</a></li>
+                <% } %>
             </ul>
 
-            <div id="nav-buttons">
-                <a href="/login" class="btn-primary-lightend">Login</a>
-                <a href="/signup" class="btn-primary-lightend">Signup</a>
-            </div>
+            <% if (user) { %>
+                <div class="d-flex align-items-center justify-content-space-between">
+                    <a class="btn-primary-lightend" href="/inbox">Inbox(<span>0</span>)</a>
+                    <form action="/logout" method="POST"><button class="btn-primary-lightend" type="submit">Logout</button></form>
+                </div>
+            <% } else { %>
+                <div>
+                    <a href="/login" class="btn-primary-lightend">Login</a>
+                    <a href="/signup" class="btn-primary-lightend">Signup</a>
+                </div>
+            <% } %>
         </div>
     </nav>

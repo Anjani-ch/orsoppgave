@@ -18,7 +18,8 @@ $text-align-properties: (start, center, end);
 // Display
 $display-properties: (block, inline, inline-block, flex, grid, none);
 
-@each $property in $display-properties { .d-#{$property} { display: #{$property} !important; } }
+@each $property in $display-properties { .d-#{$property} { display: #{$property}; } }
+@each $property in $display-properties { .d-#{$property}-important { display: #{$property} !important; } }
 
 // Position
 $position-properties: (static, relative, absolute, sticky, fixed);

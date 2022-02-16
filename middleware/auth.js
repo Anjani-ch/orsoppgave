@@ -1,7 +1,7 @@
 const isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) return next();
-
-    req.flash('errorMsg', 'Log in to access this page');
+    req.flash('errorMsg', 'Log in to access this resource');
+    res.redirect('/login');
 }
 
 const isLoggedOut = (req, res, next) => {
