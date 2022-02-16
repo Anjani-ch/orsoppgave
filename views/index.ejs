@@ -4,13 +4,15 @@
         <section>
             <h1>I Am<br> <span class="primary">Anjani</span></h1>
 
-            <% if (user) { %>
-                <div class="mt-2">
+            <div class="mt-2">
+                <% if (user) { %>
                     <a href="/projects" class="btn-primary">Projects</a>
                     <a href="/download/resume" class="btn-primary-rounded">Resume</a>
                     <a href="https://github.com/Anjani-ch?tab=repositories" class="btn-github" target="_blank"><i class="fab fa-github"></i> Github</a>
-                </div>
-            <% } %>
+                <% } else { %>
+                    <a href="/signup" class="btn-primary">Get Started</a>
+                <% } %>
+            </div>
         </section>
         <img src="/img/anjani.jpg" alt="anjani">
     </main>

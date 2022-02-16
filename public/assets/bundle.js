@@ -25,7 +25,7 @@ eval("window.addEventListener('click', function (e) {\n  return e.target.classLi
   \****************************/
 /***/ (() => {
 
-eval("window.addEventListener('click', function (e) {\n  var collapseHeading;\n  if (e.target.classList.contains('collapse-heading')) collapseHeading = e.target;else if (e.target.parentElement.classList.contains('collapse-heading')) collapseHeading = e.target.parentElement;\n  if (collapseHeading) collapseHeading.parentElement.classList.toggle('toggled');\n});\n\n//# sourceURL=webpack://orsoppgave/./src/js/collapse.js?");
+eval("window.addEventListener('click', function (e) {\n  var collapseHeading;\n\n  if (e.target.tagName !== 'HTML') {\n    if (e.target.classList.contains('collapse-heading')) collapseHeading = e.target;else if (e.target.parentElement.classList.contains('collapse-heading')) collapseHeading = e.target.parentElement;\n    if (collapseHeading) collapseHeading.parentElement.classList.toggle('toggled');\n  }\n});\n\n//# sourceURL=webpack://orsoppgave/./src/js/collapse.js?");
 
 /***/ }),
 

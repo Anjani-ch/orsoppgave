@@ -9,11 +9,11 @@
     <title>Anjani Chapparapu | <%= title %></title>
 </head>
 <body>
-    <% if (user) { %>
-        <nav class="authenticated">
-    <% } else { %>
-        <nav>
-    <% } %>
+<% if (user) { %>
+    <nav class="authenticated">
+<% } else { %>
+    <nav>
+<% } %>
         <div class="container ml-auto mr-auto d-flex align-items-center justify-content-space-between">
             <% if (user) { %>
                 <div id="menu-btn" class="d-none position-relative justify-content-center align-items-center">
@@ -31,9 +31,25 @@
             </ul>
 
             <% if (user) { %>
-                <div class="d-flex align-items-center justify-content-space-between">
+                <!-- Menu 1 -->
+                <!-- <div class="d-flex align-items-center justify-content-space-between">
                     <a class="btn-primary-lightend" href="/inbox">Inbox(<span>0</span>)</a>
                     <form action="/logout" method="POST"><button class="btn-primary-lightend" type="submit">Logout</button></form>
+                </div> -->
+                <!-- Menu 2 -->
+                <div>
+                    <div id="inbox-icon-wrapper">
+                        <a href="/inbox" class="fa-solid fa-bell"></a>
+                        <span>2</span>
+                    </div>
+                    <div id="profile-dropdown-wrapper">
+                        <div><%= user.username %> <i class="fa-solid fa-chevron-down"></i></div>
+
+                        <!-- <div id="profile-dropdown">
+                            <div class="profile-dropdown-item">Settings</div>
+                            <div class="profile-dropdown-item">Logout</div>
+                        </div> -->
+                    </div>
                 </div>
             <% } else { %>
                 <div>
