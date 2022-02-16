@@ -34,4 +34,7 @@ router.post('/logout', handleLogout);
 // Download Routes
 router.get('/download/resume', isLoggedIn, (req, res) => res.download('src/docs/cv.pdf'));
 
+// 404 Route
+router.use((req, res) => res.render('404', { title: '404', year: getYear() }));
+
 module.exports = router;
