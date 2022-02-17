@@ -108,6 +108,10 @@ $space-amounts: (1, 2, 3, 4, 5, auto);
         max-height: 0;
         overflow: hidden;
         @include transition(max-height $collapse-transition-duration, padding $collapse-transition-duration * 2);
+
+        img {
+            width: 100%;
+        }
     }
 }
 
