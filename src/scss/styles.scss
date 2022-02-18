@@ -22,7 +22,7 @@ a { text-decoration: none; }
 ul { list-style: none; }
 
 // Navbar
-nav {
+body > nav {
     background-color: $primary;
     top: 0;
     left: 0;
@@ -76,7 +76,7 @@ nav {
                 @include set-contrast(lighten($primary, 10%));
                 padding: 5px 10px;
                 border-radius: 5px;
-                bottom: -93px;
+                bottom: -70px;
                 left: -25px;
 
                 .profile-dropdown-item {
@@ -215,7 +215,6 @@ nav {
                 }
             }
         }
-
         img { width: 80%; }
     }
 }
@@ -240,6 +239,23 @@ nav {
         a {
             display: block;
             width: 100%;
+        }
+    }
+}
+
+// Settings
+#settings {
+    grid-template-columns: 30% 70%;
+
+    aside {
+        nav {
+            a {
+                @include set-contrast(lighten($primary, 10%));
+                padding: 5px 0px 5px 10px;
+                border-radius: 5px;
+                margin: 1px 0px;
+                border: 1px solid white;
+            }
         }
     }
 }

@@ -32,5 +32,5 @@ const hasScrollbar = () => {
 
 const setFooter = _ => !hasScrollbar() ? footer.classList.add('footer-bottom') : footer.classList.remove('footer-bottom');
 
-window.addEventListener('load', setFooter);
+window.addEventListener('DOMContentLoaded', setFooter);
 window.addEventListener('resize', setFooter);

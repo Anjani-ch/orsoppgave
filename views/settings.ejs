@@ -1,10 +1,44 @@
 <%- include('./partials/head.ejs') %>
 
-    <main class="container mt-3 mb-3 ml-auto mr-auto py-2" id="home">
-        <h1>Settings</h1>
-        <form action="/user/delete" method="post">
-            <button type="submit" class="btn-primary">Delete Account</button>
-        </form>
+    <main class="container mt-3 mb-3 ml-auto mr-auto py-2 d-flex justify-content-space-between d-grid" id="settings">
+        <aside id="settings-aside">
+            <nav>
+                <a class="d-block" href="#account">Account</a>
+                <a class="d-block" href="#preferences">Preferences</a>
+            </nav>
+        </aside>
+
+        <section id="account" class="ml-3">
+            <h2>Account Details</h2>
+
+            <form action="/user/update" method="POST" id="settings-form">
+                <div class="form-field">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" id="username" value="<%= user.username %>" disabled>
+                </div>
+
+                <div class="form-field">
+                    <label for="email">Email</label>
+                    <input type="text" name="email" id="email" value="<%= user.email %>" disabled>
+                </div>
+
+            
+            <div class="my-2">
+                <h2>Account Options</h2>
+
+                <form action="/user/delete" method="post">
+                    <button type="submit" class="btn-primary-transparent">Delete Account</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="preferences" class="d-none ml-3">
+            <h1>Preferences</h1>
+
+            <form id="preference-form">
+                
+            </form>
+        </section>
     </main>
 
 <%- include('./partials/footer.ejs') %>

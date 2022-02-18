@@ -1,11 +1,11 @@
 const emailValidator = require('email-validator');
-const bcrypt = require('bcrypt');
 const passport = require('passport');
 
-const User = require('../models/User.js');
+const { renderSignup } = require('./viewController.js');
 
-const { renderSignup } = require('../controllers/viewController.js');
-const { createdUser, deletedUser } = require('../controllers/logController.js');
+const { createUser } = require('./userController.js');
+
+const User = require('../models/User.js');
 
 const handleSignup = (req, res) => {
     const { username, email, password, confirmPassword } = req.body;
@@ -46,29 +46,9 @@ const handleSignup = (req, res) => {
                             renderSignup(req, res, { errors });
                         }
 
-                        if (!isDuplicateEmail && !isDuplicateUsername) {
-                            // Create User
-                            const user = new User({ username, email, password });
-
-                            bcrypt.genSalt(10, (err, salt) => {
-                                if (err) throw err;
-
-                                bcrypt.hash(user.password, salt, (err, hash) => {
-                                    if (err) throw err;
-
-                                    // Hash User Password
-                                    user.password = hash;
-
-                                    // Save User
-                                    user.save(err => {
-                                        if (err) throw err;
-
-                                        createdUser(user);
-                                        req.flash('successMsg', 'You are now registered');
-                                        res.redirect('/login');
-                                    });
-                                });
-                            });
+                        if (!isDuplicateEmail && !isDuplicateUsername)  {
+                            console.log('success')
+                            createUser(req, res, { username, email, password });
                         }
                     })
             })
@@ -93,15 +73,4 @@ const handleLogout = (req, res) => {
     res.redirect('/login');
 };
 
-const handleAccountDelete = (req, res) => {
-    const { _id } = req.user;
-
-    User.deleteOne({ _id })
-        .then(({ deletedCount }) => {
-            deletedUser(req.user);
-            req.flash('successMsg', 'Account deleted');
-            res.redirect('/signup');
-        });
-};
-
-module.exports = { handleSignup, handleLogin, handleLogout, handleAccountDelete };
+module.exports = { handleSignup, handleLogin, handleLogout };

@@ -70,7 +70,6 @@ module.exports = {
     renderJobExperience,
     renderEducation,
     renderProjects,
-    renderProfile,
     renderSettings,
     renderInbox,
     renderSignup,

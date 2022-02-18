@@ -41,9 +41,14 @@
                         <div id="profile-dropdown-btn"><%= user.username %> <i class="fa-solid fa-chevron-down"></i></div>
 
                         <div id="profile-dropdown-content" class="position-absolute d-none">
-                            <div class="profile-dropdown-item"><a href="/profile">Profile</a></div>
-                            <div class="profile-dropdown-item"><a href="/settings">Settings</a></div>
-                            <div class="profile-dropdown-item"><form action="/logout" method="post"><button type="submit">Logout</button></form></div>
+                            <div class="profile-dropdown-item">
+                                <a href="/settings">Settings</a>
+                            </div>
+                            <div class="profile-dropdown-item">
+                                <form action="/user/logout" method="post">
+                                    <button type="submit">Logout</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

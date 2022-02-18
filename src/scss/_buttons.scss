@@ -21,7 +21,7 @@ $btn-transition-duration: .3s;
     @include border($primary);
     @include set-contrast($primary);
 
-    &-rounded {
+    &-transparent {
         @extend %btn;
         @include border($primary);
         @include set-contrast(white);

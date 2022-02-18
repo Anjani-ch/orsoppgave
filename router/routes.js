@@ -2,13 +2,11 @@ const express = require('express');
 
 const { isLoggedIn, isLoggedOut } = require('../middleware/auth.js');
 
-const { handleLogin, handleSignup, handleLogout, handleAccountDelete } = require('../controllers/authController.js');
 const {
     renderIndex,
     renderJobExperience,
     renderEducation,
     renderProjects,
-    renderProfile,
     renderSettings,
     renderInbox,
     renderSignup,
@@ -38,20 +36,15 @@ router.get('/inbox', isLoggedIn, renderInbox);
 
 // Signup Routes
 router.get('/signup', isLoggedOut, renderSignup);
-router.post('/signup', handleSignup);
 
 // Login Routes
 router.get('/login', isLoggedOut, renderLogin);
-router.post('/login', handleLogin);
-
-// Logout Route
-router.post('/logout', handleLogout);
-
-// Account Delete Route
-router.post('/user/delete', handleAccountDelete);
 
 // Download Routes
 router.get('/download/resume', isLoggedIn, (req, res) => res.download('src/docs/cv.pdf'));
+
+// User Routes
+router.use('/user', require('./userRoutes.js'));
 
 // 404 Route
 router.use(render404);
