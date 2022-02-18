@@ -2,9 +2,10 @@ const emailValidator = require('email-validator');
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 
-const { getYear } = require('../modules/date.js');
-
 const User = require('../models/User.js');
+
+const { renderSignup } = require('../controllers/viewController.js');
+const { createdUser, deletedUser } = require('../controllers/logController.js');
 
 const handleSignup = (req, res) => {
     const { username, email, password, confirmPassword } = req.body;
@@ -22,7 +23,7 @@ const handleSignup = (req, res) => {
     if (password !== confirmPassword) errors.push('Passwords not matching');
 
     // Check Password Length
-    if (password.length < passwordMinChars) errors.push(`Password must be minimum characters ${passwordMinChars} long`);
+    if (password.length < passwordMinChars) errors.push(`Password must be minimum ${passwordMinChars} characters long`);
 
 
     if (!errors.length) {
@@ -31,7 +32,10 @@ const handleSignup = (req, res) => {
             .then(user => {
                 let isDuplicateEmail = user ? true : false;
 
-                if (user) errors.push('Email already in use');
+                if (user) {
+                    errors.push('Email already in use');
+                    renderSignup(req, res, { errors });
+                }
 
                 User.findOne({ username })
                     .then(user => {
@@ -39,7 +43,7 @@ const handleSignup = (req, res) => {
 
                         if (user) {
                             errors.push('Username already in use');
-                            res.render('signup', { title: 'Signup', year: getYear(), errors });
+                            renderSignup(req, res, { errors });
                         }
 
                         if (!isDuplicateEmail && !isDuplicateUsername) {
@@ -59,6 +63,7 @@ const handleSignup = (req, res) => {
                                     user.save(err => {
                                         if (err) throw err;
 
+                                        createdUser(user);
                                         req.flash('successMsg', 'You are now registered');
                                         res.redirect('/login');
                                     });
@@ -70,9 +75,9 @@ const handleSignup = (req, res) => {
             .catch(err => console.log(err));
     } else {
         // Validation Failed
-        res.render('signup', { title: 'Signup', year: getYear(), errors, ...req.body });
+        renderSignup(req, res, { errors, ...req.body });
     }
-}
+};
 
 const handleLogin = (req, res, next) => {
     passport.authenticate('local', {
@@ -80,12 +85,23 @@ const handleLogin = (req, res, next) => {
         failureRedirect: '/login',
         failureFlash: true,
     })(req, res, next);
-}
+};
 
 const handleLogout = (req, res) => {
     req.logout();
     req.flash('successMsg', 'You are logged out');
     res.redirect('/login');
-}
+};
 
-module.exports = { handleSignup, handleLogin, handleLogout }
+const handleAccountDelete = (req, res) => {
+    const { _id } = req.user;
+
+    User.deleteOne({ _id })
+        .then(({ deletedCount }) => {
+            deletedUser(req.user);
+            req.flash('successMsg', 'Account deleted');
+            res.redirect('/signup');
+        });
+};
+
+module.exports = { handleSignup, handleLogin, handleLogout, handleAccountDelete };

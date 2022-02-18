@@ -31,19 +31,20 @@
             </ul>
 
             <% if (user) { %>
-                <!-- Menu 1 -->
-                <!-- <div class="d-flex align-items-center justify-content-space-between">
-                    <a class="btn-primary-lightend" href="/inbox">Inbox(<span>0</span>)</a>
-                    <form action="/logout" method="post"><button class="btn-primary-lightend" type="submit">Logout</button></form>
-                </div> -->
-                <!-- Menu 2 -->
                 <div class="d-flex align-items-center">
                     <div id="inbox-icon-wrapper" class="position-relative mr-1">
-                        <a href="/inbox" class="fa-solid fa-bell"></a>
-                        <span class="position-absolute">2</span>
+                        <a href="/inbox" class="fa-solid fa-bell position-relative">
+                            <span class="position-absolute _1-digit">0</span>
+                        </a>
                     </div>
                     <div id="profile-dropdown-wrapper" class="position-relative">
-                        <div><%= user.username %> <i class="fa-solid fa-chevron-down"></i></div>
+                        <div id="profile-dropdown-btn"><%= user.username %> <i class="fa-solid fa-chevron-down"></i></div>
+
+                        <div id="profile-dropdown-content" class="position-absolute d-none">
+                            <div class="profile-dropdown-item"><a href="/profile">Profile</a></div>
+                            <div class="profile-dropdown-item"><a href="/settings">Settings</a></div>
+                            <div class="profile-dropdown-item"><form action="/logout" method="post"><button type="submit">Logout</button></form></div>
+                        </div>
                     </div>
                 </div>
             <% } else { %>

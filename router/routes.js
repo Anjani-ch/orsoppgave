@@ -1,40 +1,59 @@
 const express = require('express');
 
-const { getYear } = require('../modules/date.js');
-
 const { isLoggedIn, isLoggedOut } = require('../middleware/auth.js');
 
-const { handleLogin, handleSignup, handleLogout } = require('../controllers/authController.js');
+const { handleLogin, handleSignup, handleLogout, handleAccountDelete } = require('../controllers/authController.js');
+const {
+    renderIndex,
+    renderJobExperience,
+    renderEducation,
+    renderProjects,
+    renderProfile,
+    renderSettings,
+    renderInbox,
+    renderSignup,
+    renderLogin,
+    render404
+} = require('../controllers/viewController.js');
 
 const router = express.Router();
 
 // Index Route
-router.get('/', (req, res) => res.render('index', { title: 'Home', year: getYear() }));
+router.get('/', renderIndex);
 
 // Job Experience Route
-router.get('/job-experience', isLoggedIn, (req, res) => res.render('jobExperience', { title: 'Job Experience', year: getYear() }));
+router.get('/job-experience', isLoggedIn, renderJobExperience);
 
 // Education Routes
-router.get('/education', isLoggedIn, (req, res) => res.render('education', { title: 'Education', year: getYear() }));
+router.get('/education', isLoggedIn, renderEducation);
 
 // Projects Route
-router.get('/projects', isLoggedIn, (req, res) => res.render('projects', { title: 'Projects', year: getYear() }));
+router.get('/projects', isLoggedIn, renderProjects);
+
+// Settings Route
+router.get('/settings', isLoggedIn, renderSettings);
+
+// Inbox Routes
+router.get('/inbox', isLoggedIn, renderInbox);
 
 // Signup Routes
-router.get('/signup', isLoggedOut, (req, res) => res.render('signup', { title: 'Signup', year: getYear() }));
+router.get('/signup', isLoggedOut, renderSignup);
 router.post('/signup', handleSignup);
 
 // Login Routes
-router.get('/login', isLoggedOut, (req, res) => res.render('login', { title: 'Login', year: getYear() }));
+router.get('/login', isLoggedOut, renderLogin);
 router.post('/login', handleLogin);
 
 // Logout Route
 router.post('/logout', handleLogout);
 
+// Account Delete Route
+router.post('/user/delete', handleAccountDelete);
+
 // Download Routes
 router.get('/download/resume', isLoggedIn, (req, res) => res.download('src/docs/cv.pdf'));
 
 // 404 Route
-router.use((req, res) => res.render('404', { title: '404', year: getYear() }));
+router.use(render404);
 
 module.exports = router;

@@ -26,7 +26,7 @@ nav {
     background-color: $primary;
     top: 0;
     left: 0;
-    padding: 10px 0px;
+    padding: 15px 0px;
 
     .container {
         div {
@@ -42,22 +42,63 @@ nav {
             font-size: 1.15rem;
         }
 
+        #inbox-icon-wrapper {
+            a {
+                font-size: 1.5rem;
+
+                span {
+                    $digit-spaces: (0px, -5px, -10px);
+
+                    bottom: -9px;
+                    font-size: .6rem;
+
+                    @each $space in $digit-spaces {
+                        $i: index($digit-spaces, $space);
+
+                        &._#{$i}-digit { left: #{$space}; }
+                    }
+                }
+            }
+        }
+
         #profile-dropdown-wrapper {
-            :first-child {
+            #profile-dropdown-btn {
                 cursor: pointer;
                 color: set-text-color($primary);
+                font-size: 1.15rem;
+            }
+
+            #profile-dropdown-content {
+                $dropdown-font-size: 1rem;
+
+                // TODO: Add transition on dropdown
+
+                @include set-contrast(lighten($primary, 10%));
+                padding: 5px 10px;
+                border-radius: 5px;
+                bottom: -93px;
+                left: -25px;
+
+                .profile-dropdown-item {
+                    cursor: pointer;
+                    font-size: $dropdown-font-size;
+                    margin: 3px 0px;
+
+                    > * { font-size: $dropdown-font-size; }
+                }
+
+                [type=submit] {
+                    background: transparent;
+                    border: 0;
+                    cursor: pointer;
+                    color: set-text-color(lighten($primary, 10%));
+                    font-size: $dropdown-font-size;
+                }
             }
         }
     }
 
     &.authenticated {
-        #inbox-icon-wrapper {
-            span {
-                bottom: 0;
-                left: 0;
-            }
-        }
-
         @include media-md() {
             .container {
                 #menu-btn {
@@ -65,7 +106,7 @@ nav {
                     width: 45px;
                     height: 45px;
                     cursor: pointer;
-                    z-index: 100;
+                    z-index: 10;
                     @include transition(all .5s ease-in-out);
     
                     // Main menu line
@@ -124,6 +165,7 @@ nav {
                     justify-content: center;
                     align-items: center;
                     background-color: set-bg-color($secondary);
+                    z-index: 5;
                     @include transition(left .5s);
     
                     li {
