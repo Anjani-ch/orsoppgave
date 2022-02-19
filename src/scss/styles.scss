@@ -248,13 +248,36 @@ body > nav {
     grid-template-columns: 30% 70%;
 
     aside {
-        nav {
-            a {
-                @include set-contrast(lighten($primary, 10%));
-                padding: 5px 0px 5px 10px;
-                border-radius: 5px;
-                margin: 1px 0px;
-                border: 1px solid white;
+        // nav {
+        //     a {
+        //         @include set-contrast(lighten($primary, 10%));
+        //         padding: 5px 0px 5px 10px;
+        //         border-radius: 5px;
+        //         margin: 1px 0px;
+        //         border: 1px solid white;
+        //     }
+        // }
+
+        .aside-link {
+            @include set-contrast(lighten($primary, 10%));
+            padding: 5px 0px 5px 10px;
+            border-radius: 5px;
+            margin: 1px 0px;
+            border: 1px solid white;
+            cursor: pointer;
+        }
+    }
+
+    #preferences {
+        form {
+            > div {
+                select {
+                    &, & > * {
+                        padding: 3px 5px;
+                        outline: 0;
+                        cursor: pointer;
+                    }
+                }
             }
         }
     }

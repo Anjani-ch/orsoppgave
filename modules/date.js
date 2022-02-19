@@ -1,7 +1,7 @@
 const getYear = _ => {
     const date = new Date();
 
-    date.getFullYear()
+    return date.getFullYear();
 };
 
 const getTime = _ => {

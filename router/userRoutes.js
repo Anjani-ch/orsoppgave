@@ -6,15 +6,15 @@ const { deleteUser } = require('../controllers/userController.js');
 const router = express.Router();
 
 // User Signup Route
-router.post('/signup', handleSignup);
+router.post('/signup', (req, res) => handleSignup(req, res));
 
 // User Login Route
-router.post('/login', handleLogin);
+router.post('/login', (req, res) => handleLogin(req, res));
 
 // User Logout Route
-router.post('/logout', handleLogout);
+router.post('/logout', (req, res) => handleLogout(req, res));
 
 // User Delete Route
-router.post('/delete', deleteUser);
+router.post('/delete', (req, res) => deleteUser(req, res));
 
 module.exports = router;

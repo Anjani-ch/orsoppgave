@@ -20,25 +20,25 @@ const router = express.Router();
 router.get('/', renderIndex);
 
 // Job Experience Route
-router.get('/job-experience', isLoggedIn, renderJobExperience);
+router.get('/job-experience', isLoggedIn, (req, res) => renderJobExperience(req, res));
 
 // Education Routes
-router.get('/education', isLoggedIn, renderEducation);
+router.get('/education', isLoggedIn, (req, res) => renderEducation(req, res));
 
 // Projects Route
-router.get('/projects', isLoggedIn, renderProjects);
+router.get('/projects', isLoggedIn, (req, res) => renderProjects(req, res));
 
 // Settings Route
-router.get('/settings', isLoggedIn, renderSettings);
+router.get('/settings', isLoggedIn, (req, res) => renderSettings(req, res));
 
 // Inbox Routes
-router.get('/inbox', isLoggedIn, renderInbox);
+router.get('/inbox', isLoggedIn, (req, res) => renderInbox(req, res));
 
 // Signup Routes
-router.get('/signup', isLoggedOut, renderSignup);
+router.get('/signup', isLoggedOut, (req, res) => renderSignup(req, res));
 
 // Login Routes
-router.get('/login', isLoggedOut, renderLogin);
+router.get('/login', isLoggedOut, (req, res) => renderLogin(req, res));
 
 // Download Routes
 router.get('/download/resume', isLoggedIn, (req, res) => res.download('src/docs/cv.pdf'));
@@ -47,6 +47,6 @@ router.get('/download/resume', isLoggedIn, (req, res) => res.download('src/docs/
 router.use('/user', require('./userRoutes.js'));
 
 // 404 Route
-router.use(render404);
+router.use((req, res) => render404(req, res));
 
 module.exports = router;

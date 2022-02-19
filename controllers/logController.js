@@ -8,7 +8,7 @@ const usersDir = path.resolve(process.cwd(), 'logs', 'users');
 const logCreatedUser = user => {
     const fileDir = path.join(usersDir, 'created.txt');
 
-    fs.appendFile(fileDir, `\nUSER CREATED: ${user._id}(${getTime()})\n`, 'utf-8', err => {
+    fs.appendFile(fileDir, `\nUSER CREATED: ${user._id} (${getTime()})\n`, 'utf-8', err => {
         if (err) throw err;
     });
 }
@@ -16,7 +16,7 @@ const logCreatedUser = user => {
 const logDeletedUser = user => {
     const fileDir = path.join(usersDir, 'deleted.txt');
 
-    fs.appendFile(fileDir, `\nUSER DELETED: ${user._id}(${getTime()})\n`, 'utf-8', err => {
+    fs.appendFile(fileDir, `\nUSER DELETED: ${user._id} (${getTime()})\n`, 'utf-8', err => {
         if (err) throw err;
     });
 }
