@@ -1,8 +1,0 @@
-@function set-text-color($color) {
-    @if(lightness($color) > 70) { @return black; }
-    @return white;
-}
-
-@function set-bg-color($color) {
-    @return $color;
-}
