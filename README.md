@@ -2,6 +2,15 @@
 
 Årsoppgave som er laget med node/express
 
+### Technologies Used:
+- Node js
+- Express
+- EJS
+- MongoDB
+- Scss
+- Webpack
+- Passport js
+
 ## Production
 
 ### Install Dependencies
