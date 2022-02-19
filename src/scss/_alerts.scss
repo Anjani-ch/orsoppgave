@@ -1,0 +1,14 @@
+.alert {
+    padding: 10px 15px;
+    margin: 10px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+
+    &.error { @include set-contrast(red); }
+
+    &.success { @include set-contrast(green); }
+
+    &-icon { cursor: pointer; }
+}

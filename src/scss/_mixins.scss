@@ -1,0 +1,32 @@
+@mixin set-contrast($color) {
+    background-color: $color;
+    color: set-text-color(($color));
+}
+
+@mixin transform($property...) {
+    -webkit-transform: $property;
+    -ms-transform: $property;
+    -o-transform: $property;
+    transform: $property;
+}
+
+@mixin transition($property...) {
+    -webkit-transition: $property;
+    -o-transition: $property;
+    transition: $property;
+}
+
+@mixin box-shadow($property) {
+    -webkit-box-shadow: $property;
+    box-shadow: $property;
+}
+
+@mixin border($color) { border: 2px solid $color; }
+
+@mixin media-md() {
+    @media(max-width: 768px) { @content; }
+}
+
+@mixin media-sm() {
+    @media(max-width: 500px) { @content; }
+}
