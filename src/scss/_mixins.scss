@@ -1,17 +1,3 @@
-$primary: crimson;
-$secondary: white;
-
-// Functions
-@function set-text-color($color) {
-    @if(lightness($color) > 70) { @return black; }
-    @return white;
-}
-
-@function set-bg-color($color) {
-    @return $color;
-}
-
-// Mixins
 @mixin set-contrast($color) {
     background-color: set-bg-color($color);
     color: set-text-color(($color));
