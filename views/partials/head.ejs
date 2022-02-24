@@ -5,48 +5,48 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="text/x-icon" href="/img/favicon.png">
-    <script src="/assets/bundle.js" type="text/javascript" defer></script>
+    <script src="/assets/bundle.js" type="module" defer></script>
     <title>Anjani Chapparapu | <%= title %></title>
 </head>
 <body>
 <% if (user) { %>
-    <nav class="authenticated">
+    <nav class="bg-primary authenticated">
 <% } else { %>
-    <nav>
+    <nav class="bg-primary">
 <% } %>
         <div class="container ml-auto mr-auto d-flex align-items-center justify-content-space-between">
             <% if (user) { %>
                 <div id="menu-btn" class="d-none position-relative justify-content-center align-items-center">
-                    <div id="menu-main-line"></div>
+                    <div class="bg-secondary" id="menu-main-line"></div>
                 </div>
             <% } %>
 
             <ul>
-                <li class="d-inline mx-1"><a href="/">Home</a></li>
+                <li class="d-inline mx-1"><a href="/" class="text-primary">Home</a></li>
                 <% if (user) { %>
-                    <li class="d-inline mx-1"><a href="/job-experience">Job Experience</a></li>
-                    <li class="d-inline mx-1"><a href="/education">Education</a></li>
-                    <li class="d-inline mx-1"><a href="/projects">Projects</a></li>
+                    <li class="d-inline mx-1"><a href="/job-experience" class="text-primary">Job Experience</a></li>
+                    <li class="d-inline mx-1"><a href="/education" class="text-primary">Education</a></li>
+                    <li class="d-inline mx-1"><a href="/projects" class="text-primary">Projects</a></li>
                 <% } %>
             </ul>
 
             <% if (user) { %>
                 <div class="d-flex align-items-center">
                     <div id="inbox-icon-wrapper" class="position-relative mr-1">
-                        <a href="/inbox" class="fa-solid fa-bell position-relative">
+                        <a href="/inbox" class="text-primary fa-solid fa-bell position-relative">
                             <span class="position-absolute _1-digit">0</span>
                         </a>
                     </div>
                     <div id="profile-dropdown-wrapper" class="position-relative">
-                        <div id="profile-dropdown-btn"><%= user.username %> <i class="fa-solid fa-chevron-down"></i></div>
+                        <div id="profile-dropdown-btn" class="text-primary"><%= user.username %> <i class="text-primary fa-solid fa-chevron-down"></i></div>
 
-                        <div id="profile-dropdown-content" class="position-absolute d-none">
+                        <div id="profile-dropdown-content" class="contrast-primary lighten position-absolute d-none">
                             <div class="profile-dropdown-item">
-                                <a href="/settings">Settings</a>
+                                <a href="/settings" class="text-primary">Settings</a>
                             </div>
                             <div class="profile-dropdown-item">
                                 <form action="/user/logout" method="post">
-                                    <button type="submit">Logout</button>
+                                    <button type="submit" class="text-primary">Logout</button>
                                 </form>
                             </div>
                         </div>
@@ -54,8 +54,8 @@
                 </div>
             <% } else { %>
                 <div>
-                    <a href="/login" class="btn-primary-lightend">Login</a>
-                    <a href="/signup" class="btn-primary-lightend">Signup</a>
+                    <a href="/login" class="btn-primary lighten">Login</a>
+                    <a href="/signup" class="btn-primary lighten">Signup</a>
                 </div>
             <% } %>
         </div>

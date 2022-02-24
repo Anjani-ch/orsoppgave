@@ -7,9 +7,24 @@
 // Overflow
 .overflow-hidden { overflow: hidden; }
 
+.lighten { filter: brightness(165%); }
+
 // Colors
-.primary { color: $primary; }
-.secondary { color: $secondary; }
+.bg-primary { background-color: var(--bg-primary); }
+.bg-secondary { background-color: var(--bg-secondary); }
+
+.text-primary { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+
+.contrast-primary {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.contrast-secondary {
+    background-color: var(--bg-secondary);
+    color: var(--text-secondary);
+}
 
 // Text align
 $text-align-properties: (start, center, end);

@@ -20,7 +20,7 @@
 
 body {
     font-family: 'Baloo Chettan 2', cursive;
-    background-color: set-bg-color($secondary);
+    background-color: var(--bg-secondary);
 }
 
 a { text-decoration: none; }
@@ -29,7 +29,6 @@ ul { list-style: none; }
 
 // Navbar
 body > nav {
-    background-color: $primary;
     top: 0;
     left: 0;
     padding: 15px 0px;
@@ -43,10 +42,7 @@ body > nav {
             }
         }
 
-        a {
-            color: set-text-color($primary);
-            font-size: 1.15rem;
-        }
+        a { font-size: 1.15rem; }
 
         #inbox-icon-wrapper {
             a {
@@ -70,7 +66,6 @@ body > nav {
         #profile-dropdown-wrapper {
             #profile-dropdown-btn {
                 cursor: pointer;
-                color: set-text-color($primary);
                 font-size: 1.15rem;
             }
 
@@ -79,7 +74,6 @@ body > nav {
 
                 // TODO: Add transition on dropdown
 
-                @include set-contrast(lighten($primary, 10%));
                 padding: 5px 10px;
                 border-radius: 5px;
                 bottom: -70px;
@@ -97,7 +91,7 @@ body > nav {
                     background: transparent;
                     border: 0;
                     cursor: pointer;
-                    color: set-text-color(lighten($primary, 10%));
+                    color: var(--text-primary);
                     font-size: $dropdown-font-size;
                 }
             }
@@ -119,7 +113,6 @@ body > nav {
                     div {
                         width: 30px;
                         height: 6px;
-                        background: set-text-color($primary);
                         border-radius: 5px;
                         @include transition(transform .5s ease-in-out);
     
@@ -130,7 +123,7 @@ body > nav {
                             position: absolute;
                             width: 45px;
                             height: 6px;
-                            background-color: set-text-color($primary);
+                            background-color: var(--bg-secondary);
                             border-radius: 5px;
                             @include transition(all .5s ease-in-out);
                         }
@@ -142,15 +135,15 @@ body > nav {
                     // Menu animation
                     &.open {
                         div {
-                            background-color: set-text-color($secondary);
+                            background-color: var(--bg-primary);
     
                             &::before,
-                            &::after { background-color: set-text-color($secondary); }
+                            &::after { background-color: var(--bg-primary); }
                         }
     
                         div {
                             @include transform(translateX(-50px));
-                            background-color: set-bg-color(transparent);
+                            background-color: transparent;
     
                             &::before { @include transform(rotate(45deg) translate(35px, -35px)); }
                             &::after { @include transform(rotate(-45deg) translate(35px, 35px)); }
@@ -170,7 +163,8 @@ body > nav {
                     flex-direction: column;
                     justify-content: center;
                     align-items: center;
-                    background-color: set-bg-color($secondary);
+                    background-color: var(--bg-secondary);
+                    color: var(--text-secondary);
                     z-index: 5;
                     @include transition(left .5s);
     
@@ -178,7 +172,7 @@ body > nav {
                         margin: 5px 0px;
     
                         a {
-                            color: set-text-color($secondary);
+                            color: var(--text-secondary);
                             font-size: 2.3rem;
                         }
                     }
@@ -199,6 +193,8 @@ body > nav {
         h1 {
             font-size: 8rem;
             line-height: 3.3cm;
+
+            span { color: var(--bg-primary); }
         }
     }
     
@@ -261,7 +257,6 @@ body > nav {
 
     aside {
         .aside-link {
-            @include set-contrast(lighten($primary, 10%));
             padding: 5px 0px 5px 10px;
             border-radius: 5px;
             margin: 1px 0px;
@@ -287,7 +282,6 @@ body > nav {
 
 // Footer
 footer {
-    @include set-contrast($primary);
     font-size: 1.15rem;
 
     &.footer-bottom {

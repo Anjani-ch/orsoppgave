@@ -1,10 +1,14 @@
+import { THEME_STORAGE_KEY, SETTINGS_SECTION_SESSION_KEY } from './keys.js';
+
+const root = document.querySelector(':root');
 const settings = document.querySelector('#settings');
 const settingsAside = document.querySelector('#settings-aside');
 const settingsSections = document.querySelectorAll('#settings section');
 const themeSelect = document.querySelector('#theme-select');
 
-const THEME_STORAGE_KEY = 'theme';
-const SETTINGS_SECTION_SESSION_KEY = 'settings-section';
+const updateRootTheme = className => {
+    root.className = className;
+}
 
 const showSelectedSection = sectionId => {
     if (sectionId) {
@@ -45,6 +49,7 @@ if (settings) {
             const selectedTheme = e.target.value;
 
             if (!themeInStorage || (themeInStorage && (themeInStorage !== selectedTheme))) localStorage.setItem(THEME_STORAGE_KEY, selectedTheme); // Update Theme In Storage
+            updateRootTheme(selectedTheme);
         }
     });
 

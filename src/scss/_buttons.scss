@@ -18,28 +18,31 @@ $btn-transition-duration: .3s;
 
 .btn-primary {
     @extend %btn;
-    @include border($primary);
-    @include set-contrast($primary);
+    @include border(var(--bg-primary));
+
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
 
     &-transparent {
         @extend %btn;
-        @include border($primary);
-        @include set-contrast(white);
+        @include border(var(--bg-primary));
+        background-color: white;
+        color: black;
         @include transition(color $btn-transition-duration, background-color $btn-transition-duration, transform $btn-transition-duration);
 
-        &:hover, &:focus { @include set-contrast($primary); }
-    }
-
-    &-lightend {
-        @extend %btn;
-        @include set-contrast(lighten($primary, 10%));
+        &:hover, &:focus {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
     }
 }
 
 .btn-github {
     @extend %btn;
     @include border(purple);
-    @include set-contrast(purple);
+
+    background-color: purple;
+    color: white;
     
     i { margin-right: 2px; }
 }

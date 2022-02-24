@@ -1,35 +1,35 @@
 <%- include('./partials/head.ejs') %>
 
     <main class="container ml-auto mr-auto py-2" id="login">
-        <div class="form-container">
-            <h1 class="form-heading">Signup</h1>
+        <div class="form-container bg-primary">
+            <h1 class="form-heading text-primary">Signup</h1>
 
             <%- include('./partials/alert.ejs') %>
 
             <form action="/user/signup" method="POST" id="signup-form">
                 <div class="form-field">
-                    <label for="username">Username</label>
+                    <label for="username" class="text-primary">Username</label>
                     <input type="text" name="username" id="username" value="<%= typeof username != 'undefined' ? username : '' %>">
                 </div>
 
                 <div class="form-field">
-                    <label for="email">Email</label>
+                    <label for="email" class="text-primary">Email</label>
                     <input type="text" name="email" id="email" value="<%= typeof email != 'undefined' ? email : '' %>">
                 </div>
 
                 <div class="form-field">
-                    <label for="password">Password</label>
+                    <label for="password" class="text-primary">Password</label>
                     <input type="password" name="password" id="password" value="<%= typeof password != 'undefined' ? password : '' %>">
                 </div>
 
                 <div class="form-field">
-                    <label for="confirmPassword">Confirm Password</label>
+                    <label for="confirmPassword" class="text-primary">Confirm Password</label>
                     <input type="password" name="confirmPassword" id="confirmPassword" value="<%= typeof confirmPassword != 'undefined' ? confirmPassword : '' %>">
                 </div>
 
-                <button type="submit" class="form-btn">Signup</button>
+                <button type="submit" class="form-btn contrast-primary lighten">Signup</button>
 
-                <p class="text-center mt-1">Already have an account? <a href="/login">Login Here</a></p>
+                <p class="text-center mt-1 text-primary">Already have an account? <a href="/login">Login Here</a></p>
             </form>
         </div>
     </main>
