@@ -3,9 +3,10 @@ const bcrypt = require('bcrypt');
 const { logCreatedUser, logDeletedUser } = require('../controllers/logController.js');
 
 const User = require('../models/User.js');
+const Admin = require('../models/Admin.js');
 
 const createUser = (req, res, userData) => {
-    const user = new User({ ...userData });
+    const user = userData.isAdmin ? new Admin({ ...userData }) : new User({ ...userData });
 
     bcrypt.genSalt(10, (err, salt) => {
         if (err) throw err;

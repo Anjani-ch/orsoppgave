@@ -34,6 +34,11 @@
                         <input type="checkbox" name="pushNotification" id="push-notification">
                         <label for="push-notification" class="text-secondary" <%= user.wantsPushNotifications ? 'checked' : '' %>>I want to receive push notifications.</label>
                     </div>
+
+                    <div class="form-field">
+                        <label for="password" class="text-primary">Admin:</label>
+                        <i class="fa-solid fa-check <%= user.isAdmin ? 'is-admin' : '' %>"></i>
+                    </div>
                 </form>
 
                 <form action="/user/delete" method="POST">

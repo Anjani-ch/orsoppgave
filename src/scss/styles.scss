@@ -275,6 +275,9 @@ body > nav {
                         cursor: pointer;
                     }
                 }
+
+                i.is-admin { color: lightgreen; }
+                i:not(.is-admin) { color: crimson; }
             }
         }
     }

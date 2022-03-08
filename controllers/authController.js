@@ -6,6 +6,7 @@ const { renderSignup } = require('./viewController.js');
 const { createUser } = require('./userController.js');
 
 const User = require('../models/User.js');
+const Admin = require('../models/Admin.js');
 
 const handleSignup = (req, res) => {
     const {
@@ -14,7 +15,8 @@ const handleSignup = (req, res) => {
         password,
         confirmPassword,
         mailNotification,
-        pushNotification
+        pushNotification,
+        isAdmin
     } = req.body;
 
     const errors = [];
@@ -57,15 +59,52 @@ const handleSignup = (req, res) => {
                             const wantsEmailNotifications = mailNotification ? true : false;
                             const wantsPushNotifications = pushNotification ? true : false;
 
-                            const userData = {
-                                username,
-                                email,
-                                password,
-                                wantsEmailNotifications,
-                                wantsPushNotifications
-                            };
+                            if (isAdmin) {
+                                Admin.findOne({ email })
+                                .then(user => {
+                                    let isDuplicateEmail = user ? true : false;
 
-                            createUser(req, res, userData);
+                                    if (user) {
+                                        errors.push('Email already in use');
+                                        renderSignup(req, res, { errors });
+                                    }
+
+                                    Admin.findOne({ username })
+                                        .then(user => {
+                                            let isDuplicateUsername = user ? true : false;
+
+                                            if (user) {
+                                                errors.push('Username already in use');
+                                                renderSignup(req, res, { errors });
+                                            }
+
+                                            if (!isDuplicateEmail && !isDuplicateUsername)  {
+                                                const userData = {
+                                                    username,
+                                                    email,
+                                                    password,
+                                                    wantsEmailNotifications,
+                                                    wantsPushNotifications,
+                                                    isAdmin: isAdmin ? true : false
+                                                };
+
+                                                createUser(req, res, userData);
+                                            }
+                                        })
+                                        .catch(err => console.log(err));
+                                })
+                                .catch(err => console.log(err));
+                            } else {
+                                const userData = {
+                                    username,
+                                    email,
+                                    password,
+                                    wantsEmailNotifications,
+                                    wantsPushNotifications
+                                };
+
+                                createUser(req, res, userData);
+                            }
                         }
                     })
                     .catch(err => console.log(err));

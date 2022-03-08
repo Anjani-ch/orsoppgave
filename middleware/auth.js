@@ -9,4 +9,9 @@ const isLoggedOut = (req, res, next) => {
     res.redirect('/');
 }
 
-module.exports = { isLoggedIn, isLoggedOut };
+const isAdmin = (req, res, next) => {
+    if (req.user.isAdmin) return next();
+    else res.redirect('/');
+}
+
+module.exports = { isLoggedIn, isLoggedOut, isAdmin };

@@ -44,8 +44,15 @@
                             <div class="profile-dropdown-item">
                                 <a href="/settings" class="text-primary">Settings</a>
                             </div>
+
+                            <% if (user.isAdmin) { %>
+                                <div class="profile-dropdown-item">
+                                    <a href="/admin/dashboard" class="text-primary">Dashboard</a>
+                                </div>
+                            <% } %>
+
                             <div class="profile-dropdown-item">
-                                <form action="/user/logout" method="post">
+                                <form action="/user/logout" method="POST">
                                     <button type="submit" class="text-primary">Logout</button>
                                 </form>
                             </div>

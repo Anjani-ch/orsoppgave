@@ -46,6 +46,9 @@ router.get('/download/resume', isLoggedIn, (req, res) => res.download('src/docs/
 // User Routes
 router.use('/user', require('./userRoutes.js'));
 
+// Admin Routes
+router.use('/admin', require('./adminRoutes.js'));
+
 // 404 Route
 router.use((req, res) => render404(req, res));
 

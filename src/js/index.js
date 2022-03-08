@@ -11,10 +11,7 @@ import './settings.js';
 import './particleEffect.js';
 
 import { THEME_STORAGE_KEY } from './keys.js';
-
-const root = document.querySelector(':root');
-
-const updateRootTheme = className => root.className = className;
+import updateRootTheme from './utilities/updateRootTheme.js';
 
 window.addEventListener('DOMContentLoaded', e => {
     const themeInStorage = localStorage.getItem(THEME_STORAGE_KEY);

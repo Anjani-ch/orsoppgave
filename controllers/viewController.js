@@ -58,6 +58,13 @@ const renderLogin = (req, res, additionalProperties) => {
     res.render('login', viewProperties);
 };
 
+const renderAdminDashboard = (req, res, additionalProperties) => {
+    const viewProperties = { title: 'Dashboard', year: getYear() };
+
+    if (additionalProperties) assignProperties(viewProperties, additionalProperties);
+    res.render('dashboard', viewProperties);
+};
+
 const render404 = (req, res, additionalProperties) => {
     const viewProperties = { title: '404', year: getYear() };
 
@@ -74,5 +81,6 @@ module.exports = {
     renderInbox,
     renderSignup,
     renderLogin,
+    renderAdminDashboard,
     render404
 };
