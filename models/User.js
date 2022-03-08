@@ -14,6 +14,14 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    wantsEmailNotifications: {
+        type: Boolean,
+        required: true,
+    },
+    wantsPushNotifications: {
+        type: Boolean,
+        required: true,
     }
 });
 

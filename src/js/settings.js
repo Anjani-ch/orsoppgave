@@ -6,9 +6,7 @@ const settingsAside = document.querySelector('#settings-aside');
 const settingsSections = document.querySelectorAll('#settings section');
 const themeSelect = document.querySelector('#theme-select');
 
-const updateRootTheme = className => {
-    root.className = className;
-}
+const updateRootTheme = className => root.className = className;
 
 const showSelectedSection = sectionId => {
     if (sectionId) {

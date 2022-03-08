@@ -1,4 +1,4 @@
-import hasScrollbar from './hasScrollbar.js';
+import hasScrollbar from './utilities/hasScrollbar.js';
 
 const footer = document.querySelector('footer');
 

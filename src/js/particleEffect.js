@@ -1,37 +1,8 @@
-import ParticleSystem from './particles/ParticleSystem.js';
-import Particle from './particles/Particle.js';
+import ParticleSystem from './classes/ParticleSystem.js';
+import Particle from './classes/Particle.js';
+import hasScrollbar from './utilities/hasScrollbar.js';
 
 const particleCanvas = document.querySelector('#particle-canvas');
-
-const hasScrollbar = () => {
-    // rootElem for quirksmode
-    const rootElem = document.documentElement || document.body;
-
-    const contentOverflows = rootElem.scrollHeight > rootElem.clientHeight;
-
-    let overflowShown;
-    let alwaysShowScroll;
-    let overflowStyle;
-    let overflowYStyle;
-
-    if (typeof window.innerWidth === 'number') return window.innerWidth > document.documentElement.clientWidth;
-  
-    if (typeof rootElem.currentStyle !== 'undefined') overflowStyle = rootElem.currentStyle.overflow;
-  
-    if (typeof rootElem.currentStyle !== 'undefined') overflowYStyle = rootElem.currentStyle.overflowY;
-
-    // Check overflow style property on body for fauxscrollbars
-    overflowStyle = overflowStyle || window.getComputedStyle(rootElem, '').overflow;
-  
-    // Check the Y axis overflow
-    overflowYStyle = overflowYStyle || window.getComputedStyle(rootElem, '').overflowY;
-
-    overflowShown = /^(visible|auto)$/.test(overflowStyle) || /^(visible|auto)$/.test(overflowYStyle);
-
-    alwaysShowScroll = overflowStyle === 'scroll' || overflowYStyle === 'scroll';
-
-    return (contentOverflows && overflowShown) || (alwaysShowScroll)
-};
 
 const getParticleColor = _ => {
     // TODO: return bg-primary css variable color

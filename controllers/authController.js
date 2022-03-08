@@ -8,7 +8,14 @@ const { createUser } = require('./userController.js');
 const User = require('../models/User.js');
 
 const handleSignup = (req, res) => {
-    const { username, email, password, confirmPassword } = req.body;
+    const {
+        username,
+        email,
+        password,
+        confirmPassword,
+        mailNotification,
+        pushNotification
+    } = req.body;
 
     const errors = [];
     const passwordMinChars = 6;
@@ -47,10 +54,21 @@ const handleSignup = (req, res) => {
                         }
 
                         if (!isDuplicateEmail && !isDuplicateUsername)  {
-                            console.log('success')
-                            createUser(req, res, { username, email, password });
+                            const wantsEmailNotifications = mailNotification ? true : false;
+                            const wantsPushNotifications = pushNotification ? true : false;
+
+                            const userData = {
+                                username,
+                                email,
+                                password,
+                                wantsEmailNotifications,
+                                wantsPushNotifications
+                            };
+
+                            createUser(req, res, userData);
                         }
                     })
+                    .catch(err => console.log(err));
             })
             .catch(err => console.log(err));
     } else {

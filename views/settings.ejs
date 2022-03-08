@@ -9,7 +9,7 @@
         <section id="account" class="ml-3">
             <h2 class="text-secondary">Account Details</h2>
 
-            <form action="/user/update" method="POST" id="settings-form">
+            <form>
                 <div class="form-field">
                     <label for="username" class="text-secondary">Username</label>
                     <input class="text-secondary" type="text" name="username" id="username" value="<%= user.username %>" disabled>
@@ -23,6 +23,18 @@
             
             <div class="my-2">
                 <h2 class="text-secondary">Account Options</h2>
+
+                <form id="notification-form">
+                    <div class="form-field checkbox">
+                        <input type="checkbox" name="mailNotification" id="mail-notification" <%= user.wantsEmailNotifications ? 'checked' : '' %>>
+                        <label for="mail-notification" class="text-secondary">I want to receive e-mail notifications.</label>
+                    </div>
+    
+                    <div class="form-field checkbox">
+                        <input type="checkbox" name="pushNotification" id="push-notification">
+                        <label for="push-notification" class="text-secondary" <%= user.wantsPushNotifications ? 'checked' : '' %>>I want to receive push notifications.</label>
+                    </div>
+                </form>
 
                 <form action="/user/delete" method="POST">
                     <button type="submit" class="btn-primary-transparent">Delete Account</button>

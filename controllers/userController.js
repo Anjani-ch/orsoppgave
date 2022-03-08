@@ -39,4 +39,8 @@ const deleteUser = (req, res) => {
         });
 };
 
-module.exports = { createUser, deleteUser };
+const updateUser = (req, res) => {
+    
+};
+
+module.exports = { createUser, deleteUser, updateUser };

@@ -15,6 +15,14 @@ const adminSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    wantsEmailNotifications: {
+        type: Boolean,
+        required: true,
+    },
+    wantsPushNotifications: {
+        type: Boolean,
+        required: true,
+    },
     isAdmin: {
         type: Boolean,
         default: true

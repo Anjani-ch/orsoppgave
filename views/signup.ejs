@@ -27,6 +27,16 @@
                     <input type="password" name="confirmPassword" id="confirmPassword" value="<%= typeof confirmPassword != 'undefined' ? confirmPassword : '' %>">
                 </div>
 
+                <div class="form-field checkbox">
+                    <input type="checkbox" name="mailNotification" id="mail-notification">
+                    <label for="mail-notification" class="text-primary">I want to receive e-mail notifications.</label>
+                </div>
+
+                <div class="form-field checkbox">
+                    <input type="checkbox" name="pushNotification" id="push-notification">
+                    <label for="push-notification" class="text-primary">I want to receive push notifications.</label>
+                </div>
+
                 <button type="submit" class="form-btn contrast-primary lighten">Signup</button>
 
                 <p class="text-center mt-1 text-primary">Already have an account? <a href="/login">Login Here</a></p>
