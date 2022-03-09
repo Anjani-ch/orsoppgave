@@ -19,6 +19,15 @@
                     <label for="email" class="text-secondary">Email</label>
                     <input class="text-secondary" type="text" name="email" id="email" value="<%= user.email %>" disabled>
                 </div>
+
+                <div class="form-field">
+                    <label class="text-secondary">Admin:</label>
+                    <% if (user.isAdmin) { %>
+                        <i class="fa-solid fa-check admin"></i>
+                    <% } else { %>
+                        <i class="fa-solid fa-xmark"></i>
+                    <% } %>
+                </div>
             </form>
             
             <div class="my-2">
@@ -33,11 +42,6 @@
                     <div class="form-field checkbox">
                         <input type="checkbox" name="pushNotification" id="push-notification">
                         <label for="push-notification" class="text-secondary" <%= user.wantsPushNotifications ? 'checked' : '' %>>I want to receive push notifications.</label>
-                    </div>
-
-                    <div class="form-field">
-                        <label for="password" class="text-primary">Admin:</label>
-                        <i class="fa-solid fa-check <%= user.isAdmin ? 'is-admin' : '' %>"></i>
                     </div>
                 </form>
 

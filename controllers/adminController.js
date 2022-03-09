@@ -2,10 +2,10 @@ const bcrypt = require('bcrypt');
 
 const { logCreatedUser, logDeletedUser } = require('../controllers/logController.js');
 
-const User = require('../models/User.js');
+const Admin = require('../models/Admin.js');
 
-const createUser = (req, res, userData) => {
-    const user = new User({ ...userData });
+const createAdmin = (req, res, userData) => {
+    const user = new Admin({ ...userData });
 
     bcrypt.genSalt(10, (err, salt) => {
         if (err) throw err;
@@ -28,10 +28,10 @@ const createUser = (req, res, userData) => {
     });
 };
 
-const deleteUser = (req, res) => {
+const deleteAdmin = (req, res) => {
     const { _id } = req.user;
 
-    User.deleteOne({ _id })
+    Admin.deleteOne({ _id })
         .then(({ deletedCount }) => {
             logDeletedUser(req.user);
             req.flash('successMsg', 'Account deleted');
@@ -39,13 +39,13 @@ const deleteUser = (req, res) => {
         });
 };
 
-const getAllUsers = async _ => {
+const getAllAdmins = async _ => {
     try {
-        const res = await User.find({});
+        const res = await Admin.find({});
         return res;
     } catch (err) {
         console.log(err);
     }
 };
 
-module.exports = { createUser, deleteUser, getAllUsers };
+module.exports = { createAdmin, deleteAdmin, getAllAdmins };

@@ -6,3 +6,4 @@ const setFooter = _ => !hasScrollbar() ? footer.classList.add('footer-bottom') :
 
 window.addEventListener('DOMContentLoaded', setFooter);
 window.addEventListener('resize', setFooter);
+window.addEventListener('click', e => setTimeout(setFooter, 1));

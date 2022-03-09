@@ -7,8 +7,6 @@ const settingsSections = document.querySelectorAll('#settings section');
 const themeSelect = document.querySelector('#theme-select');
 const deleteAccountBtn = document.querySelector('#delete-account-btn');
 
-const updateRootTheme = className => root.className = className;
-
 const showSelectedSection = sectionId => {
     if (sectionId) {
         // Hide All Sections
@@ -26,9 +24,8 @@ const showSelectedSection = sectionId => {
         });
     }
 };
-console.log(settings)
+
 if (settings) {
-    console.log('if')
     settings.addEventListener('click', e => {
         const isAsideElement = e.target.parentElement === settingsAside;
         const isThemeSelectElement = e.target === themeSelect;
@@ -52,7 +49,7 @@ if (settings) {
             if (!themeInStorage || (themeInStorage && (themeInStorage !== selectedTheme))) localStorage.setItem(THEME_STORAGE_KEY, selectedTheme); // Update Theme In Storage
             updateRootTheme(selectedTheme);
         }
-        console.log(e.target)
+        
         if (isDeleteAccountBtn) {
             console.log('click')
         }

@@ -40,7 +40,7 @@
                     <div id="profile-dropdown-wrapper" class="position-relative">
                         <div id="profile-dropdown-btn" class="text-primary"><%= user.username %> <i class="text-primary fa-solid fa-chevron-down"></i></div>
 
-                        <div id="profile-dropdown-content" class="contrast-primary lighten position-absolute d-none">
+                        <div id="profile-dropdown-content" class="contrast-primary lighten position-absolute d-none <%= user.isAdmin ? 'is-admin' : '' %>">
                             <div class="profile-dropdown-item">
                                 <a href="/settings" class="text-primary">Settings</a>
                             </div>

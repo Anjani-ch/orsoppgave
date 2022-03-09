@@ -4,6 +4,7 @@ const passport = require('passport');
 const { renderSignup } = require('./viewController.js');
 
 const { createUser } = require('./userController.js');
+const { createAdmin } = require('./adminController.js');
 
 const User = require('../models/User.js');
 const Admin = require('../models/Admin.js');
@@ -88,7 +89,7 @@ const handleSignup = (req, res) => {
                                                     isAdmin: isAdmin ? true : false
                                                 };
 
-                                                createUser(req, res, userData);
+                                                createAdmin(req, res, userData);
                                             }
                                         })
                                         .catch(err => console.log(err));
