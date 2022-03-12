@@ -6,7 +6,7 @@ const { renderAdminDashboard } = require('../controllers/viewController.js');
 
 const router = express.Router();
 
-// Index Route
+// Dashboard Route
 router.get('/dashboard', isAdmin, (req, res) => renderAdminDashboard(req, res));
 
 module.exports = router;

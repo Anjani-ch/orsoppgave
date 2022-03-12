@@ -3,14 +3,41 @@
     <main class="container mt-3 mb-3 ml-auto mr-auto" id="dashboard">
         <h1 class="text-secondary mb-1">Dashboard</h1>
 
-        <div>
-            <h2>Users:</h2>
-            <% if (users) { %>
-                <% users.forEach(user => { %>
-                    <h2><%= user.email %></h2>
-                <% }); %>
-            <% } %>
-        </div>
+        <% if (users) { %>
+            <div class="table">
+                <h2>Users:</h2>
+                <div class="table-row text-center contrast-primary">
+                    <p>Username</p>
+                    <p>Email</p>
+                    <p>Actions</p>
+                </div>
+                <div class="table-row text-center">
+                    <% users.forEach(user => { %>
+                        <p><%= user.username %></p>
+                        <p><%= user.email %></p>
+                        <p><i class="fa-solid fa-trash delete"></i><i class="fa-solid fa-angles-up promote"></i></p>
+                    <% }); %>
+                </div>
+            </div>
+        <% } %>
+
+        <% if (admins) { %>
+            <div class="table">
+                <h2>Admins:</h2>
+                <div class="table-row text-center contrast-primary">
+                    <p>Username</p>
+                    <p>Email</p>
+                    <p>Actions</p>
+                </div>
+                <div class="table-row text-center">
+                    <% admins.forEach(admin => { %>
+                        <p><%= admin.username %></p>
+                        <p><%= admin.email %></p>
+                        <p><i class="fa-solid fa-trash delete"></i><i class="fa-solid fa-angles-up promote"></i></p>
+                    <% }); %>
+                </div>
+            </div>
+        <% } %>
     </main>
 
 <%- include('./partials/footer.ejs') %>

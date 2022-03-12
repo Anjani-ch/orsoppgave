@@ -280,6 +280,33 @@ body > nav {
     }
 }
 
+// Dashboard
+#dashboard {
+    .table {
+        width: 100%;
+        margin: 20px 0px;
+
+        &-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            padding: 5px 10px;
+            border: 1.3px solid var(--text-secondary);
+
+            &:first-child {
+                p { font-weight: bold; }
+            }
+
+            i {
+                margin: 0px 10px;
+                cursor: pointer;
+
+                &.delete { color: red; }
+                &.promote { color: green; }
+            }
+        }
+    }
+}
+
 // Footer
 footer {
     font-size: 1.15rem;

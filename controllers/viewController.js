@@ -1,6 +1,7 @@
 const { getYear } = require('../modules/date.js');
 
 const { getAllUsers } = require('./userController.js');
+const { getAllAdmins } = require('./adminController.js');
 
 const assignProperties = (target, source) => Object.assign(target, source);
 
@@ -63,14 +64,17 @@ const renderLogin = (req, res, additionalProperties) => {
 const renderAdminDashboard = async (req, res, additionalProperties) => {
     try {
         const users = await getAllUsers();
+        const admins = await getAllAdmins();
 
         const viewProperties = { title: 'Dashboard', year: getYear() };
 
         if (typeof additionalProperties === 'undefined') additionalProperties = {};
 
         additionalProperties.users = users;
+        additionalProperties.admins = admins;
 
         if (additionalProperties) assignProperties(viewProperties, additionalProperties);
+
         res.render('dashboard', viewProperties);
     } catch (err) {
         console.log(err);
