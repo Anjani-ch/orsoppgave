@@ -3,7 +3,7 @@
     <main class="container mt-3 mb-3 ml-auto mr-auto" id="dashboard">
         <h1 class="text-secondary mb-1">Dashboard</h1>
 
-        <% if (users) { %>
+        <% if (users && user.isAdmin) { %>
             <div class="table">
                 <h2>Users:</h2>
                 <div class="table-row text-center contrast-primary">
@@ -15,13 +15,13 @@
                     <% users.forEach(user => { %>
                         <p><%= user.username %></p>
                         <p><%= user.email %></p>
-                        <p><i class="fa-solid fa-trash delete"></i><i class="fa-solid fa-angles-up promote"></i></p>
+                        <p><i class="fa-solid fa-trash delete" data-userId="<%= user._id %>"></i><i class="fa-solid fa-angles-up promote" data-userId="<%= user._id %>"></i></p>
                     <% }); %>
                 </div>
             </div>
         <% } %>
 
-        <% if (admins) { %>
+        <% if (admins && user.isSuperAdmin) { %>
             <div class="table">
                 <h2>Admins:</h2>
                 <div class="table-row text-center contrast-primary">
@@ -33,7 +33,7 @@
                     <% admins.forEach(admin => { %>
                         <p><%= admin.username %></p>
                         <p><%= admin.email %></p>
-                        <p><i class="fa-solid fa-trash delete"></i><i class="fa-solid fa-angles-up promote"></i></p>
+                        <p><i class="fa-solid fa-trash delete" data-userId="<%= admin._id %>" data-isAdmin="<%= admin.isAdmin %>"></i><i class="fa-solid fa-angles-up promote" data-userId="<%= admin._id %>" data-isAdmin="<%= admin.isAdmin %>"></i></p>
                     <% }); %>
                 </div>
             </div>

@@ -51,7 +51,15 @@ if (settings) {
         }
         
         if (isDeleteAccountBtn) {
-            console.log('click')
+            let endpoint;
+
+            if (e.target.dataset.isAdmin == true) endpoint = '/admin/delete';
+            else endpoint = '/user/delete';
+
+            fetch(endpoint, { method: 'DELETE' })
+                .then(res => res.json())
+                .then(data => window.location.href = data.redirect)
+                .catch(err => console.log(err));
         }
     });
     window.addEventListener('DOMContentLoaded', e => {

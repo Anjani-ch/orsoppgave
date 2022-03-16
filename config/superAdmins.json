@@ -1,0 +1,12 @@
+[
+    {
+        "_id": "super-1",
+        "username":"superAdmin",
+        "email":"superAdmin@superAdmin.com",
+        "password":"Passord1",
+        "wantsEmailNotifications":true,
+        "wantsPushNotifications":true,
+        "isAdmin": true,
+        "isSuperAdmin": true
+    }
+]

@@ -35,8 +35,9 @@ const deleteUser = (req, res) => {
         .then(({ deletedCount }) => {
             logDeletedUser(req.user);
             req.flash('successMsg', 'Account deleted');
-            res.redirect('/signup');
-        });
+            res.json({ redirect: '/signup' });
+        })
+        .catch(err => console.log(err));
 };
 
 const getAllUsers = async _ => {

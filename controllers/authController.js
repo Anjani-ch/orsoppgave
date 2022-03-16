@@ -1,13 +1,15 @@
 const emailValidator = require('email-validator');
 const passport = require('passport');
+// const axios = require('axios');
 
 const { renderSignup } = require('./viewController.js');
 
 const { createUser } = require('./userController.js');
-const { createAdmin } = require('./adminController.js');
+// const { createAdmin } = require('./adminController.js');
 
 const User = require('../models/User.js');
 const Admin = require('../models/Admin.js');
+const { join } = require('path');
 
 const handleSignup = (req, res) => {
     const {
@@ -17,7 +19,7 @@ const handleSignup = (req, res) => {
         confirmPassword,
         mailNotification,
         pushNotification,
-        isAdmin
+        // isAdmin
     } = req.body;
 
     const errors = [];
@@ -60,42 +62,42 @@ const handleSignup = (req, res) => {
                             const wantsEmailNotifications = mailNotification ? true : false;
                             const wantsPushNotifications = pushNotification ? true : false;
 
-                            if (isAdmin) {
-                                Admin.findOne({ email })
-                                .then(user => {
-                                    let isDuplicateEmail = user ? true : false;
+                            // if (isAdmin) {
+                            //     Admin.findOne({ email })
+                            //     .then(user => {
+                            //         let isDuplicateEmail = user ? true : false;
 
-                                    if (user) {
-                                        errors.push('Email already in use');
-                                        renderSignup(req, res, { errors });
-                                    }
+                            //         if (user) {
+                            //             errors.push('Email already in use');
+                            //             renderSignup(req, res, { errors });
+                            //         }
 
-                                    Admin.findOne({ username })
-                                        .then(user => {
-                                            let isDuplicateUsername = user ? true : false;
+                            //         Admin.findOne({ username })
+                            //             .then(user => {
+                            //                 let isDuplicateUsername = user ? true : false;
 
-                                            if (user) {
-                                                errors.push('Username already in use');
-                                                renderSignup(req, res, { errors });
-                                            }
+                            //                 if (user) {
+                            //                     errors.push('Username already in use');
+                            //                     renderSignup(req, res, { errors });
+                            //                 }
 
-                                            if (!isDuplicateEmail && !isDuplicateUsername)  {
-                                                const userData = {
-                                                    username,
-                                                    email,
-                                                    password,
-                                                    wantsEmailNotifications,
-                                                    wantsPushNotifications,
-                                                    isAdmin: isAdmin ? true : false
-                                                };
+                            //                 if (!isDuplicateEmail && !isDuplicateUsername)  {
+                            //                     const userData = {
+                            //                         username,
+                            //                         email,
+                            //                         password,
+                            //                         wantsEmailNotifications,
+                            //                         wantsPushNotifications,
+                            //                         isAdmin: isAdmin ? true : false
+                            //                     };
 
-                                                createAdmin(req, res, userData);
-                                            }
-                                        })
-                                        .catch(err => console.log(err));
-                                })
-                                .catch(err => console.log(err));
-                            } else {
+                            //                     createAdmin(req, res, userData);
+                            //                 }
+                            //             })
+                            //             .catch(err => console.log(err));
+                            //     })
+                            //     .catch(err => console.log(err));
+                            // } else {
                                 const userData = {
                                     username,
                                     email,
@@ -105,7 +107,7 @@ const handleSignup = (req, res) => {
                                 };
 
                                 createUser(req, res, userData);
-                            }
+                            // }
                         }
                     })
                     .catch(err => console.log(err));

@@ -21,8 +21,8 @@ const createAdmin = (req, res, userData) => {
                 if (err) throw err;
 
                 logCreatedUser(user);
-                req.flash('successMsg', 'You are now registered');
-                res.redirect('/login');
+                // req.flash('successMsg', 'You are now registered');
+                // res.redirect('/login');
             });
         });
     });
@@ -35,8 +35,9 @@ const deleteAdmin = (req, res) => {
         .then(({ deletedCount }) => {
             logDeletedUser(req.user);
             req.flash('successMsg', 'Account deleted');
-            res.redirect('/signup');
-        });
+            res.json({ redirect: '/signup' });
+        })
+        .catch(err => console.log(err));
 };
 
 const getAllAdmins = async _ => {

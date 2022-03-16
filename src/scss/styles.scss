@@ -265,18 +265,42 @@ body > nav {
         }
     }
 
+    #account {
+        .form-field {
+            i {
+                margin-left: 5px;
+                color: red;
+
+                &.admin { color: green; }
+            }
+        }
+
+        :last-child {
+            #delete-account-btn {
+                transform: scale(1);
+            }
+        }
+    }
+
     #preferences {
-        form {
-            > div {
-                select {
-                    &, & > * {
-                        padding: 3px 5px;
-                        outline: 0;
-                        cursor: pointer;
-                    }
+        .form-field {
+            select {
+                &, & > * {
+                    padding: 3px 5px;
+                    outline: 0;
+                    cursor: pointer;
                 }
             }
         }
+    }
+
+    @include media-lg {
+        #account { margin-left: 3rem; }
+    }
+
+    @include media-md {
+        grid-template-columns: 100%;
+        row-gap: 30px;
     }
 }
 

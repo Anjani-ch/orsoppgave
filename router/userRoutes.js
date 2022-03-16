@@ -15,6 +15,6 @@ router.post('/login', (req, res, next) => handleLogin(req, res, next));
 router.post('/logout', (req, res) => handleLogout(req, res));
 
 // User Delete Route
-router.post('/delete', (req, res) => deleteUser(req, res));
+router.delete('/delete', (req, res) => deleteUser(req, res));
 
 module.exports = router;
