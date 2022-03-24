@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const userSchema = new mongoose.Schema({
+const userObj = {
     username: {
         type: String,
         required: true,
@@ -22,9 +22,15 @@ const userSchema = new mongoose.Schema({
     wantsPushNotifications: {
         type: Boolean,
         required: true,
+    },
+    theme: {
+        type: String,
+        default: 'light'
     }
-});
+};
+
+const userSchema = new mongoose.Schema(userObj);
 
 const User = mongoose.model('User', userSchema);
 
-module.exports = User;
+module.exports = { User, userObj };

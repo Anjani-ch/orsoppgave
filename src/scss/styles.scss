@@ -75,7 +75,9 @@ body > nav {
                 padding: 5px 10px;
                 border-radius: 5px;
                 bottom: -70px;
-                left: -25px;
+                left: 0;
+                width: 100%;
+                min-width: 95px;
 
                 &.is-admin { bottom: -95px; }
 
@@ -148,7 +150,7 @@ body > nav {
                             &::before { @include transform(rotate(45deg) translate(35px, -35px)); }
                             &::after { @include transform(rotate(-45deg) translate(35px, 35px)); }
                         }
-    
+
                         + ul { left: 0%; }
                     }
                 }
@@ -318,6 +320,10 @@ body > nav {
 
             &:first-child {
                 p { font-weight: bold; }
+            }
+
+            &:not(:first-child) {
+                p { margin: 6px 0px; }
             }
 
             i {

@@ -3,41 +3,47 @@
     <main class="container mt-3 mb-3 ml-auto mr-auto" id="dashboard">
         <h1 class="text-secondary mb-1">Dashboard</h1>
 
-        <% if (users && user.isAdmin) { %>
-            <div class="table">
-                <h2>Users:</h2>
-                <div class="table-row text-center contrast-primary">
-                    <p>Username</p>
-                    <p>Email</p>
-                    <p>Actions</p>
+        <section>
+            <% if (users.length) { %>
+                <div class="table">
+                    <h2>Users:</h2>
+                    <div class="table-row text-center contrast-primary">
+                        <p>Username</p>
+                        <p>Email</p>
+                        <p>Actions</p>
+                    </div>
+                    <div class="table-row text-center">
+                        <% users.forEach(user => { %>
+                            <p><%= user.username %></p>
+                            <p><%= user.email %></p>
+                            <p data-userId="<%= user._id %>"><i class="fa-solid fa-trash delete delete-user"></i><i class="fa-solid fa-angles-up promote promote-user"></i></p>
+                        <% }); %>
+                    </div>
                 </div>
-                <div class="table-row text-center">
-                    <% users.forEach(user => { %>
-                        <p><%= user.username %></p>
-                        <p><%= user.email %></p>
-                        <p><i class="fa-solid fa-trash delete" data-userId="<%= user._id %>"></i><i class="fa-solid fa-angles-up promote" data-userId="<%= user._id %>"></i></p>
-                    <% }); %>
+            <% } %>
+    
+            <% if (admins.length && user.isSuperAdmin) { %>
+                <div class="table">
+                    <h2>Admins:</h2>
+                    <div class="table-row text-center contrast-primary">
+                        <p>Username</p>
+                        <p>Email</p>
+                        <p>Actions</p>
+                    </div>
+                    <div class="table-row text-center">
+                        <% admins.forEach(admin => { %>
+                            <p><%= admin.username %></p>
+                            <p><%= admin.email %></p>
+                            <p data-userId="<%= admin.id %>" data-isAdmin="<%= admin.isAdmin %>"><i class="fa-solid fa-trash delete delete-user"></i></p>
+                        <% }); %>
+                    </div>
                 </div>
-            </div>
-        <% } %>
+            <% } %>
+        </section>
 
-        <% if (admins && user.isSuperAdmin) { %>
-            <div class="table">
-                <h2>Admins:</h2>
-                <div class="table-row text-center contrast-primary">
-                    <p>Username</p>
-                    <p>Email</p>
-                    <p>Actions</p>
-                </div>
-                <div class="table-row text-center">
-                    <% admins.forEach(admin => { %>
-                        <p><%= admin.username %></p>
-                        <p><%= admin.email %></p>
-                        <p><i class="fa-solid fa-trash delete" data-userId="<%= admin._id %>" data-isAdmin="<%= admin.isAdmin %>"></i><i class="fa-solid fa-angles-up promote" data-userId="<%= admin._id %>" data-isAdmin="<%= admin.isAdmin %>"></i></p>
-                    <% }); %>
-                </div>
-            </div>
-        <% } %>
+        <section>
+            <h1 class="text-secondary mb-1">Plan Event:</h1>
+        </section>
     </main>
 
 <%- include('./partials/footer.ejs') %>

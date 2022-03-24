@@ -1,12 +1,12 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
 const path = require('path');
 
 const initPassport = require('./config/passport.js');
+const connectToDB = require('./config/db.js');
 
 // Init Express App
 const app = express();
@@ -20,12 +20,8 @@ dotenv.config();
 initPassport(passport);
 
 // Connect To DB
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true, })
-    .then(_ => {
-        console.log('Connected to DB...');
-        // Start Server
-        app.listen(PORT, _ => console.log(`Server running on port ${PORT}`));
-    })
+connectToDB(process.env.MONGO_URI)
+    .then(_ => app.listen(PORT, _ => console.log(`Server running on port ${PORT}`)))
     .catch(err => console.log(err));
 
 // Set EJS Engine

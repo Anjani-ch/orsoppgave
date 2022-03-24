@@ -1,52 +1,66 @@
-const bcrypt = require('bcrypt');
-
 const { logCreatedUser, logDeletedUser } = require('../controllers/logController.js');
+const { hashPassword } = require('../controllers/bcryptController.js');
 
-const Admin = require('../models/Admin.js');
+const { Admin } = require('../models/Admin.js');
 
-const createAdmin = (req, res, userData) => {
-    const user = new Admin({ ...userData });
+const createAdmin = async (req, res, userData, isPromotion) => {
+    const user = new Admin(userData);
 
-    bcrypt.genSalt(10, (err, salt) => {
-        if (err) throw err;
-
-        bcrypt.hash(user.password, salt, (err, hash) => {
-            if (err) throw err;
-
-            // Hash User Password
-            user.password = hash;
-
-            // Save User
-            user.save(err => {
-                if (err) throw err;
-
-                logCreatedUser(user);
-                // req.flash('successMsg', 'You are now registered');
-                // res.redirect('/login');
-            });
-        });
-    });
+    if (!isPromotion) {
+        try {
+            user.password = await hashPassword(user.assword, 10);
+    
+            await user.save();
+    
+            if (callback) callback();
+    
+            logCreatedUser(user);
+        } catch (err) {
+            console.log(err);
+        }
+    } else {
+        try {
+            await user.save();
+        } catch (err) {
+            console.log(err);
+        }
+    }
 };
 
-const deleteAdmin = (req, res) => {
-    const { _id } = req.user;
+const deleteAdmin = async (req, res, id) => {
+    const userID = id ? id : req.user.id;
 
-    Admin.deleteOne({ _id })
-        .then(({ deletedCount }) => {
-            logDeletedUser(req.user);
-            req.flash('successMsg', 'Account deleted');
-            res.json({ redirect: '/signup' });
-        })
-        .catch(err => console.log(err));
-};
-
-const getAllAdmins = async _ => {
     try {
-        const res = await Admin.find({});
-        return res;
+        await Admin.deleteOne({ _id: userID });
+
+        logDeletedUser(req.user);
     } catch (err) {
         console.log(err);
     }
 };
 
-module.exports = { createAdmin, deleteAdmin, getAllAdmins };
+const getAdmin = async id => {
+    let result;
+    
+    try {
+        const user = await Admin.findById(id);
+        
+        result = user;
+    } catch (err) {
+        console.log(err);
+    }
+
+    return result;
+}
+
+const getAllAdmins = async _ => {
+    try {
+        const results = await Admin.find();
+
+        return results;
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+module.exports = { createAdmin, deleteAdmin, getAdmin, getAllAdmins };

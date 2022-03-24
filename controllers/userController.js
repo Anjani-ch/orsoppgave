@@ -1,52 +1,59 @@
-const bcrypt = require('bcrypt');
+const { logCreatedUser, logDeletedUser } = require('./logController.js');
+const { hashPassword } = require('../controllers/bcryptController.js');
 
-const { logCreatedUser, logDeletedUser } = require('../controllers/logController.js');
+const { User } = require('../models/User.js');
 
-const User = require('../models/User.js');
+const createUser = async (req, res, userData) => {
+    const user = new User(userData);
 
-const createUser = (req, res, userData) => {
-    const user = new User({ ...userData });
-
-    bcrypt.genSalt(10, (err, salt) => {
-        if (err) throw err;
-
-        bcrypt.hash(user.password, salt, (err, hash) => {
-            if (err) throw err;
-
-            // Hash User Password
-            user.password = hash;
-
-            // Save User
-            user.save(err => {
-                if (err) throw err;
-
-                logCreatedUser(user);
-                req.flash('successMsg', 'You are now registered');
-                res.redirect('/login');
-            });
-        });
-    });
-};
-
-const deleteUser = (req, res) => {
-    const { _id } = req.user;
-
-    User.deleteOne({ _id })
-        .then(({ deletedCount }) => {
-            logDeletedUser(req.user);
-            req.flash('successMsg', 'Account deleted');
-            res.json({ redirect: '/signup' });
-        })
-        .catch(err => console.log(err));
-};
-
-const getAllUsers = async _ => {
     try {
-        const res = await User.find({});
-        return res;
+        user.password = await hashPassword(user.password, 10);
+
+        await user.save();
+
+        logCreatedUser(user);
+
+        req.flash('successMsg', 'You are now registered');
+        res.redirect('/login');
     } catch (err) {
         console.log(err);
     }
 };
 
-module.exports = { createUser, deleteUser, getAllUsers };
+const deleteUser = async (req, res, id) => {
+    try {
+        const userID = id ? id : req.user.id;
+
+        await User.deleteOne({ _id: userID });
+
+        logDeletedUser(req.user);
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+const getUser = async id => {
+    let result;
+    
+    try {
+        const user = await User.findById(id);
+        
+        result = user;
+    } catch (err) {
+        console.log(err);
+    }
+
+    return result;
+}
+
+const getAllUsers = async _ => {
+    try {
+        const results = await User.find();
+
+        return results;
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+module.exports = { createUser, deleteUser, getUser, getAllUsers };

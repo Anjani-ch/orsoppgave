@@ -43,27 +43,24 @@ if (settings) {
         }
         
         if (isThemeSelectElement) {
-            const themeInStorage = localStorage.getItem(THEME_STORAGE_KEY); 
+            const themeInStorage = sessionStorage.getItem(THEME_STORAGE_KEY); 
             const selectedTheme = e.target.value;
 
-            if (!themeInStorage || (themeInStorage && (themeInStorage !== selectedTheme))) localStorage.setItem(THEME_STORAGE_KEY, selectedTheme); // Update Theme In Storage
+            if (!themeInStorage || (themeInStorage && (themeInStorage !== selectedTheme))) sessionStorage.setItem(THEME_STORAGE_KEY, selectedTheme); // Update Theme In Storage
+            
             updateRootTheme(selectedTheme);
         }
         
         if (isDeleteAccountBtn) {
-            let endpoint;
-
-            if (e.target.dataset.isAdmin == true) endpoint = '/admin/delete';
-            else endpoint = '/user/delete';
-
-            fetch(endpoint, { method: 'DELETE' })
+            fetch('/user/delete', { method: 'DELETE' })
                 .then(res => res.json())
                 .then(data => window.location.href = data.redirect)
                 .catch(err => console.log(err));
         }
     });
+    
     window.addEventListener('DOMContentLoaded', e => {
-        const themeInStorage = localStorage.getItem(THEME_STORAGE_KEY);
+        const themeInStorage = sessionStorage.getItem(THEME_STORAGE_KEY);
         const settingsSectionInSession = sessionStorage.getItem(SETTINGS_SECTION_SESSION_KEY);
 
         showSelectedSection(settingsSectionInSession);
