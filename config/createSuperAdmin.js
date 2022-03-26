@@ -1,18 +1,28 @@
+const dotenv = require('dotenv');
+const emailValidator = require('email-validator');
+const path = require('path');
+
+const connectToDB = require('./db.js');
+
 const { createSuperAdmin } = require('../controllers/superAdminController.js');
 
 const { User } = require('../models/User.js');
 const { Admin } = require('../models/Admin.js');
 const { SuperAdmin } = require('../models/SuperAdmin.js');
 
+dotenv.config({ path: path.resolve('../', '.env') });
+
 (async _ => {
     try {
         const userData = {
-            username: 'user',
-            email: 'user@user.com',
-            password: '12345',
-            wantsEmailNotifications: null,
-            wantsPushNotifications: null
+            username: 'superAdmin2',
+            email: 'superAdmin2@superAdmin.com',
+            password: '1234567',
+            wantsEmailNotifications: false,
+            wantsPushNotifications: true
         };
+
+        await connectToDB(process.env.MONGO_URI);
 
         const userWithEmail = await User.findOne({ email: userData.email });
         const adminWithEmail = await Admin.findOne({ email: userData.email });
@@ -32,15 +42,23 @@ const { SuperAdmin } = require('../models/SuperAdmin.js');
 
         if (isDuplicateUsername) errors.push('Username already in use');
 
-        if (!username || !email || !password || !confirmPassword) errors.push('Please fill all fields');
+        if (!userData.username || !userData.email || !userData.password) errors.push('Please fill all fields');
     
-        if (!emailValidator.validate(email)) errors.push('Invalid email');
+        if (!emailValidator.validate(userData.email)) errors.push('Invalid email');
     
-        if (password.length < passwordMinChars) errors.push(`Password must be minimum ${passwordMinChars} characters long`);
+        if (userData.password.length < passwordMinChars) errors.push(`Password must be minimum ${passwordMinChars} characters long`);
 
-        if (!errors.length) createSuperAdmin(userData);
-        else console.log(errors)
+        if (!errors.length) {
+            await createSuperAdmin(userData);
+            console.log('USER CREATED');
+        } else {
+            console.log('ERROR CREATING USER:');
+            console.log(errors);
+        }
+
+        process.exit(0);
     } catch (err) {
         console.log(err);
+        process.exit(1);
     }
 })();
