@@ -21,6 +21,8 @@ const createAdmin = async (req, res, userData, isPromotion) => {
     } else {
         try {
             await user.save();
+
+            return user;
         } catch (err) {
             console.log(err);
         }
@@ -39,18 +41,14 @@ const deleteAdmin = async (req, res, id) => {
     }
 };
 
-const getAdmin = async id => {
-    let result;
-    
+const getAdmin = async id => {    
     try {
         const user = await Admin.findById(id);
         
-        result = user;
+        return user;
     } catch (err) {
         console.log(err);
     }
-
-    return result;
 }
 
 const getAllAdmins = async _ => {

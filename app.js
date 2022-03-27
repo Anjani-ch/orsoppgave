@@ -53,10 +53,12 @@ app.use((req, res, next) => {
     res.locals.successMsg = req.flash('successMsg');
     res.locals.errorMsg = req.flash('errorMsg');
     res.locals.error = req.flash('error');
+
     // User
     res.locals.user = req.user;
+    
     next();
 });
 
 // Routes
-app.use('/', require('./router/routes.js'));
+app.use('/', require('./routes/routes.js'));

@@ -8,6 +8,7 @@ import './particleEffect.js';
 import './collapse.js';
 import './alert.js';
 import './profileDropdown';
+import './inbox.js';
 import './settings.js';
 import './dashboard.js';
 

@@ -2,7 +2,7 @@ const express = require('express');
 
 const { handleLogin, handleSignup, handleLogout } = require('../controllers/authController.js');
 const { deleteUser, getUser } = require('../controllers/userController.js');
-const { createAdmin, deleteAdmin } = require('../controllers/adminController.js');
+const { createAdmin, deleteAdmin, getAdmin } = require('../controllers/adminController.js');
 const { deleteSuperAdmin } = require('../controllers/superAdminController.js');
 
 const { isAdmin } = require('../middleware/auth.js');
@@ -76,7 +76,7 @@ router.put('/promote/:id', isAdmin, async (req, res) => {
             wantsPushNotifications
         } = await getUser(id);
 
-        createAdmin(req, res, {
+        const createdAdmin = await createAdmin(req, res, {
             username,
             email,
             password,
@@ -84,8 +84,9 @@ router.put('/promote/:id', isAdmin, async (req, res) => {
             wantsPushNotifications
         }, true);
 
-        await deleteUser(req, res, id)
-            .then(_ => res.json({ redirect: '/admin/dashboard' }));
+        await deleteUser(req, res, id);
+        
+        res.json({ redirect: '/admin/dashboard', user: await getAdmin(createdAdmin.id) })
     } catch (err) {
         console.log(err);
     }

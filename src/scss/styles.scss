@@ -253,6 +253,9 @@ body > nav {
     }
 }
 
+// Inbox
+
+
 // Settings
 #settings {
     grid-template-columns: 30% 70%;
@@ -333,6 +336,8 @@ body > nav {
                 &.delete { color: red; }
                 &.promote { color: green; }
             }
+
+            @include media-md { grid-template-columns: 1fr; }
         }
     }
 }
@@ -346,5 +351,10 @@ footer {
         width: 100%;
         bottom: 0;
         left: 0;
+    }
+
+    i {
+        color: var(--text-primary);
+        font-size: 24px;
     }
 }

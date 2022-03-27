@@ -32,18 +32,14 @@ const deleteUser = async (req, res, id) => {
     }
 };
 
-const getUser = async id => {
-    let result;
-    
+const getUser = async id => {    
     try {
         const user = await User.findById(id);
         
-        result = user;
+        return user;
     } catch (err) {
         console.log(err);
     }
-
-    return result;
 }
 
 const getAllUsers = async _ => {

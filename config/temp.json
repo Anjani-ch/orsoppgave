@@ -33,3 +33,12 @@
     "wantsPushNotifications": false,
     "theme": "light",
 }]
+
+{
+    "username":"admin",
+    "email":"admin@admin.com",
+    "password":"$2b$10$M.ec.0DU36rsqIogsxJ0juuTOnDraJAO.iVKzmEBbcv1OgKv9p1uK",
+    "wantsEmailNotifications":true,"wantsPushNotifications":true,
+    "theme":"light",
+    "isAdmin":true
+}
