@@ -1,14 +1,17 @@
+import createAlert from './utilities/createAlert.js';
+
 const dashboard = document.querySelector('#dashboard');
 
 if (dashboard) {
     dashboard.addEventListener('click', e => {
-        if (e.target.tagName === 'I') {
+        if (e.target.classList.contains('admin-action')) {
             const parentEl = e.target.parentElement;
             
             const userID = parentEl.getAttribute('data-userId');
             const isAdmin = parentEl.getAttribute('data-isAdmin');
 
             const request = { endpoint: '', method: '' };
+            const alert = { message: '', type: '' };
 
             if (e.target.classList.contains('delete-user')) {
                 if (isAdmin) request.endpoint = `/admin/delete/${userID}`;
@@ -49,15 +52,24 @@ if (dashboard) {
 
                     tableRowsInTable = Array.from(parentTable.children).filter(child => child.classList.contains('table-row'));
 
-                    console.log(tableRowsInTable.length)
+                    if (tableRowsInTable.length === 1) parentTable.remove();
 
-                    if (tableRowsInTable.length === 1) {
-                        console.log(tableRowsInTable);
-                        // console.log(currTableRow)
-                        parentTable.remove();
-                    }
+                    if (request.method === 'PUT') alert.message = 'Promoted user';
+                    if (request.method === 'DELETE') alert.message = 'Deleted user';
+
+                    alert.type = 'success';
                 })
-                .catch(err => console.log(err))
+                .catch(err => {
+                    if (request.method === 'PUT') alert.message = 'Error promoted user';
+                    if (request.method === 'DELETE') alert.message = 'Error deleted user';
+
+                    alert.type = 'error';
+
+                    console.log(err);
+                })
+                .finally(_ => {
+                    dashboard.prepend(createAlert(alert.message, alert.type));
+                });
                 // .then(res => res.json())
                 // .then(data => window.location.href = data.redirect)
                 // .catch(err => console.log(err));

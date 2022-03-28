@@ -16,7 +16,7 @@
                         <div class="table-row text-center">
                             <p><%= user.username %></p>
                             <p><%= user.email %></p>
-                            <p data-userId="<%= user._id %>"><i class="fa-solid fa-trash delete delete-user"></i><i class="fa-solid fa-angles-up promote promote-user"></i></p>
+                            <p data-userId="<%= user._id %>"><i class="fa-solid fa-trash delete delete-user admin-action"></i><i class="fa-solid fa-angles-up promote promote-user admin-action"></i></p>
                         </div>
                     <% }); %>
                 </div>
@@ -34,7 +34,7 @@
                         <div class="table-row text-center">
                             <p><%= admin.username %></p>
                             <p><%= admin.email %></p>
-                            <p data-userId="<%= admin.id %>" data-isAdmin="<%= admin.isAdmin %>"><i class="fa-solid fa-trash delete delete-user"></i></p>
+                            <p data-userId="<%= admin.id %>" data-isAdmin="<%= admin.isAdmin %>"><i class="fa-solid fa-trash delete delete-user admin-action"></i></p>
                         </div>
                     <% }); %>
                 </div>

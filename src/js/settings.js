@@ -1,4 +1,5 @@
 import { THEME_STORAGE_KEY, SETTINGS_SECTION_SESSION_KEY } from './keys.js';
+import createAlert from './utilities/createAlert.js';
 import updateRootTheme from './utilities/updateRootTheme.js';
 
 const settings = document.querySelector('#settings');
@@ -50,12 +51,17 @@ if (settings) {
             
             updateRootTheme(selectedTheme);
         }
-        
+
         if (isDeleteAccountBtn) {
             fetch('/user/delete', { method: 'DELETE' })
                 .then(res => res.json())
                 .then(data => window.location.href = data.redirect)
-                .catch(err => console.log(err));
+                .catch(err => {
+                    const account = document.querySelector('#account');
+                    
+                    account.prepend(createAlert('Error deleting account', 'error'))
+                    console.log(err);
+                });
         }
     });
     
