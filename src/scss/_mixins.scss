@@ -21,16 +21,30 @@
     box-shadow: $property;
 }
 
-@mixin border($color) { border: 2px solid $color; }
+@mixin box-sizing($property) {
+    -webkit-box-sizing: $property;
+    -moz-box-sizing: $property;
+    box-sizing: $property;
+}
+
+@mixin border($color) {
+    border: 2px solid $color;
+}
 
 @mixin media-lg {
-    @media(min-width: 768px) { @content; }
+    @media(min-width: 768px) {
+        @content;
+    }
 }
 
 @mixin media-md() {
-    @media(max-width: 768px) { @content; }
+    @media(max-width: 768px) {
+        @content;
+    }
 }
 
 @mixin media-sm() {
-    @media(max-width: 500px) { @content; }
+    @media(max-width: 500px) {
+        @content;
+    }
 }

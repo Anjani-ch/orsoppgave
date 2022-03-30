@@ -5,16 +5,30 @@
 }
 
 // Overflow
-.overflow-hidden { overflow: hidden; }
+.overflow-hidden {
+    overflow: hidden;
+}
 
-.lighten { filter: brightness(165%); }
+.lighten {
+    filter: brightness(165%);
+}
 
 // Colors
-.bg-primary { background-color: var(--bg-primary); }
-.bg-secondary { background-color: var(--bg-secondary); }
+.bg-primary {
+    background-color: var(--bg-primary);
+}
 
-.text-primary { color: var(--text-primary); }
-.text-secondary { color: var(--text-secondary); }
+.bg-secondary {
+    background-color: var(--bg-secondary);
+}
+
+.text-primary {
+    color: var(--text-primary);
+}
+
+.text-secondary {
+    color: var(--text-secondary);
+}
 
 .contrast-primary {
     background-color: var(--bg-primary);
@@ -29,28 +43,207 @@
 // Text align
 $text-align-properties: (start, center, end);
 
-@each $property in $text-align-properties { .text-#{$property} { text-align: #{$property}; } }
+@each $property in $text-align-properties {
+    .text-#{$property} {
+        text-align: #{$property};
+    }
+}
 
 // Display
 $display-properties: (block, inline, inline-block, flex, grid, none);
 
-@each $property in $display-properties { .d-#{$property} { display: #{$property}; } }
-@each $property in $display-properties { .d-#{$property}-important { display: #{$property} !important; } }
+@each $property in $display-properties {
+    .d-#{$property} {
+        display: #{$property};
+    }
+
+    .d-#{$property}-important {
+        display: #{$property} !important;
+    }
+
+    .d-sm-#{$property} {
+        @include media-sm() {
+            display: #{$property};
+        }
+    }
+
+    .d-md-#{$property} {
+        @include media-md() {
+            display: #{$property};
+        }
+    }
+
+    .d-lg-#{$property} {
+        @include media-lg() {
+            display: #{$property};
+        }
+    }
+
+    .d-sm-#{$property}-important {
+        @include media-sm() {
+            display: #{$property} !important;
+        }
+    }
+
+    .d-md-#{$property}-important {
+        @include media-md() {
+            display: #{$property} !important;
+        }
+    }
+
+    .d-lg-#{$property}-important {
+        @include media-lg() {
+            display: #{$property} !important;
+        }
+    }
+}
 
 // Position
 $position-properties: (static, relative, absolute, sticky, fixed);
 
-@each $property in $position-properties { .position-#{$property} { position: #{$property}; } }
+@each $property in $position-properties {
+    .position-#{$property} {
+        position: #{$property};
+    }
+
+    .position-#{$property}-important {
+        position: #{$property} !important;
+    }
+
+    .position-sm-#{$property} {
+        @include media-sm() {
+            position: #{$property};
+        }
+    }
+
+    .position-sm-#{$property}-important {
+        @include media-sm() {
+            position: #{$property} !important;
+        }
+    }
+
+    .position-md-#{$property} {
+        @include media-sm() {
+            position: #{$property};
+        }
+    }
+
+    .position-md-#{$property}-important {
+        @include media-sm() {
+            position: #{$property} !important;
+        }
+    }
+
+    .position-lg-#{$property} {
+        @include media-sm() {
+            position: #{$property};
+        }
+    }
+
+    .position-lg-#{$property}-important {
+        @include media-sm() {
+            position: #{$property} !important;
+        }
+    }
+}
 
 // Justify content
 $justify-content-properties: (flex-start, center, flex-end, space-around, space-between);
 
-@each $property in $justify-content-properties { .justify-content-#{$property} { justify-content: #{$property}; } }
+@each $property in $justify-content-properties {
+    .justify-content-#{$property} {
+        justify-content: #{$property};
+    }
+
+    .justify-content-#{$property}-important {
+        justify-content: #{$property} !important;
+    }
+
+    .justify-content-sm-#{$property} {
+        @include media-sm() {
+            justify-content: #{$property};
+        }
+    }
+
+    .justify-content-sm-#{$property}-important {
+        @include media-sm() {
+            justify-content: #{$property} !important;
+        }
+    }
+
+    .justify-content-md-#{$property} {
+        @include media-md() {
+            justify-content: #{$property};
+        }
+    }
+
+    .justify-content-md-#{$property}-important {
+        @include media-md() {
+            justify-content: #{$property} !important;
+        }
+    }
+
+    .justify-content-lg-#{$property} {
+        @include media-lg() {
+            justify-content: #{$property};
+        }
+    }
+
+    .justify-content-lg-#{$property}-important {
+        @include media-lg() {
+            justify-content: #{$property} !important;
+        }
+    }
+}
 
 // Align items
 $align-items-properties: (flex-start, center, flex-end);
 
-@each $property in $align-items-properties { .align-items-#{$property} { align-items: #{$property}; } }
+@each $property in $align-items-properties {
+    .align-items-#{$property} {
+        align-items: #{$property};
+    }
+
+    .align-items-#{$property}-important {
+        align-items: #{$property} !important;
+    }
+
+    .align-items-sm-#{$property} {
+        @include media-sm() {
+            align-items: #{$property};
+        }
+    }
+
+    .align-items-sm-#{$property}-important {
+        @include media-sm() {
+            align-items: #{$property} !important;
+        }
+    }
+
+    .align-items-md-#{$property} {
+        @include media-md() {
+            align-items: #{$property};
+        }
+    }
+
+    .align-items-md-#{$property}-important {
+        @include media-md() {
+            align-items: #{$property} !important;
+        }
+    }
+
+    .align-items-lg-#{$property} {
+        @include media-lg() {
+            align-items: #{$property};
+        }
+    }
+
+    .align-items-lg-#{$property}-important {
+        @include media-lg() {
+            align-items: #{$property} !important;
+        }
+    }
+}
 
 // Margin and Padding
 $space-amounts: (1, 2, 3, 4, 5, auto);
@@ -58,8 +251,11 @@ $space-amounts: (1, 2, 3, 4, 5, auto);
 @each $space in $space-amounts {
     $value: #{$space};
 
-    @if $value == auto { $value: #{$space}; }
-    @else { $value: #{$space}rem; }
+    @if $value == auto {
+        $value: #{$space};
+    } @else {
+        $value: #{$space}rem;
+    }
 
     // Margin
     .m-#{$space} { margin: #{$value}; }

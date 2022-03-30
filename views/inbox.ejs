@@ -1,7 +1,19 @@
 <%- include('./partials/head.ejs') %>
 
     <main class="container mt-3 mb-3 ml-auto mr-auto" id="inbox">
-        <h1>Inbox</h1>
+        <h1>Messages</h1>
+
+        <button id="add-msg-btn" class="btn btn-primary">Send Message <i class="fa-solid fa-plus"></i></button>
+
+        <section id="messages" class="mt-1">
+            <div id="sendt-messages">
+
+            </div>
+
+            <div id="received-messages">
+                
+            </div>
+        </section>
     </main>
 
 <%- include('./partials/footer.ejs') %>

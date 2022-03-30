@@ -14,13 +14,16 @@ const getParticleColor = _ => {
 
     let result;
 
-    if (themeInStorage === 'light' || !themeInStorage) result = '#f98181';
-    else if (themeInStorage === 'dark') result = '#777777';
+    if(themeInStorage === 'light' || !themeInStorage) {
+        result = '#f98181';
+    } else if (themeInStorage === 'dark') {
+        result = '#777777';
+    }
 
     return result;
 }
 
-if (particleCanvas) {
+if(particleCanvas) {
     let scrollbarWidth = hasScrollbar() ? 17 : 0;
 
     const PARTICLE_SYSTEM_WIDTH = window.innerWidth - scrollbarWidth;
@@ -50,6 +53,4 @@ if (particleCanvas) {
     const particleSystem = new ParticleSystem(PARTICLE_SYSTEM_WIDTH, PARTICLE_SYSTEM_HEIGHT, particles, particleCanvas);
 
     particleSystem.run();
-
-    // TODO: handle particle effect on resize
 }

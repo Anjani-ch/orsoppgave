@@ -37,9 +37,10 @@ class ParticleSystem {
             for(let j = i; j < this.particles.length; j++) {
                 const distance = ((this.particles[i].x - this.particles[j].x) * (this.particles[i].x - this.particles[j].x)) + ((this.particles[i].y - this.particles[j].y) * (this.particles[i].y - this.particles[j].y));
 
-                if (distance < (this.canvas.width / 10) * (this.canvas.height / 30)) {
+                if(distance < (this.canvas.width / 10) * (this.canvas.height / 30)) {
                     this.ctx.strokeStyle = this.particles[i].color;
                     this.ctx.lineWidth = 1;
+                    
                     this.ctx.beginPath();
                     this.ctx.moveTo(this.particles[i].x, this.particles[i].y);
                     this.ctx.lineTo(this.particles[j].x, this.particles[j].y);

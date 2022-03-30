@@ -6,9 +6,15 @@
     align-items: center;
     border-radius: 5px;
 
-    &.error { @include set-contrast(red); }
+    &.error {
+        @include set-contrast(red);
+    }
 
-    &.success { @include set-contrast(green); }
+    &.success {
+        @include set-contrast(green);
+    }
 
-    &-icon { cursor: pointer; }
+    &-icon {
+        cursor: pointer;
+    }
 }

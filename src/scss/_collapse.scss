@@ -10,7 +10,9 @@
     &.toggled {
 
         & .collapse-heading {
-            i { transform: rotate(180deg); }
+            i {
+                transform: rotate(180deg);
+            }
         }
 
         & .collapse-inner {
@@ -27,7 +29,9 @@
         justify-content: space-between;
         cursor: pointer;
 
-        :first-child { font-size: $collapse-heading-font-size; }
+        :first-child {
+            font-size: $collapse-heading-font-size;
+        }
 
         i {
             cursor: pointer;
@@ -42,6 +46,8 @@
         overflow: hidden;
         @include transition(max-height $collapse-transition-duration, padding $collapse-transition-duration * 2);
 
-        img { width: 100%; }
+        img {
+            width: 100%;
+        }
     }
 }

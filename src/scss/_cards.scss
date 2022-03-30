@@ -3,8 +3,13 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
 
-    @include media-md() { grid-template-columns: repeat(2, 1fr); }
-    @include media-sm() { grid-template-columns: repeat(1, 1fr); }
+    @include media-md() {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include media-sm() {
+        grid-template-columns: repeat(1, 1fr);
+    }
 }
 
 .card {
@@ -29,5 +34,7 @@
         padding: $card-padding;
     }
     
-    &-body { padding: $card-padding; }
+    &-body {
+        padding: $card-padding;
+    }
 }

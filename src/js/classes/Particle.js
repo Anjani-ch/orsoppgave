@@ -22,6 +22,7 @@ class Particle {
         this.detectCollision(canvas);
 
         ctx.fillStyle = this.color;
+
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         ctx.closePath();
@@ -34,13 +35,13 @@ class Particle {
     }
 
     updatePos(x, y) {
-        if (x) this.xSpeed = x * this.xSpeed;
-        if (y) this.ySpeed = y * this.ySpeed;
+        if(x) this.xSpeed = x * this.xSpeed;
+        if(y) this.ySpeed = y * this.ySpeed;
     }
 
     detectCollision(canvas) {
-        if (this.y <= 0 || this.y + this.radius >= canvas.height) this.updatePos(0, -1);
-        if (this.x <= 0 || this.x + this.radius >= canvas.width) this.updatePos(-1, 0);
+        if(this.y <= 0 || this.y + this.radius >= canvas.height) this.updatePos(0, -1);
+        if(this.x <= 0 || this.x + this.radius >= canvas.width) this.updatePos(-1, 0);
     }
 }
 

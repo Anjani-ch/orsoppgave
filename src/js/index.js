@@ -17,7 +17,6 @@ import updateRootTheme from './utilities/updateRootTheme.js';
 
 window.addEventListener('DOMContentLoaded', e => {
     const body = document.querySelector('body');
-
     const userTheme = body.getAttribute('data-theme');
 
     sessionStorage.setItem(userTheme, THEME_STORAGE_KEY);

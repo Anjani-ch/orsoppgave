@@ -2,9 +2,9 @@ import createAlert from './utilities/createAlert.js';
 
 const dashboard = document.querySelector('#dashboard');
 
-if (dashboard) {
+if(dashboard) {
     dashboard.addEventListener('click', e => {
-        if (e.target.classList.contains('admin-action')) {
+        if(e.target.classList.contains('admin-action')) {
             const parentEl = e.target.parentElement;
             
             const userID = parentEl.getAttribute('data-userId');
@@ -13,12 +13,15 @@ if (dashboard) {
             const request = { endpoint: '', method: '' };
             const alert = { message: '', type: '' };
 
-            if (e.target.classList.contains('delete-user')) {
-                if (isAdmin) request.endpoint = `/admin/delete/${userID}`;
-                else request.endpoint = `/user/delete/${userID}`;
+            if(e.target.classList.contains('delete-user')) {
+                if (isAdmin) {
+                    request.endpoint = `/admin/delete/${userID}`;
+                } else {
+                    request.endpoint = `/user/delete/${userID}`;
+                }
 
                 request.method = 'DELETE';
-            } else if (e.target.classList.contains('promote-user')) {
+            } else if(e.target.classList.contains('promote-user')) {
                 request.endpoint = `/user/promote/${userID}`;
                 request.method = 'PUT';
             }
@@ -31,7 +34,7 @@ if (dashboard) {
                     
                     let tableRowsInTable;
 
-                    if (request.method === 'PUT') {
+                    if(request.method === 'PUT') {
                         const adminTable = document.querySelector('#admin-table');
                         const tableRow = document.createElement('DIV');
 
@@ -52,27 +55,22 @@ if (dashboard) {
 
                     tableRowsInTable = Array.from(parentTable.children).filter(child => child.classList.contains('table-row'));
 
-                    if (tableRowsInTable.length === 1) parentTable.remove();
+                    if(tableRowsInTable.length === 1) parentTable.remove();
 
-                    if (request.method === 'PUT') alert.message = 'Promoted user';
-                    if (request.method === 'DELETE') alert.message = 'Deleted user';
+                    if(request.method === 'PUT') alert.message = 'Promoted user';
+                    if(request.method === 'DELETE') alert.message = 'Deleted user';
 
                     alert.type = 'success';
                 })
                 .catch(err => {
-                    if (request.method === 'PUT') alert.message = 'Error promoted user';
-                    if (request.method === 'DELETE') alert.message = 'Error deleted user';
+                    if(request.method === 'PUT') alert.message = 'Error promoted user';
+                    if(request.method === 'DELETE') alert.message = 'Error deleted user';
 
                     alert.type = 'error';
 
                     console.log(err);
                 })
-                .finally(_ => {
-                    dashboard.prepend(createAlert(alert.message, alert.type));
-                });
-                // .then(res => res.json())
-                // .then(data => window.location.href = data.redirect)
-                // .catch(err => console.log(err));
+                .finally(_ => dashboard.prepend(createAlert(alert.message, alert.type)));
         }
     });
 }

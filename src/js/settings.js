@@ -9,7 +9,7 @@ const themeSelect = document.querySelector('#theme-select');
 const deleteAccountBtn = document.querySelector('#delete-account-btn');
 
 const showSelectedSection = sectionId => {
-    if (sectionId) {
+    if(sectionId) {
         // Hide All Sections
         settingsSections.forEach(section => {
             const isVisible = !section.classList.contains('d-none');
@@ -26,28 +26,31 @@ const showSelectedSection = sectionId => {
     }
 };
 
-if (settings) {
+if(settings) {
     settings.addEventListener('click', e => {
         const isAsideElement = e.target.parentElement === settingsAside;
         const isThemeSelectElement = e.target === themeSelect;
         const isDeleteAccountBtn = e.target === deleteAccountBtn;
 
-        if (isAsideElement) {
+        if(isAsideElement) {
             const link = e.target;
             const linkTarget = link.dataset.target;
             const isLink = link.classList.contains('aside-link');
             
-            if (isLink) {
+            if(isLink) {
                 showSelectedSection(linkTarget);
                 sessionStorage.setItem(SETTINGS_SECTION_SESSION_KEY, linkTarget);
             }
         }
         
-        if (isThemeSelectElement) {
+        if(isThemeSelectElement) {
             const themeInStorage = sessionStorage.getItem(THEME_STORAGE_KEY); 
             const selectedTheme = e.target.value;
 
-            if (!themeInStorage || (themeInStorage && (themeInStorage !== selectedTheme))) sessionStorage.setItem(THEME_STORAGE_KEY, selectedTheme); // Update Theme In Storage
+            if(!themeInStorage || (themeInStorage && (themeInStorage !== selectedTheme))) {
+                // Update Theme In Storage
+                sessionStorage.setItem(THEME_STORAGE_KEY, selectedTheme);
+            }
             
             updateRootTheme(selectedTheme);
         }
@@ -72,6 +75,6 @@ if (settings) {
         showSelectedSection(settingsSectionInSession);
 
         // Update Select Storage Value If Theme In Storage
-        if (themeInStorage) themeSelect.value = themeInStorage;
+        if(themeInStorage) themeSelect.value = themeInStorage;
     });
 }

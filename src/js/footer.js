@@ -2,7 +2,13 @@ import hasScrollbar from './utilities/hasScrollbar.js';
 
 const footer = document.querySelector('footer');
 
-const setFooter = _ => !hasScrollbar() ? footer.classList.add('footer-bottom') : footer.classList.remove('footer-bottom');
+const setFooter = _ => {
+    if(!hasScrollbar()) {
+        footer.classList.add('footer-bottom')
+    } else {
+        footer.classList.remove('footer-bottom')
+    }
+};
 
 window.addEventListener('DOMContentLoaded', setFooter);
 window.addEventListener('resize', setFooter);
