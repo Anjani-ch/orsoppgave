@@ -30,7 +30,7 @@
                 <div class="d-flex align-items-center">
                     <div id="inbox-icon-wrapper" class="position-relative mr-1">
                         <a href="/inbox" class="text-primary fa-solid fa-bell position-relative">
-                            <span class="position-absolute _1-digit">0</span>
+                            <span class="position-absolute _<%= receivedMessages.length.toString().length %>-digit"><%= receivedMessages.length %></span>
                         </a>
                     </div>
                     <div id="profile-dropdown-wrapper" class="position-relative">

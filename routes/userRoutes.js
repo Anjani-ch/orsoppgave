@@ -52,7 +52,7 @@ router.delete('/delete', isLoggedIn, async (req, res) => {
 });
 
 // User Update Route
-router.post('/update', async (req, res) => {
+router.patch('/update', async (req, res) => {
     const { isAdmin, isSuperAdmin } = req.user;
 
     if(isSuperAdmin) {

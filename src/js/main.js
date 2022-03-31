@@ -19,7 +19,7 @@ window.addEventListener('DOMContentLoaded', e => {
     const body = document.querySelector('body');
     const userTheme = body.getAttribute('data-theme');
 
-    sessionStorage.setItem(userTheme, THEME_STORAGE_KEY);
+    sessionStorage.setItem(THEME_STORAGE_KEY, userTheme);
 
     updateRootTheme(userTheme);
 });

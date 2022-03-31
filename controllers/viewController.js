@@ -2,113 +2,138 @@ const { getYear } = require('../modules/date.js');
 
 const { getAllUsers } = require('./userController.js');
 const { getAllAdmins } = require('./adminController.js');
+const { getSendtMessages, getReceivedMessages } = require('./messageController.js');
 
 const assignProperties = (target, source) => Object.assign(target, source);
 
-const renderIndex = (req, res, additionalProperties) => {
-    const viewProperties = { title: 'Home', year: getYear() };
+const renderIndex = async (req, res, additionalProperties) => {
+    try {
+        const receivedMessages = await getReceivedMessages(req, res, req.user.email);
 
-    if (additionalProperties) assignProperties(viewProperties, additionalProperties);
-    res.render('index', viewProperties);
+        const viewProperties = { title: 'Home', year: getYear(), receivedMessages };
+
+        if (additionalProperties) assignProperties(viewProperties, additionalProperties);
+
+        res.render('index', viewProperties);
+    } catch (err) {
+        console.log(err);
+    }
 };
 
-const renderJobExperience = (req, res, additionalProperties) => {
-    const viewProperties = { title: 'Job Experience', year: getYear() };
+const renderJobExperience = async (req, res, additionalProperties) => {
+    try {
+        const receivedMessages = await getReceivedMessages(req, res, req.user.email);
 
-    if (additionalProperties) assignProperties(viewProperties, additionalProperties);
-    res.render('jobExperience', viewProperties);
+        const viewProperties = { title: 'Job Experience', year: getYear(), receivedMessages };
+
+        if (additionalProperties) assignProperties(viewProperties, additionalProperties);
+    
+        res.render('jobExperience', viewProperties);
+    } catch(err) {
+        console.log(err);
+    }
 };
 
-const renderEducation = (req, res, additionalProperties) => {
-    const viewProperties = { title: 'Education', year: getYear() };
+const renderEducation = async (req, res, additionalProperties) => {
+    try {
+        const receivedMessages = await getReceivedMessages(req, res, req.user.email);
 
-    if (additionalProperties) assignProperties(viewProperties, additionalProperties);
-    res.render('education', viewProperties);
+        const viewProperties = { title: 'Education', year: getYear(), receivedMessages };
+
+        if (additionalProperties) assignProperties(viewProperties, additionalProperties);
+
+        res.render('education', viewProperties);
+    } catch (err) {
+        console.log(err);
+    }
 };
 
-const renderProjects = (req, res, additionalProperties) => {
-    const viewProperties = { title: 'Projects', year: getYear() };
+const renderProjects = async (req, res, additionalProperties) => {
+    try {
+        const receivedMessages = await getReceivedMessages(req, res, req.user.email);
 
-    if (additionalProperties) assignProperties(viewProperties, additionalProperties);
-    res.render('projects', viewProperties);
+        const viewProperties = { title: 'Projects', year: getYear(), receivedMessages };
+
+        if (additionalProperties) assignProperties(viewProperties, additionalProperties);
+
+        res.render('projects', viewProperties);
+    } catch (err) {
+        console.log(err);
+    }
 };
 
-const renderSettings = (req, res, additionalProperties) => {
-    const viewProperties = { title: 'Settings', year: getYear() };
+const renderSettings = async (req, res, additionalProperties) => {
+    try {
+        const receivedMessages = await getReceivedMessages(req, res, req.user.email);
 
-    if (additionalProperties) assignProperties(viewProperties, additionalProperties);
-    res.render('settings', viewProperties);
+        const viewProperties = { title: 'Settings', year: getYear(), receivedMessages };
+
+        if (additionalProperties) assignProperties(viewProperties, additionalProperties);
+
+        res.render('settings', viewProperties);
+    } catch (err) {
+        console.log(err);
+    }
 };
 
-const renderInbox = (req, res, additionalProperties) => {
-    /* 
-        const messageObj = {
-            subject: {
-                type: String,
-                required: true
-            },
-            body: {
-                type: String,
-                required: true
-            },
-            senderID: {
-                type: mongoose.Schema.Types.ObjectId,
-                required: true
-            },
-            receiverID: {
-                type: mongoose.Schema.Types.ObjectId,
-                required: true
-            }
-        };
-    */
+const renderInbox = async (req, res, additionalProperties) => {
+    try {
+        const sendtMessages = await getSendtMessages(req, res, req.user.email);
+        const receivedMessages = await getReceivedMessages(req, res, req.user.email);
 
-    const sendtMessages = [
-        {
-            subject: 'Test',
-            body: 'Test 123',
-            senderID: 'test@test.com',
-            senderID: 'test1@test.com',
-        },
-        {
-            subject: 'Test 00',
-            body: 'Test 1234',
-            senderID: 'test@test.com',
-            senderID: 'test1@test.com',
-        }
-    ];
+        const viewProperties = { title: 'Inbox', year: getYear(), sendtMessages, receivedMessages };
 
-    const receivedMessages = [
-        {
-            subject: 'Test2',
-            body: 'Test 12356',
-            senderID: 'test1@test.com',
-            senderID: 'test@test.com',
-        },
-        {
-            subject: 'Test 14',
-            body: 'Test 12347',
-            senderID: 'test1@test.com',
-            senderID: 'test@test.com',
-        }
-    ];
+        // const sendtMessages = [
+        //     {
+        //         subject: 'Test',
+        //         body: 'Test 123',
+        //         senderEmail: 'test@test.com',
+        //         receiverEmail: 'test1@test.com',
+        //     },
+        //     {
+        //         subject: 'Test 00',
+        //         body: 'Test 1234',
+        //         senderEmail: 'test@test.com',
+        //         receiverEmail: 'test1@test.com',
+        //     }
+        // ];
 
-    const viewProperties = { title: 'Inbox', year: getYear(), sendtMessages, receivedMessages };
+        // const receivedMessages = [
+        //     {
+        //         subject: 'Test2',
+        //         body: 'Test 12356',
+        //         senderID: 'test1@test.com',
+        //         senderID: 'test@test.com',
+        //     },
+        //     {
+        //         subject: 'Test 14',
+        //         body: 'Test 12347',
+        //         senderID: 'test1@test.com',
+        //         senderID: 'test@test.com',
+        //     }
+        // ];
 
-    if(additionalProperties) assignProperties(viewProperties, additionalProperties);
-    res.render('inbox', viewProperties);
+        if(additionalProperties) assignProperties(viewProperties, additionalProperties);
+
+        res.render('inbox', viewProperties);
+    } catch (err) {
+        console.log(err);
+    }
 };
 
-const renderSignup = (req, res, additionalProperties) => {
+const renderSignup = async (req, res, additionalProperties) => {
     const viewProperties = { title: 'Signup', year: getYear() };
 
     if(additionalProperties) assignProperties(viewProperties, additionalProperties);
+
     res.render('signup', viewProperties);
 };
 
-const renderLogin = (req, res, additionalProperties) => {
+const renderLogin = async (req, res, additionalProperties) => {
     const viewProperties = { title: 'Login', year: getYear() };
 
     if(additionalProperties) assignProperties(viewProperties, additionalProperties);
+
     res.render('login', viewProperties);
 };
 
@@ -117,9 +142,9 @@ const renderAdminDashboard = async (req, res, additionalProperties) => {
         const users = await getAllUsers();
         const admins = await getAllAdmins();
 
-        const viewProperties = { title: 'Dashboard', year: getYear() };
+        const receivedMessages = await getReceivedMessages(req, res, req.user.email);
 
-        if(typeof additionalProperties === 'undefined') additionalProperties = {};
+        const viewProperties = { title: 'Dashboard', year: getYear(), receivedMessages };
 
         additionalProperties.users = users;
         additionalProperties.admins = admins;
@@ -132,11 +157,18 @@ const renderAdminDashboard = async (req, res, additionalProperties) => {
     }
 };
 
-const render404 = (req, res, additionalProperties) => {
-    const viewProperties = { title: '404', year: getYear() };
+const render404 = async (req, res, additionalProperties) => {
+    try {
+        const receivedMessages = await getReceivedMessages(req, res, req.user.email);
 
-    if (additionalProperties) assignProperties(viewProperties, additionalProperties);
-    res.status(404).render('404', viewProperties);
+        const viewProperties = { title: '404', year: getYear(), receivedMessages };
+
+        if (additionalProperties) assignProperties(viewProperties, additionalProperties);
+
+        res.status(404).render('404', viewProperties);   
+    } catch (err) {
+        console.log(err);
+    }
 };
 
 module.exports = {

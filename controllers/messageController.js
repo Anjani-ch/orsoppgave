@@ -2,7 +2,7 @@ const { Message } = require('../models/Message.js');
 
 const createMessage = async (req, res, messageData) => {
     try {
-        const msg = new Message({ ...messageData, senderID: req.user.id });
+        const msg = new Message({ ...messageData, senderEmail: req.user.email });
 
         await msg.save();
     } catch(err) {
@@ -10,21 +10,21 @@ const createMessage = async (req, res, messageData) => {
     }
 };
 
-const getSendtMessages = async (req, res, id) => {
+const getSendtMessages = async (req, res, email) => {
     try {
-        const messages = await Message.find({ senderID: id });
+        const messages = await Message.find({ senderEmail: email });
 
-        res.status(200).json({ messages });
+        return messages;
     } catch (err) {
         console.log(err);
     }
 };
 
-const getReceivedMessages = async (req, res, id) => {
+const getReceivedMessages = async (req, res, email) => {
     try {
-        const messages = await Message.find({ receiverID: id });
+        const messages = await Message.find({ receiverEmail: email });
 
-        res.status(200).json({ messages });
+        return messages;
     } catch (err) {
         console.log(err);
     }

@@ -308,9 +308,28 @@ body > nav {
         grid-template-columns: 50% 50%;
         gap: 25px;
 
-        #sendt-messages,
         #received-messages {
-            border: 1.5px solid var(--text-secondary);
+            .collapse {
+                &-heading {
+                    * {
+                        font-size: 1.2rem !important;
+                    }
+                }
+            }
+        }
+
+        #sendt-messages {
+            .collapse {
+                &-heading {
+                    * {
+                        font-size: 1.2rem !important;
+                    }
+                }
+            }
+        }
+
+        @include media-md() {
+            grid-template-columns: 100%;
         }
     }
 }

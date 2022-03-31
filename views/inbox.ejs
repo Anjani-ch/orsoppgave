@@ -14,7 +14,7 @@
                         <% sendtMessages.forEach(msg => { %>
                             <div class="collapse" data-msgID="<%= msg.id %>">
                                 <div class="collapse-heading">
-                                    <h2>Sendt to: <%= msg.receiverID %></h2>
+                                    <h2>Sendt to: <%= msg.receiverEmail %></h2>
                                     <i class="fas fa-chevron-circle-down"></i>
                                 </div>
                     
@@ -37,7 +37,7 @@
                         <% sendtMessages.forEach(msg => { %>
                             <div class="collapse" data-msgID="<%= msg.id %>">
                                 <div class="collapse-heading">
-                                    <h2>Received from: <%= msg.senderID %></h2>
+                                    <h2>Received from: <%= msg.senderEmail %></h2>
                                     <i class="fas fa-chevron-circle-down"></i>
                                 </div>
                     

@@ -49,7 +49,7 @@ if(settings) {
 
             if(!themeInStorage || (themeInStorage && themeInStorage !== selectedTheme)) {
                 const requestOptions = {
-                    method: 'POST',
+                    method: 'PATCH',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ theme: selectedTheme })
                 };

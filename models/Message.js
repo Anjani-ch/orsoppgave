@@ -9,12 +9,12 @@ const messageObj = {
         type: String,
         required: true
     },
-    senderID: {
-        type: mongoose.Schema.Types.ObjectId,
+    senderEmail: {
+        type: String,
         required: true
     },
-    receiverID: {
-        type: mongoose.Schema.Types.ObjectId,
+    receiverEmail: {
+        type: String,
         required: true
     }
 };
