@@ -1,19 +1,33 @@
 const { Message } = require('../models/Message.js');
 
 const createMessage = async (req, res, messageData) => {
-    
+    try {
+        const msg = new Message({ ...messageData, senderID: req.user.id });
+
+        await msg.save();
+    } catch(err) {
+        console.log(err);
+    }
 };
 
-const deleteMessage = async (req, res, id) => {
-    
+const getSendtMessages = async (req, res, id) => {
+    try {
+        const messages = await Message.find({ senderID: id });
+
+        res.status(200).json({ messages });
+    } catch (err) {
+        console.log(err);
+    }
 };
 
-const getMessage = async id => {
-    
-}
+const getReceivedMessages = async (req, res, id) => {
+    try {
+        const messages = await Message.find({ receiverID: id });
 
-const getAllMessages = async _ => {
-    
+        res.status(200).json({ messages });
+    } catch (err) {
+        console.log(err);
+    }
 };
 
-module.exports = { createMessage, deleteMessage, getMessage, getAllMessages };
+module.exports = { createMessage, getSendtMessages, getReceivedMessages };

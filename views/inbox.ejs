@@ -6,13 +6,51 @@
         <button id="add-msg-btn" class="btn btn-primary">Send Message <i class="fa-solid fa-plus"></i></button>
 
         <section id="messages" class="mt-1">
-            <div id="sendt-messages">
+            <% if(sendtMessages.length) { %>
+                <div>
+                    <h2>You have <%= sendtMessages.length %> sendt messages:</h2>
 
-            </div>
+                    <div id="sendt-messages">
+                        <% sendtMessages.forEach(msg => { %>
+                            <div class="collapse" data-msgID="<%= msg.id %>">
+                                <div class="collapse-heading">
+                                    <h2>Sendt to: <%= msg.receiverID %></h2>
+                                    <i class="fas fa-chevron-circle-down"></i>
+                                </div>
+                    
+                                <div class="collapse-inner">
+                                    <p><%= msg.body %></p>
+                                </div>
+                            </div>
+                        <% }); %>
+                    </div>
+                </div>
+            <% } else { %>
+                <h2>No Sendt Messages:</h2>
+            <% } %>
 
-            <div id="received-messages">
-                
-            </div>
+            <% if(receivedMessages.length) { %>
+                <div>
+                    <h2>You have <%= receivedMessages.length %> received messages:</h2>
+
+                    <div id="received-messages">
+                        <% sendtMessages.forEach(msg => { %>
+                            <div class="collapse" data-msgID="<%= msg.id %>">
+                                <div class="collapse-heading">
+                                    <h2>Received from: <%= msg.senderID %></h2>
+                                    <i class="fas fa-chevron-circle-down"></i>
+                                </div>
+                    
+                                <div class="collapse-inner">
+                                    <p><%= msg.body %></p>
+                                </div>
+                            </div>
+                        <% }); %>
+                    </div>
+                </div>
+            <% } else { %>
+                <h2>No Received Messages:</h2>
+            <% } %>
         </section>
     </main>
 

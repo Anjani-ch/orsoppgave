@@ -10,17 +10,17 @@ const messageObj = {
         required: true
     },
     senderID: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         required: true
     },
     receiverID: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         required: true
     }
 };
 
 const messageSchema = new mongoose.Schema(messageObj);
 
-const Message = mongoose.model('User', messageSchema);
+const Message = mongoose.model('Message', messageSchema);
 
 module.exports = { Message, messageObj };

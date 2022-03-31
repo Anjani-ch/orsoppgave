@@ -47,15 +47,30 @@ if(settings) {
             const themeInStorage = sessionStorage.getItem(THEME_STORAGE_KEY); 
             const selectedTheme = e.target.value;
 
-            if(!themeInStorage || (themeInStorage && (themeInStorage !== selectedTheme))) {
-                // Update Theme In Storage
-                sessionStorage.setItem(THEME_STORAGE_KEY, selectedTheme);
+            if(!themeInStorage || (themeInStorage && themeInStorage !== selectedTheme)) {
+                const requestOptions = {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ theme: selectedTheme })
+                };
+
+                fetch('/user/update', requestOptions)
+                    .then(_ => {
+                        // Update Theme In Storage
+                        sessionStorage.setItem(THEME_STORAGE_KEY, selectedTheme);
+
+                        updateRootTheme(selectedTheme);
+                    })
+                    .catch(err => {
+                        const preferences = document.querySelector('#preferences');
+                        
+                        preferences.prepend(createAlert('Error changing theme', 'error'))
+                        console.log(err);
+                    });
             }
-            
-            updateRootTheme(selectedTheme);
         }
 
-        if (isDeleteAccountBtn) {
+        if(isDeleteAccountBtn) {
             fetch('/user/delete', { method: 'DELETE' })
                 .then(res => res.json())
                 .then(data => window.location.href = data.redirect)

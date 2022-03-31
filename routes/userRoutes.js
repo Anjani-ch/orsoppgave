@@ -1,40 +1,40 @@
 const express = require('express');
 
 const { handleLogin, handleSignup, handleLogout } = require('../controllers/authController.js');
-const { deleteUser, getUser } = require('../controllers/userController.js');
-const { createAdmin, deleteAdmin, getAdmin } = require('../controllers/adminController.js');
-const { deleteSuperAdmin } = require('../controllers/superAdminController.js');
+const { deleteUser, getUser, updateUser } = require('../controllers/userController.js');
+const { createAdmin, deleteAdmin, getAdmin, updateAdmin } = require('../controllers/adminController.js');
+const { deleteSuperAdmin, updateSuperAdmin } = require('../controllers/superAdminController.js');
 
-const { isAdmin } = require('../middleware/auth.js');
+const { isAdmin, isLoggedOut, isLoggedIn } = require('../middleware/authMiddleware.js');
 
 const router = express.Router();
 
 // User Signup Route
-router.post('/signup', (req, res) => handleSignup(req, res));
+router.post('/signup', isLoggedOut, (req, res) => handleSignup(req, res));
 
 // User Login Route
-router.post('/login', (req, res, next) => handleLogin(req, res, next));
+router.post('/login', isLoggedOut, (req, res, next) => handleLogin(req, res, next));
 
 // User Logout Route
-router.post('/logout', (req, res) => handleLogout(req, res));
+router.post('/logout', isLoggedIn, (req, res) => handleLogout(req, res));
 
 // User Delete Routes
-router.delete('/delete', async (req, res) => {
+router.delete('/delete', isLoggedIn, async (req, res) => {
     const { isAdmin, isSuperAdmin } = req.user;
 
     const callback = _ => {
         req.flash('successMsg', 'Account deleted');
-        res.json({ redirect: '/signup' });
+        res.status(204).json({ redirect: '/signup' });
     };
 
-    if (isSuperAdmin) {
+    if(isSuperAdmin) {
         try {
             await deleteSuperAdmin(req, res);
             callback();
         } catch (err) {
             console.log(err);
         }
-    } else if (isAdmin) {
+    } else if(isAdmin) {
         try {
             await deleteAdmin(req, res);
             callback();
@@ -51,13 +51,41 @@ router.delete('/delete', async (req, res) => {
     }
 });
 
+// User Update Route
+router.post('/update', async (req, res) => {
+    const { isAdmin, isSuperAdmin } = req.user;
+
+    if(isSuperAdmin) {
+        try {
+            await updateSuperAdmin(req, res, req.body);
+            res.redirect('/settings');
+        } catch (err) {
+            console.log(err);
+        }
+    } else if(isAdmin) {
+        try {
+            await updateAdmin(req, res, req.body);
+            res.redirect('/settings');
+        } catch (err) {
+            console.log(err);
+        }
+    } else {
+        try {
+            await updateUser(req, res, req.body);
+            res.redirect('/settings');
+        } catch (err) {
+            console.log(err);
+        }
+    }
+});
+
 router.delete('/delete/:id', isAdmin, async (req, res) => {
     const id = req.params.id;
 
     try {
         await deleteUser(req, res, id);
 
-        res.json({ redirect: '/admin/dashboard' })
+        res.status(204).json({ redirect: '/admin/dashboard' });
     } catch (err) {
         console.log(err);   
     }
@@ -86,7 +114,7 @@ router.put('/promote/:id', isAdmin, async (req, res) => {
 
         await deleteUser(req, res, id);
         
-        res.json({ redirect: '/admin/dashboard', user: await getAdmin(createdAdmin.id) })
+        res.status(202).json({ redirect: '/admin/dashboard', user: await getAdmin(createdAdmin.id) });
     } catch (err) {
         console.log(err);
     }

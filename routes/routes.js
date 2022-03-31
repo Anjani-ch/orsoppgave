@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { isLoggedIn, isLoggedOut } = require('../middleware/auth.js');
+const { isLoggedIn, isLoggedOut } = require('../middleware/authMiddleware.js');
 
 const {
     renderIndex,
@@ -48,6 +48,9 @@ router.use('/user', require('./userRoutes.js'));
 
 // Admin Routes
 router.use('/admin', require('./adminRoutes.js'));
+
+// Message Routes
+router.use('/message', require('./messageRoutes.js'));
 
 // 404 Route
 router.use((req, res) => render404(req, res));

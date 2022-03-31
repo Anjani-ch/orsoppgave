@@ -41,23 +41,74 @@ const renderSettings = (req, res, additionalProperties) => {
 };
 
 const renderInbox = (req, res, additionalProperties) => {
-    const viewProperties = { title: 'Inbox', year: getYear() };
+    /* 
+        const messageObj = {
+            subject: {
+                type: String,
+                required: true
+            },
+            body: {
+                type: String,
+                required: true
+            },
+            senderID: {
+                type: mongoose.Schema.Types.ObjectId,
+                required: true
+            },
+            receiverID: {
+                type: mongoose.Schema.Types.ObjectId,
+                required: true
+            }
+        };
+    */
 
-    if (additionalProperties) assignProperties(viewProperties, additionalProperties);
+    const sendtMessages = [
+        {
+            subject: 'Test',
+            body: 'Test 123',
+            senderID: 'test@test.com',
+            senderID: 'test1@test.com',
+        },
+        {
+            subject: 'Test 00',
+            body: 'Test 1234',
+            senderID: 'test@test.com',
+            senderID: 'test1@test.com',
+        }
+    ];
+
+    const receivedMessages = [
+        {
+            subject: 'Test2',
+            body: 'Test 12356',
+            senderID: 'test1@test.com',
+            senderID: 'test@test.com',
+        },
+        {
+            subject: 'Test 14',
+            body: 'Test 12347',
+            senderID: 'test1@test.com',
+            senderID: 'test@test.com',
+        }
+    ];
+
+    const viewProperties = { title: 'Inbox', year: getYear(), sendtMessages, receivedMessages };
+
+    if(additionalProperties) assignProperties(viewProperties, additionalProperties);
     res.render('inbox', viewProperties);
 };
 
 const renderSignup = (req, res, additionalProperties) => {
     const viewProperties = { title: 'Signup', year: getYear() };
 
-    if (additionalProperties) assignProperties(viewProperties, additionalProperties);
+    if(additionalProperties) assignProperties(viewProperties, additionalProperties);
     res.render('signup', viewProperties);
 };
 
 const renderLogin = (req, res, additionalProperties) => {
     const viewProperties = { title: 'Login', year: getYear() };
 
-    if (additionalProperties) assignProperties(viewProperties, additionalProperties);
+    if(additionalProperties) assignProperties(viewProperties, additionalProperties);
     res.render('login', viewProperties);
 };
 
@@ -68,12 +119,12 @@ const renderAdminDashboard = async (req, res, additionalProperties) => {
 
         const viewProperties = { title: 'Dashboard', year: getYear() };
 
-        if (typeof additionalProperties === 'undefined') additionalProperties = {};
+        if(typeof additionalProperties === 'undefined') additionalProperties = {};
 
         additionalProperties.users = users;
         additionalProperties.admins = admins;
 
-        if (additionalProperties) assignProperties(viewProperties, additionalProperties);
+        if(additionalProperties) assignProperties(viewProperties, additionalProperties);
 
         res.render('dashboard', viewProperties);
     } catch (err) {
@@ -85,7 +136,7 @@ const render404 = (req, res, additionalProperties) => {
     const viewProperties = { title: '404', year: getYear() };
 
     if (additionalProperties) assignProperties(viewProperties, additionalProperties);
-    res.render('404', viewProperties);
+    res.status(404).render('404', viewProperties);
 };
 
 module.exports = {

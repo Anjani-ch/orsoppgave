@@ -29,6 +29,14 @@ const deleteSuperAdmin = async (req, res, id) => {
     }
 };
 
+const updateSuperAdmin = async (req, res, body) => {
+    try {
+        await SuperAdmin.updateOne({ _id: req.user.id }, body);
+    } catch (err) {
+        console.log(err);
+    }
+};
+
 const getSuperAdmin = async id => {
     let result;
     
@@ -53,4 +61,4 @@ const getAllSuperAdmins = async _ => {
     }
 };
 
-module.exports = { createSuperAdmin, deleteSuperAdmin, getSuperAdmin, getAllSuperAdmins };
+module.exports = { createSuperAdmin, deleteSuperAdmin, updateSuperAdmin, getSuperAdmin, getAllSuperAdmins };

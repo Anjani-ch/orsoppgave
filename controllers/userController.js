@@ -14,7 +14,7 @@ const createUser = async (req, res, userData) => {
         logCreatedUser(user);
 
         req.flash('successMsg', 'You are now registered');
-        res.redirect('/login');
+        res.status(201).redirect('/login');
     } catch (err) {
         console.log(err);
     }
@@ -27,6 +27,14 @@ const deleteUser = async (req, res, id) => {
         await User.deleteOne({ _id: userID });
 
         logDeletedUser(req.user);
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+const updateUser = async (req, res, body) => {
+    try {
+        await User.updateOne({ _id: req.user.id }, body);
     } catch (err) {
         console.log(err);
     }
@@ -52,4 +60,4 @@ const getAllUsers = async _ => {
     }
 };
 
-module.exports = { createUser, deleteUser, getUser, getAllUsers };
+module.exports = { createUser, deleteUser, updateUser, getUser, getAllUsers };

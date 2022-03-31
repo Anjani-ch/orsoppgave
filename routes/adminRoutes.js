@@ -1,12 +1,12 @@
 const express = require('express');
 
-const { isAdmin } = require('../middleware/auth.js');
+const { isAdmin } = require('../middleware/authMiddleware.js');
 
 const { renderAdminDashboard } = require('../controllers/viewController.js');
 
 const { deleteAdmin } = require('../controllers/adminController.js');
 
-const { isSuperAdmin } = require('../middleware/auth.js');
+const { isSuperAdmin } = require('../middleware/authMiddleware.js');
 
 const router = express.Router();
 
@@ -20,7 +20,7 @@ router.delete('/delete/:id', isSuperAdmin, async (req, res) => {
     try {
         await deleteAdmin(req, res, id);
 
-        res.json({ redirect: '/admin/dashboard' });
+        res.status(204).json({ redirect: '/admin/dashboard' });
     } catch (err) {
         console.log(err);
     }

@@ -41,6 +41,14 @@ const deleteAdmin = async (req, res, id) => {
     }
 };
 
+const updateAdmin = async (req, res, body) => {
+    try {
+        await Admin.updateOne({ _id: req.user.id }, body);
+    } catch (err) {
+        console.log(err);
+    }
+};
+
 const getAdmin = async id => {    
     try {
         const user = await Admin.findById(id);
@@ -61,4 +69,4 @@ const getAllAdmins = async _ => {
     }
 };
 
-module.exports = { createAdmin, deleteAdmin, getAdmin, getAllAdmins };
+module.exports = { createAdmin, deleteAdmin, updateAdmin, getAdmin, getAllAdmins };

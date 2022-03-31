@@ -4,7 +4,7 @@
         <h1 class="text-secondary mb-1">Dashboard</h1>
 
         <section>
-            <% if (users.length) { %>
+            <% if(users.length) { %>
                 <div id="user-table" class="table">
                     <h2>Users:</h2>
                     <div class="table-row text-center contrast-primary">
@@ -22,7 +22,7 @@
                 </div>
             <% } %>
     
-            <% if (admins.length && user.isSuperAdmin) { %>
+            <% if(admins.length && user.isSuperAdmin) { %>
                 <div id="admin-table" class="table">
                     <h2>Admins:</h2>
                     <div class="table-row text-center contrast-primary">
