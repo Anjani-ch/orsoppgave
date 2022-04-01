@@ -8,6 +8,7 @@ const hashPassword = async (password, saltRounds) => {
         return hashedPassword;
     } catch (err) {
         console.log(err);
+        res.status(500).json({ msg: 'Error hashing passwords' });
     }
 };
 
@@ -18,6 +19,7 @@ const comparePasswords = async (password, hashedPassword) => {
         return isMatch;
     } catch (err) {
         console.log(err);
+        res.status(500).json({ msg: 'Error comparing passwords' });
     }
 };
 

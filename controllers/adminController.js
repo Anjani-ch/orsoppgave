@@ -17,6 +17,7 @@ const createAdmin = async (req, res, userData, isPromotion) => {
             logCreatedUser(user);
         } catch (err) {
             console.log(err);
+            res.status(500).json({ msg: 'Error creating admin' });
         }
     } else {
         try {
@@ -25,6 +26,7 @@ const createAdmin = async (req, res, userData, isPromotion) => {
             return user;
         } catch (err) {
             console.log(err);
+            res.status(500).json({ msg: 'Error creating admin' });
         }
     }
 };
@@ -38,6 +40,7 @@ const deleteAdmin = async (req, res, id) => {
         logDeletedUser(req.user);
     } catch (err) {
         console.log(err);
+        res.status(500).json({ msg: 'Error deleting admin' });
     }
 };
 
@@ -46,6 +49,7 @@ const updateAdmin = async (req, res, body) => {
         await Admin.updateOne({ _id: req.user.id }, body);
     } catch (err) {
         console.log(err);
+        res.status(500).json({ msg: 'Error updating admin' });
     }
 };
 
@@ -56,6 +60,7 @@ const getAdmin = async id => {
         return user;
     } catch (err) {
         console.log(err);
+        res.status(500).json({ msg: 'Error getting admin' });
     }
 }
 
@@ -66,6 +71,7 @@ const getAllAdmins = async _ => {
         return results;
     } catch (err) {
         console.log(err);
+        res.status(500).json({ msg: 'Error getting admins' });
     }
 };
 

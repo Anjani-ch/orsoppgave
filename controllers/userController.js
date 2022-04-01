@@ -17,6 +17,7 @@ const createUser = async (req, res, userData) => {
         res.status(201).redirect('/login');
     } catch (err) {
         console.log(err);
+        res.status(500).json({ msg: 'Error creating user' });
     }
 };
 
@@ -29,6 +30,7 @@ const deleteUser = async (req, res, id) => {
         logDeletedUser(req.user);
     } catch (err) {
         console.log(err);
+        res.status(500).json({ msg: 'Error deleting user' });
     }
 };
 
@@ -37,16 +39,18 @@ const updateUser = async (req, res, body) => {
         await User.updateOne({ _id: req.user.id }, body);
     } catch (err) {
         console.log(err);
+        res.status(500).json({ msg: 'Error updating user' });
     }
 };
 
-const getUser = async id => {    
+const getUser = async id => {
     try {
         const user = await User.findById(id);
         
         return user;
     } catch (err) {
         console.log(err);
+        res.status(500).json({ msg: 'Error getting user' });
     }
 }
 
@@ -57,6 +61,7 @@ const getAllUsers = async _ => {
         return results;
     } catch (err) {
         console.log(err);
+        res.status(500).json({ msg: 'Error getting users' });
     }
 };
 

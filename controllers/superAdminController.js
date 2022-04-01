@@ -14,6 +14,7 @@ const createSuperAdmin = async userData => {
         logCreatedUser(user);
     } catch (err) {
         console.log(err);
+        res.status(500).json({ msg: 'Error creating super admin' });
     }
 };
 
@@ -26,6 +27,7 @@ const deleteSuperAdmin = async (req, res, id) => {
         logDeletedUser(req.user);
     } catch (err) {
         console.log(err);
+        res.status(500).json({ msg: 'Error deleting super admin' });
     }
 };
 
@@ -34,6 +36,7 @@ const updateSuperAdmin = async (req, res, body) => {
         await SuperAdmin.updateOne({ _id: req.user.id }, body);
     } catch (err) {
         console.log(err);
+        res.status(500).json({ msg: 'Error updating super admin' });
     }
 };
 
@@ -46,6 +49,7 @@ const getSuperAdmin = async id => {
         result = user;
     } catch (err) {
         console.log(err);
+        res.status(500).json({ msg: 'Error getting super admin' });
     }
 
     return result;
@@ -58,6 +62,7 @@ const getAllSuperAdmins = async _ => {
         return results;
     } catch (err) {
         console.log(err);
+        res.status(500).json({ msg: 'Error getting super admins' });
     }
 };
 

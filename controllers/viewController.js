@@ -8,15 +8,20 @@ const assignProperties = (target, source) => Object.assign(target, source);
 
 const renderIndex = async (req, res, additionalProperties) => {
     try {
-        const receivedMessages = await getReceivedMessages(req, res, req.user.email);
+        const viewProperties = { title: 'Home', year: getYear() };
 
-        const viewProperties = { title: 'Home', year: getYear(), receivedMessages };
+        if(req.isAuthenticated()) {
+            const receivedMessages = await getReceivedMessages(req, res, req.user.email);
 
-        if (additionalProperties) assignProperties(viewProperties, additionalProperties);
+            assignProperties(viewProperties, { receivedMessages });
+        }
+
+        if(additionalProperties) assignProperties(viewProperties, additionalProperties);
 
         res.render('index', viewProperties);
     } catch (err) {
         console.log(err);
+        res.status(500).json({ msg: 'Error rendering view' });
     }
 };
 
@@ -26,11 +31,12 @@ const renderJobExperience = async (req, res, additionalProperties) => {
 
         const viewProperties = { title: 'Job Experience', year: getYear(), receivedMessages };
 
-        if (additionalProperties) assignProperties(viewProperties, additionalProperties);
+        if(additionalProperties) assignProperties(viewProperties, additionalProperties);
     
         res.render('jobExperience', viewProperties);
     } catch(err) {
         console.log(err);
+        res.status(500).json({ msg: 'Error rendering view' });
     }
 };
 
@@ -40,11 +46,12 @@ const renderEducation = async (req, res, additionalProperties) => {
 
         const viewProperties = { title: 'Education', year: getYear(), receivedMessages };
 
-        if (additionalProperties) assignProperties(viewProperties, additionalProperties);
+        if(additionalProperties) assignProperties(viewProperties, additionalProperties);
 
         res.render('education', viewProperties);
     } catch (err) {
         console.log(err);
+        res.status(500).json({ msg: 'Error rendering view' });
     }
 };
 
@@ -54,11 +61,12 @@ const renderProjects = async (req, res, additionalProperties) => {
 
         const viewProperties = { title: 'Projects', year: getYear(), receivedMessages };
 
-        if (additionalProperties) assignProperties(viewProperties, additionalProperties);
+        if(additionalProperties) assignProperties(viewProperties, additionalProperties);
 
         res.render('projects', viewProperties);
     } catch (err) {
         console.log(err);
+        res.status(500).json({ msg: 'Error rendering view' });
     }
 };
 
@@ -68,11 +76,12 @@ const renderSettings = async (req, res, additionalProperties) => {
 
         const viewProperties = { title: 'Settings', year: getYear(), receivedMessages };
 
-        if (additionalProperties) assignProperties(viewProperties, additionalProperties);
+        if(additionalProperties) assignProperties(viewProperties, additionalProperties);
 
         res.render('settings', viewProperties);
     } catch (err) {
         console.log(err);
+        res.status(500).json({ msg: 'Error rendering view' });
     }
 };
 
@@ -83,41 +92,12 @@ const renderInbox = async (req, res, additionalProperties) => {
 
         const viewProperties = { title: 'Inbox', year: getYear(), sendtMessages, receivedMessages };
 
-        // const sendtMessages = [
-        //     {
-        //         subject: 'Test',
-        //         body: 'Test 123',
-        //         senderEmail: 'test@test.com',
-        //         receiverEmail: 'test1@test.com',
-        //     },
-        //     {
-        //         subject: 'Test 00',
-        //         body: 'Test 1234',
-        //         senderEmail: 'test@test.com',
-        //         receiverEmail: 'test1@test.com',
-        //     }
-        // ];
-
-        // const receivedMessages = [
-        //     {
-        //         subject: 'Test2',
-        //         body: 'Test 12356',
-        //         senderID: 'test1@test.com',
-        //         senderID: 'test@test.com',
-        //     },
-        //     {
-        //         subject: 'Test 14',
-        //         body: 'Test 12347',
-        //         senderID: 'test1@test.com',
-        //         senderID: 'test@test.com',
-        //     }
-        // ];
-
         if(additionalProperties) assignProperties(viewProperties, additionalProperties);
 
         res.render('inbox', viewProperties);
     } catch (err) {
         console.log(err);
+        res.status(500).json({ msg: 'Error rendering view' });
     }
 };
 
@@ -154,6 +134,7 @@ const renderAdminDashboard = async (req, res, additionalProperties) => {
         res.render('dashboard', viewProperties);
     } catch (err) {
         console.log(err);
+        res.status(500).json({ msg: 'Error rendering view' });
     }
 };
 
@@ -168,6 +149,7 @@ const render404 = async (req, res, additionalProperties) => {
         res.status(404).render('404', viewProperties);   
     } catch (err) {
         console.log(err);
+        res.status(500).json({ msg: 'Error rendering view' });
     }
 };
 
