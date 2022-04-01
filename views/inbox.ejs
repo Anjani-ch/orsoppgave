@@ -3,7 +3,28 @@
     <main class="container mt-3 mb-3 ml-auto mr-auto" id="inbox">
         <h1>Messages</h1>
 
-        <button id="add-msg-btn" class="btn btn-primary">Send Message <i class="fa-solid fa-plus"></i></button>
+        <button id="add-msg-btn" class="btn btn-primary">Send Message</button>
+
+        <%- include('./partials/alert.ejs') %>
+
+        <form action="/message/create" method="POST" id="add-msg-form" class="mb-3 d-none">
+            <div class="form-field">
+                <label for="msg-receiver" class="text-secondary">Send to:</label>
+                <input type="text" name="receiver" id="msg-receiver" placeholder="Email" value="<%= typeof receiver != 'undefined' ? receiver : '' %>">
+            </div>
+
+            <div class="form-field">
+                <label for="msg-subject" class="text-secondary">Subject</label>
+                <input type="text" name="subject" id="msg-subject" placeholder="Subject" value="<%= typeof subject != 'undefined' ? subject : '' %>">
+            </div>
+
+            <div class="form-field">
+                <label for="msg-body" class="text-secondary">Message</label>
+                <textarea type="text" name="body" id="msg-body" placeholder="Message" value="<%= typeof body != 'undefined' ? body : '' %>"></textarea>
+            </div>
+
+            <button type="submit" class="form-btn contrast-primary">Send</button>
+        </form>
 
         <section id="messages" class="mt-1">
             <% if(sendtMessages.length) { %>
@@ -19,6 +40,8 @@
                                 </div>
                     
                                 <div class="collapse-inner">
+                                    <h3><%= msg.subject %></h3>
+                                    <br>
                                     <p><%= msg.body %></p>
                                 </div>
                             </div>
@@ -42,6 +65,8 @@
                                 </div>
                     
                                 <div class="collapse-inner">
+                                    <h3><%= msg.subject %></h3>
+                                    <br>
                                     <p><%= msg.body %></p>
                                 </div>
                             </div>

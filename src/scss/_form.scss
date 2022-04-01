@@ -18,12 +18,18 @@
         font-size: 1.1rem;
     }
 
-    input:not([type=checkbox]) {
+    input:not([type=checkbox]),
+    textarea {
         width: 100%;
         padding: 10px 15px;
         border-radius: 3px;
         outline: 0;
         border: 1.5px solid lightgrey;
+    }
+
+    textarea {
+        resize: none;
+        height: 150px;
     }
 
     &.checkbox {

@@ -303,6 +303,14 @@ body > nav {
         }
     }
 
+    #add-msg-form {
+        .form-field {
+            textarea {
+                width: 100%;
+            }
+        }
+    }
+
     #messages {
         display: grid;
         grid-template-columns: 50% 50%;
