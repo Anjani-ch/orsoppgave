@@ -124,10 +124,7 @@ const renderAdminDashboard = async (req, res, additionalProperties) => {
 
         const receivedMessages = await getReceivedMessages(req, res, req.user.email);
 
-        const viewProperties = { title: 'Dashboard', year: getYear(), receivedMessages };
-
-        additionalProperties.users = users;
-        additionalProperties.admins = admins;
+        const viewProperties = { title: 'Dashboard', year: getYear(), receivedMessages, users, admins };
 
         if(additionalProperties) assignProperties(viewProperties, additionalProperties);
 

@@ -1,5 +1,7 @@
+// .env Config
+require('dotenv').config();
+
 const express = require('express');
-const dotenv = require('dotenv');
 const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
@@ -8,13 +10,18 @@ const path = require('path');
 const initPassport = require('./config/passport.js');
 const connectToDB = require('./config/db.js');
 
+const PORT = process.env.PORT || 3000;
+
+const io = require('socket.io')(5000, {
+    cors: [`http://localhost:${PORT}`]
+});
+
 // Init Express App
 const app = express();
 
-const PORT = process.env.PORT || 3000;
-
-// .env Config
-dotenv.config();
+io.on('connection', socket => {
+    console.log(socket.id)
+});
 
 // Passport Config
 initPassport(passport);

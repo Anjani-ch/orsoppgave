@@ -11,6 +11,7 @@ import './profileDropdown';
 import './inbox.js';
 import './settings.js';
 import './dashboard.js';
+import './socket.js';
 
 import { THEME_STORAGE_KEY } from './keys.js';
 import updateRootTheme from './utilities/updateRootTheme.js';
