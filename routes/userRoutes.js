@@ -9,6 +9,15 @@ const { isAdmin, isLoggedOut, isLoggedIn } = require('../middleware/authMiddlewa
 
 const router = express.Router();
 
+// User Get Searched Route
+router.get('/search', (req, res) => {
+    try {
+        console.log('wdw')
+    } catch (err) {
+        console.log(err);
+    }
+});
+
 // User Signup Route
 router.post('/signup', isLoggedOut, (req, res) => handleSignup(req, res));
 
@@ -33,6 +42,7 @@ router.delete('/delete', isLoggedIn, async (req, res) => {
             callback();
         } catch (err) {
             console.log(err);
+            res.status(500).json({ msg: 'Error deleting account' });
         }
     } else if(isAdmin) {
         try {
@@ -40,6 +50,7 @@ router.delete('/delete', isLoggedIn, async (req, res) => {
             callback();
         } catch (err) {
             console.log(err);
+            res.status(500).json({ msg: 'Error deleting account' });
         }
     } else {
         try {
@@ -47,6 +58,7 @@ router.delete('/delete', isLoggedIn, async (req, res) => {
             callback();
         } catch (err) {
             console.log(err);
+            res.status(500).json({ msg: 'Error deleting account' });
         }
     }
 });
@@ -75,6 +87,7 @@ router.patch('/update', async (req, res) => {
             res.redirect('/settings');
         } catch (err) {
             console.log(err);
+            res.status(500).json({ msg: 'Error updating user' });
         }
     }
 });
@@ -87,7 +100,8 @@ router.delete('/delete/:id', isAdmin, async (req, res) => {
 
         res.status(204).json({ redirect: '/admin/dashboard' });
     } catch (err) {
-        console.log(err);   
+        console.log(err);
+        res.status(500).json({ msg: 'Error deleting user' });
     }
 });
 
@@ -117,6 +131,7 @@ router.put('/promote/:id', isAdmin, async (req, res) => {
         res.status(202).json({ redirect: '/admin/dashboard', user: await getAdmin(createdAdmin.id) });
     } catch (err) {
         console.log(err);
+        res.status(500).json({ msg: 'Error promoting user' });
     }
 });
 

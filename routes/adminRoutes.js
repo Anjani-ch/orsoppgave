@@ -23,6 +23,7 @@ router.delete('/delete/:id', isSuperAdmin, async (req, res) => {
         res.status(204).json({ redirect: '/admin/dashboard' });
     } catch (err) {
         console.log(err);
+        res.status(500).json({ msg: 'Error handling admin delete' });
     }
 });
 

@@ -17,7 +17,7 @@ const {
 const router = express.Router();
 
 // Index Route
-router.get('/', renderIndex);
+router.get('/', (req, res) => renderIndex(req, res));
 
 // Job Experience Route
 router.get('/job-experience', isLoggedIn, (req, res) => renderJobExperience(req, res));

@@ -10,6 +10,6 @@ router.get('/sendt/:userEmail', isLoggedIn, (req, res) => getSendtMessages(req, 
 
 router.get('/received/:userEmail', isLoggedIn, (req, res) => getReceivedMessages(req, res, req.params.userEmail));
 
-router.post('/create', isLoggedIn, (req, res) => createMessage(req, res, req.body));
+router.post('/create', isLoggedIn, (req, res) => createMessage(req, res));
 
 module.exports = router;
