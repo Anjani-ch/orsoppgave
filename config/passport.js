@@ -21,7 +21,7 @@ const initPassport = passport => {
 
             const user = users.find(user => user.email === email);
 
-            if (user) {
+            if(user) {
                 // Match Passwords
                 const isMatch = await comparePasswords(password, user.password);
 

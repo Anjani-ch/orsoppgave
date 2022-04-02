@@ -5,6 +5,19 @@ if(inbox) {
     const msgReceiverInput = document.querySelector('#msg-receiver');
     const searchResults = document.querySelector('#email-search-results');
 
+    inbox.addEventListener('click', e => {
+        if(!e.target.classList.contains('search-result') && e.target.id !== 'email-search-results') {
+            if(!searchResults.classList.contains('d-none')) {
+                searchResults.classList.add('d-none');
+                searchResults.innerHTML = '';
+            }
+        } else if(e.target.classList.contains('search-result')) {
+            msgReceiverInput.value = e.target.getAttribute('data-email');
+            searchResults.classList.add('d-none');
+            searchResults.innerHTML = '';
+        }
+    });
+
     addMsgBtn.addEventListener('click', e => {
         const addMsgForm = document.querySelector('#add-msg-form');
 
@@ -40,18 +53,5 @@ if(inbox) {
                 }
             })
             .catch(err => console.log(err));
-    });
-
-    window.addEventListener('click', e => {
-        if(!e.target.classList.contains('search-result') && e.target.id !== 'email-search-results') {
-            if(!searchResults.classList.contains('d-none')) {
-                searchResults.classList.add('d-none');
-                searchResults.innerHTML = '';
-            }
-        } else if(e.target.classList.contains('search-result')) {
-            msgReceiverInput.value = e.target.getAttribute('data-email');
-            searchResults.classList.add('d-none');
-            searchResults.innerHTML = '';
-        }
     });
 }
