@@ -5,8 +5,8 @@ import updateRootTheme from './utilities/updateRootTheme.js';
 const settings = document.querySelector('#settings');
 const settingsAside = document.querySelector('#settings-aside');
 const settingsSections = document.querySelectorAll('#settings section');
-const themeSelect = document.querySelector('#theme-select');
 const deleteAccountBtn = document.querySelector('#delete-account-btn');
+const themeSelect = document.querySelector('#theme-select');
 
 const showSelectedSection = sectionId => {
     if(sectionId) {
@@ -81,6 +81,10 @@ if(settings) {
                     console.log(err);
                 });
         }
+    });
+
+    accountOptions.addEventListener('click', e => {
+        console.log(e.target)
     });
     
     window.addEventListener('DOMContentLoaded', e => {
