@@ -16,6 +16,10 @@ const io = require('socket.io')(5000, {
     cors: [`http://localhost:${PORT}`]
 });
 
+io.on('connection', socket => {
+    console.log(socket.id)
+});
+
 // Init Express App
 const app = express();
 
@@ -38,7 +42,7 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, '/public')));
 
 // Bodyparser
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Express Session
