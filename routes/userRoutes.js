@@ -1,20 +1,30 @@
 const express = require('express');
 
 const { handleLogin, handleSignup, handleLogout } = require('../controllers/authController.js');
-const { deleteUser, getUser, updateUser } = require('../controllers/userController.js');
-const { createAdmin, deleteAdmin, getAdmin, updateAdmin } = require('../controllers/adminController.js');
-const { deleteSuperAdmin, updateSuperAdmin } = require('../controllers/superAdminController.js');
+const { deleteUser, getUser, updateUser, getAllUsers } = require('../controllers/userController.js');
+const { createAdmin, deleteAdmin, getAdmin, updateAdmin, getAllAdmins } = require('../controllers/adminController.js');
+const { deleteSuperAdmin, updateSuperAdmin, getAllSuperAdmins } = require('../controllers/superAdminController.js');
 
 const { isAdmin, isLoggedOut, isLoggedIn } = require('../middleware/authMiddleware.js');
 
 const router = express.Router();
 
 // User Get Searched Route
-router.get('/search', (req, res) => {
+router.get('/', async (req, res) => {
     try {
-        console.log('wdw')
+        const users = await getAllUsers();
+        const admins = await getAllAdmins();
+        const superAdmins = await getAllSuperAdmins();
+
+        let results = [...users, ...admins, ...superAdmins];
+
+        results = results.map(user => user.email);
+        results = results.filter(user => user.includes(req.query.email));
+
+        res.status(200).json({ results });
     } catch (err) {
         console.log(err);
+        res.status(500).json({ msg: `No user emails including ${req.query.email}` });
     }
 });
 
@@ -32,9 +42,9 @@ router.delete('/delete', isLoggedIn, async (req, res) => {
     const { isAdmin, isSuperAdmin } = req.user;
 
     const callback = _ => {
-        req.flash('successMsg', 'Account deleted');
+       req.flash('successMsg', 'Account deleted');
         res.status(204).json({ redirect: '/signup' });
-    };
+    }; 
 
     if(isSuperAdmin) {
         try {

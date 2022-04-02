@@ -305,8 +305,27 @@ body > nav {
 
     #add-msg-form {
         .form-field {
-            textarea {
+            .search-results {
+                top: 0px;
+                left: 0;
                 width: 100%;
+                max-height: 150px;
+                margin-top: 80px;
+                overflow-y: scroll;
+
+                .search-result {
+                    margin: 5px 0px;
+                    padding: 5px 15px;
+                    cursor: pointer;
+
+                    &:not(:last-child) {
+                        border-bottom: 1px solid var(--text-primary);
+                    }
+                    
+                    &:hover {
+                        opacity: .8;
+                    }
+                }
             }
         }
     }

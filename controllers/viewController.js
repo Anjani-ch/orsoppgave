@@ -98,7 +98,6 @@ const renderInbox = async (req, res, additionalProperties) => {
         // const receivedMessages = await getReceivedMessages(req, res, req.user.email);
         const sendtMessages = await Message.find({ senderEmail: req.user.email });
         const receivedMessages = await Message.find({ receiverEmail: req.user.email });
-        console.log(receivedMessages)
 
         const viewProperties = { title: 'Inbox', year: getYear(), sendtMessages, receivedMessages };
 

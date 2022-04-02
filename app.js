@@ -16,10 +16,6 @@ const io = require('socket.io')(5000, {
     cors: [`http://localhost:${PORT}`]
 });
 
-io.on('connection', socket => {
-    console.log(socket.id)
-});
-
 // Init Express App
 const app = express();
 
