@@ -8,13 +8,19 @@ if(profileDropdownBtn && profileDropdownContent) {
         const isVisible = !profileDropdownContent.classList.contains('d-none');
 
         if(e.target.tagName !== 'HTML') {
-            const isNotDropdown = e.target.id !== profileDropdownContent.id && e.target.parentElement.id !== profileDropdownBtn.id && e.target.id !== profileDropdownBtn.id;
+            if(e.target.id) {
+                const isNotDropdown = e.target.id !== profileDropdownContent.id && e.target.parentElement.id !== profileDropdownBtn.id && e.target.id !== profileDropdownBtn.id;
 
-            if(isNotDropdown && isVisible) {
-                profileDropdownContent.classList.add('d-none');
+                if(isNotDropdown && isVisible) {
+                    if(profileDropdownContent) {
+                        profileDropdownContent.classList.add('d-none');
+                    }
+                }
             }
         } else if(isVisible) {
-            profileDropdownContent.classList.add('d-none');
+            if(profileDropdownContent) {
+                profileDropdownContent.classList.add('d-none');
+            }
         }
     });
 }

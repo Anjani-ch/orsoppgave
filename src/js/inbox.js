@@ -33,11 +33,11 @@ if(inbox) {
     msgReceiverInput.addEventListener('keyup', e => {
         fetch(`/user?email=${e.target.value}`)
             .then(res => res.json())
-            .then(results => {
+            .then(({ results }) => {
                 if(e.target.value) {
                     searchResults.innerHTML = '';
 
-                    results.results.forEach(result => {
+                    results.forEach(result => {
                         const emailResult = document.createElement('DIV');
 
                         emailResult.setAttribute('data-email', result);

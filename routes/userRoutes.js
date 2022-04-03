@@ -43,7 +43,7 @@ router.delete('/delete', isLoggedIn, async (req, res) => {
 
     const callback = _ => {
        req.flash('successMsg', 'Account deleted');
-        res.status(204).json({ redirect: '/signup' });
+       res.status(204).json({ redirect: '/signup' });
     }; 
 
     if(isSuperAdmin) {

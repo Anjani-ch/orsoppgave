@@ -6,6 +6,7 @@ const settings = document.querySelector('#settings');
 const settingsAside = document.querySelector('#settings-aside');
 const settingsSections = document.querySelectorAll('#settings section');
 const deleteAccountBtn = document.querySelector('#delete-account-btn');
+const accountOptions = document.querySelector('#account-options');
 const themeSelect = document.querySelector('#theme-select');
 
 const showSelectedSection = sectionId => {
@@ -83,8 +84,30 @@ if(settings) {
         }
     });
 
-    accountOptions.addEventListener('click', e => {
-        console.log(e.target)
+    accountOptions.addEventListener('change', e => {
+        let requestOptions;
+
+        const updatedData = {};
+
+        switch(e.target.id) {
+            case 'mail-notification':
+                updatedData.wantsEmailNotifications = e.target.checked;
+                break;
+            case 'push-notification':
+                updatedData.wantsPushNotifications = e.target.checked;
+                break;
+        }
+
+        console.log(updatedData)
+
+        requestOptions = {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updatedData)
+        };
+
+        fetch('/user/update', requestOptions)
+            .catch(err => console.log(err));
     });
     
     window.addEventListener('DOMContentLoaded', e => {
