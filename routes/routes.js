@@ -11,6 +11,7 @@ const {
     renderInbox,
     renderSignup,
     renderLogin,
+    renderSitemap,
     render404
 } = require('../controllers/viewController.js');
 
@@ -39,6 +40,9 @@ router.get('/signup', isLoggedOut, (req, res) => renderSignup(req, res));
 
 // Login Routes
 router.get('/login', isLoggedOut, (req, res) => renderLogin(req, res));
+
+// Sitemap Route
+router.get('/sitemap', (req, res) => renderSitemap(req, res));
 
 // Download Routes
 router.get('/download/resume', isLoggedIn, (req, res) => res.download('src/docs/cv.pdf'));

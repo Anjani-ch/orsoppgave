@@ -126,6 +126,14 @@ const renderLogin = async (req, res, additionalProperties) => {
     res.render('login', viewProperties);
 };
 
+const renderSitemap = (req, res, additionalProperties) => {
+    const viewProperties = { title: 'Sitemap', year: getYear() };
+
+    if(additionalProperties) assignProperties(viewProperties, additionalProperties);
+
+    res.render('sitemap', viewProperties);
+};
+
 const renderAdminDashboard = async (req, res, additionalProperties) => {
     try {
         const users = await getAllUsers();
@@ -170,6 +178,7 @@ module.exports = {
     renderInbox,
     renderSignup,
     renderLogin,
+    renderSitemap,
     renderAdminDashboard,
     render404
 };

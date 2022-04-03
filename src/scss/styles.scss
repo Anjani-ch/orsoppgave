@@ -454,6 +454,39 @@ body > nav {
     }
 }
 
+// Sitemap
+#sitemap {
+    &-content {
+        margin-top: 30px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+
+        .sitemap-item {
+            div {
+                margin-top: 10px;
+
+                a {
+                    display: block;
+                    font-size: 1.3rem;
+                    margin: 8px 0px;
+                }
+            }
+
+            @include media-sm {
+                margin-bottom: 30px;
+            }
+        }
+
+        @include media-md {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include media-sm {
+            grid-template-columns: 1fr;
+        }
+    }
+}
+
 // Footer
 footer {
     font-size: 1.15rem;
