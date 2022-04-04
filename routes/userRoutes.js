@@ -11,20 +11,30 @@ const router = express.Router();
 
 // User Get Searched Route
 router.get('/', async (req, res) => {
-    try {
-        const users = await getAllUsers();
-        const admins = await getAllAdmins();
-        const superAdmins = await getAllSuperAdmins();
+    const { email:queryEmail } = req.params;
 
-        let results = [...users, ...admins, ...superAdmins];
-
-        results = results.map(user => user.email);
-        results = results.filter(user => user.includes(req.query.email));
-
-        res.status(200).json({ results });
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({ msg: `No user emails including ${req.query.email}` });
+    if(queryEmail) {
+        try {
+            const users = await getAllUsers();
+            const admins = await getAllAdmins();
+            const superAdmins = await getAllSuperAdmins();
+    
+            let results = [...users, ...admins, ...superAdmins];
+    
+            results = results.map(user => user.email);
+            results = results.filter(user => user.includes(queryEmail));
+    
+            res.json({ results });
+        } catch (err) {
+            console.log(err);
+            res.status(500).json({ msg: `No user emails including ${queryEmail}` });
+        }       
+    } else {
+        if(req.isAuthenticated && req.isAuthenticated()) {
+            res.json({ user: req.user });
+        } else {
+            res.json({ user: null });
+        }
     }
 });
 
@@ -80,21 +90,18 @@ router.patch('/update', async (req, res) => {
     if(isSuperAdmin) {
         try {
             await updateSuperAdmin(req, res, req.body);
-            res.redirect('/settings');
         } catch (err) {
             console.log(err);
         }
     } else if(isAdmin) {
         try {
             await updateAdmin(req, res, req.body);
-            res.redirect('/settings');
         } catch (err) {
             console.log(err);
         }
     } else {
         try {
             await updateUser(req, res, req.body);
-            res.redirect('/settings');
         } catch (err) {
             console.log(err);
             res.status(500).json({ msg: 'Error updating user' });

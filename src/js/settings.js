@@ -98,8 +98,6 @@ if(settings) {
                 break;
         }
 
-        console.log(updatedData)
-
         requestOptions = {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },

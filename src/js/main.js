@@ -26,7 +26,17 @@ window.addEventListener('DOMContentLoaded', e => {
 
     updateRootTheme(userTheme);
 
-    if(nav.classList.contains('authenticated')) {
-        const socket = io('http://localhost:5000');
-    }
+    fetch('/user')
+        .then(res => res.json())
+        .then(({ user }) => {
+            if(user) {
+                const socket = io('http://localhost:5000');
+
+                socket.on('notification-sendt', payload => {
+                    console.log('data-received');
+                    console.log(payload);
+                });
+            }
+        })
+        .catch(err => console.log(err));
 });

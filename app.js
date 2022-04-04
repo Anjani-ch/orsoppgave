@@ -10,18 +10,16 @@ const path = require('path');
 const initPassport = require('./config/passport.js');
 const connectToDB = require('./config/db.js');
 
-const PORT = process.env.PORT || 3000;
+const { handleSocketConnection } = require('./controllers/socketController.js');
 
-const io = require('socket.io')(5000, {
-    cors: [`http://localhost:${PORT}`]
-});
+const PORT = process.env.PORT || 3000;
 
 // Init Express App
 const app = express();
 
-io.on('connection', socket => {
-    console.log(socket.id)
-});
+const notifications = [];
+
+handleSocketConnection(PORT, { notifications });
 
 // Passport Config
 initPassport(passport);
