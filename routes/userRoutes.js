@@ -114,8 +114,8 @@ router.delete('/delete/:id', isAdmin, async (req, res) => {
 
     try {
         await deleteUser(req, res, id);
-
-        res.status(204).json({ redirect: '/admin/dashboard' });
+    
+        res.json({ redirect: '/admin/dashboard' });
     } catch (err) {
         console.log(err);
         res.status(500).json({ msg: 'Error deleting user' });

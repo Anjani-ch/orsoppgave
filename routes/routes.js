@@ -56,6 +56,9 @@ router.use('/admin', require('./adminRoutes.js'));
 // Message Routes
 router.use('/message', require('./messageRoutes.js'));
 
+// Notification Routes
+router.use('/notification', require('./notificationRoutes.js'));
+
 // 404 Route
 router.use((req, res) => render404(req, res));
 

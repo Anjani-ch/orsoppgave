@@ -117,16 +117,22 @@ if(dashboard) {
     });
 
     addNotificationForm.addEventListener('submit', e => {
-        const { notificationMsg, notificationDate } = e.target;
+        e.preventDefault();
 
-        console.log(notificationMsg)
-        console.log(notificationDate)
+        const { notificationMsg, notificationTime } = e.target;
+
+        const date = new Date(notificationTime.value)
+
+        console.log(date)
     });
 
     addEmailForm.addEventListener('submit', e => {
-        const { emailSubject, emailDate } = e.target;
+        e.preventDefault();
 
-        console.log(emailSubject)
-        console.log(emailDate)
+        const { emailSubject, emailBody, emailTime } = e.target;
+
+        const date = new Date(emailTime.value)
+
+        console.log(date)
     });
 }

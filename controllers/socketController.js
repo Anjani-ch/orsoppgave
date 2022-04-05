@@ -1,10 +1,7 @@
 let io;
-let data;
 
-const handleSocketConnection = (serverPort, socketServerData) => {
+const handleSocketConnection = serverPort => {
     const SOCKET_PORT = 5000;
-
-    data = socketServerData;
 
     io = require('socket.io')(SOCKET_PORT, {
         cors: [`http://localhost:${serverPort}`]

@@ -32,9 +32,9 @@ const createAdmin = async (req, res, userData, isPromotion) => {
 };
 
 const deleteAdmin = async (req, res, id) => {
-    const userID = id ? id : req.user.id;
-
     try {
+        const userID = id ? id : req.user.id;
+
         await Admin.deleteOne({ _id: userID });
 
         logDeletedUser(req.user);

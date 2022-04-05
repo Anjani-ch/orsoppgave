@@ -54,10 +54,10 @@
                         <label for="notification-msg" class="text-secondary">Message</label>
                         <input type="text" name="notificationMsg" id="notification-msg" placeholder="Message">
                     </div>
-        
+
                     <div class="form-field">
-                        <label for="notification-date" class="text-secondary">Due Date</label>
-                        <input type="date" name="notificationDate" id="notification-date">
+                        <label for="notification-time" class="text-secondary">Due Time</label>
+                        <input type="datetime-local" name="notificationTime" id="notification-time">
                     </div>
         
                     <button type="submit" class="form-btn contrast-primary">Add</button>
@@ -98,9 +98,19 @@
                         <textarea type="text" name="emailBody" id="email-body" placeholder="Message"></textarea>
                     </div>
 
-                    <div class="form-field">
+                    <!-- <div class="form-field">
                         <label for="email-date" class="text-secondary">Due Date</label>
                         <input type="date" name="emailDate" id="email-date">
+                    </div>
+
+                    <div class="form-field">
+                        <label for="email-time" class="text-secondary">Due Time</label>
+                        <input type="time" name="emailTime" id="email-time">
+                    </div> -->
+
+                    <div class="form-field">
+                        <label for="email-time" class="text-secondary">Due Time</label>
+                        <input type="datetime-local" name="emailTime" id="email-time">
                     </div>
 
                     <button type="submit" class="form-btn contrast-primary">Add</button>

@@ -17,9 +17,7 @@ const PORT = process.env.PORT || 3000;
 // Init Express App
 const app = express();
 
-const notifications = [];
-
-handleSocketConnection(PORT, { notifications });
+handleSocketConnection(PORT);
 
 // Passport Config
 initPassport(passport);
