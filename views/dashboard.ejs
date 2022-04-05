@@ -42,7 +42,88 @@
         </section>
 
         <section>
-            <h1 class="text-secondary mb-1">Plan Event:</h1>
+            <h1 class="text-secondary mt-4">Plan Events:</h1>
+
+            <div class="table">
+                <h2>Notifications:</h2>
+
+                <button id="add-notification-btn" class="btn btn-primary">Add Notification</button>
+        
+                <form id="add-notification-form" class="mb-3 d-none">
+                    <div class="form-field position-relative">
+                        <label for="notification-msg" class="text-secondary">Message</label>
+                        <input type="text" name="notificationMsg" id="notification-msg" placeholder="Message">
+                    </div>
+        
+                    <div class="form-field">
+                        <label for="notification-date" class="text-secondary">Due Date</label>
+                        <input type="date" name="notificationDate" id="notification-date">
+                    </div>
+        
+                    <button type="submit" class="form-btn contrast-primary">Add</button>
+                </form>
+
+                <div class="table-row text-center contrast-primary">
+                    <p>Message</p>
+                    <p>Due</p>
+                    <p>Actions</p>
+                </div>
+
+                <div class="table-row text-center">
+                    <p>message</p>
+                    <p>04.04.22 (16:00)</p>
+                    <p><i class="fa-solid fa-trash delete delete-user"></i></p>
+                </div>
+
+                <div class="table-row text-center">
+                    <p>message</p>
+                    <p>04.04.22 (16:00)</p>
+                    <p><i class="fa-solid fa-trash delete delete-user"></i></p>
+                </div>
+            </div>
+
+            <div class="table">
+                <h2>Emails:</h2>
+
+                <button id="add-email-btn" class="btn btn-primary">Add Email</button>
+
+                <form id="add-email-form" class="mb-3 d-none">
+                    <div class="form-field">
+                        <label for="email-subject" class="text-secondary">Subject</label>
+                        <input type="text" name="emailSubject" id="email-subject" placeholder="Subject">
+                    </div>
+
+                    <div class="form-field">
+                        <label for="email-body" class="text-secondary">Message</label>
+                        <textarea type="text" name="emailBody" id="email-body" placeholder="Message"></textarea>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="email-date" class="text-secondary">Due Date</label>
+                        <input type="date" name="emailDate" id="email-date">
+                    </div>
+
+                    <button type="submit" class="form-btn contrast-primary">Add</button>
+                </form>
+
+                <div class="table-row text-center contrast-primary">
+                    <p>Subject</p>
+                    <p>Due</p>
+                    <p>Actions</p>
+                </div>
+
+                <div class="table-row text-center">
+                    <p>subject</p>
+                    <p>04.04.22 (16:00)</p>
+                    <p><i class="fa-solid fa-trash delete delete-user"></i></p>
+                </div>
+
+                <div class="table-row text-center">
+                    <p>subject</p>
+                    <p>04.04.22 (16:00)</p>
+                    <p><i class="fa-solid fa-trash delete delete-user"></i></p>
+                </div>
+            </div>
         </section>
     </main>
 
