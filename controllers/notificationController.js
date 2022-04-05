@@ -1,4 +1,4 @@
-const { Notification } = require('../models/Notifiation.js');
+const { Notification } = require('../models/Notification.js');
 
 /* 
 const notificationObj = {
@@ -18,7 +18,6 @@ const createNotification = async (req, res, data) => {
 
     try {
         await notification.save();
-        console.log(notification)
     } catch (err) {
         console.log(err);
     }

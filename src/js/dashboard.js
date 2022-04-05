@@ -121,18 +121,53 @@ if(dashboard) {
 
         const { notificationMsg, notificationTime } = e.target;
 
-        const date = new Date(notificationTime.value)
+        const date = new Date(notificationTime.value);
+        const dueTime = date.getTime();
+        const now = Date.now();
 
-        console.log(date)
+        if(dueTime > now) {
+            const data = {
+                message: notificationMsg.value,
+                dueTime: date
+            };
+
+            fetch(window.location.origin + '/notification/create', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+
+            console.log(data)
+
+            // e.target.reset();
+        } else {
+            alert('Time cannot be before the time now');
+        }
     });
 
     addEmailForm.addEventListener('submit', e => {
         e.preventDefault();
 
+        // email/create
+
         const { emailSubject, emailBody, emailTime } = e.target;
 
-        const date = new Date(emailTime.value)
+        const date = new Date(emailTime.value);
+        const dueTime = date.getTime();
+        const now = Date.now();
 
-        console.log(date)
+        if(dueTime > now) {
+            const data = {
+                subject: emailSubject.value,
+                body: emailBody.value,
+                dueTime: date
+            };
+
+            console.log(data)
+
+            // e.target.reset();
+        } else {
+            alert('Time cannot be before the time now');
+        }
     });
 }

@@ -59,6 +59,9 @@ router.use('/message', require('./messageRoutes.js'));
 // Notification Routes
 router.use('/notification', require('./notificationRoutes.js'));
 
+// Email Routes
+router.use('/email', require('./notificationRoutes.js'));
+
 // 404 Route
 router.use((req, res) => render404(req, res));
 

@@ -135,13 +135,13 @@ $position-properties: (static, relative, absolute, sticky, fixed);
     }
 
     .position-lg-#{$property} {
-        @include media-sm() {
+        @include media-lg() {
             position: #{$property};
         }
     }
 
     .position-lg-#{$property}-important {
-        @include media-sm() {
+        @include media-lg() {
             position: #{$property} !important;
         }
     }

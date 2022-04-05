@@ -44,7 +44,7 @@
         <section>
             <h1 class="text-secondary mt-4">Plan Events:</h1>
 
-            <div class="table">
+            <div class="table" id="notification-table">
                 <h2>Notifications:</h2>
 
                 <button id="add-notification-btn" class="btn btn-primary">Add Notification</button>
@@ -52,12 +52,12 @@
                 <form id="add-notification-form" class="mb-3 d-none">
                     <div class="form-field position-relative">
                         <label for="notification-msg" class="text-secondary">Message</label>
-                        <input type="text" name="notificationMsg" id="notification-msg" placeholder="Message">
+                        <input type="text" name="notificationMsg" id="notification-msg" placeholder="Message" required>
                     </div>
 
                     <div class="form-field">
                         <label for="notification-time" class="text-secondary">Due Time</label>
-                        <input type="datetime-local" name="notificationTime" id="notification-time">
+                        <input type="datetime-local" name="notificationTime" id="notification-time" required>
                     </div>
         
                     <button type="submit" class="form-btn contrast-primary">Add</button>
@@ -82,7 +82,7 @@
                 </div>
             </div>
 
-            <div class="table">
+            <div class="table" id="email-table">
                 <h2>Emails:</h2>
 
                 <button id="add-email-btn" class="btn btn-primary">Add Email</button>
@@ -90,27 +90,17 @@
                 <form id="add-email-form" class="mb-3 d-none">
                     <div class="form-field">
                         <label for="email-subject" class="text-secondary">Subject</label>
-                        <input type="text" name="emailSubject" id="email-subject" placeholder="Subject">
+                        <input type="text" name="emailSubject" id="email-subject" placeholder="Subject" required>
                     </div>
 
                     <div class="form-field">
                         <label for="email-body" class="text-secondary">Message</label>
-                        <textarea type="text" name="emailBody" id="email-body" placeholder="Message"></textarea>
-                    </div>
-
-                    <!-- <div class="form-field">
-                        <label for="email-date" class="text-secondary">Due Date</label>
-                        <input type="date" name="emailDate" id="email-date">
+                        <textarea type="text" name="emailBody" id="email-body" placeholder="Message" required></textarea>
                     </div>
 
                     <div class="form-field">
                         <label for="email-time" class="text-secondary">Due Time</label>
-                        <input type="time" name="emailTime" id="email-time">
-                    </div> -->
-
-                    <div class="form-field">
-                        <label for="email-time" class="text-secondary">Due Time</label>
-                        <input type="datetime-local" name="emailTime" id="email-time">
+                        <input type="datetime-local" name="emailTime" id="email-time" required>
                     </div>
 
                     <button type="submit" class="form-btn contrast-primary">Add</button>
@@ -125,13 +115,13 @@
                 <div class="table-row text-center">
                     <p>subject</p>
                     <p>04.04.22 (16:00)</p>
-                    <p><i class="fa-solid fa-trash delete delete-user"></i></p>
+                    <p><i class="fa-solid fa-trash delete delete-event"></i></p>
                 </div>
 
                 <div class="table-row text-center">
                     <p>subject</p>
                     <p>04.04.22 (16:00)</p>
-                    <p><i class="fa-solid fa-trash delete delete-user"></i></p>
+                    <p><i class="fa-solid fa-trash delete delete-event"></i></p>
                 </div>
             </div>
         </section>
