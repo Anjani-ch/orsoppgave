@@ -33,6 +33,9 @@ ul {
 
 // Navbar
 body > nav {
+    position: sticky;
+    top: 0;
+    left: 0;
     padding: 15px 0px;
 
     .container {
