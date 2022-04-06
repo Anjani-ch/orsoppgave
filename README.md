@@ -23,6 +23,11 @@
   npm run start
 ```
 
+### Run Webpack
+```bash
+  npm run webpack-prod
+```
+
 ## Development
 
 ### Install Dependencies
@@ -43,4 +48,9 @@
 ### Run Dev Server
 ```bash
   npm run serve
+```
+
+### Run Webpack
+```bash
+  npm run webpack-dev
 ```
