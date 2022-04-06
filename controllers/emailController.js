@@ -37,4 +37,15 @@ const deleteEmail = async (req, res, id) => {
     }
 };
 
-module.exports = { createEmail, deleteEmail };
+const getEmails = async _ => {
+    try {
+        const results = await Email.find();
+
+        return results;
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ msg: 'Error getting emails' });
+    }
+};
+
+module.exports = { createEmail, deleteEmail, getEmails };

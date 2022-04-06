@@ -19,7 +19,6 @@ import updateRootTheme from './utilities/updateRootTheme.js';
 
 window.addEventListener('DOMContentLoaded', e => {
     const body = document.querySelector('body');
-    const nav = document.querySelector('nav');
     const userTheme = body.getAttribute('data-theme');
 
     sessionStorage.setItem(THEME_STORAGE_KEY, userTheme);
@@ -35,6 +34,22 @@ window.addEventListener('DOMContentLoaded', e => {
                 socket.on('notification-sendt', payload => {
                     console.log('data-received');
                     console.log(payload);
+                });
+
+                socket.on('send-notification', notification => {
+                    console.log('notification live from server');
+                    console.log(notification);
+                    const notificatonElement = document.querySelector(`[data-notification-wrapper="${notification._id}"]`);
+
+                    notificatonElement.remove();
+                });
+
+                socket.on('send-email', email => {
+                    console.log('email live from server');
+                    console.log(email);
+                    const emailElement = document.querySelector(`[data-notification-wrapper="${email._id}"]`);
+
+                    emailElement.remove();
                 });
             }
         })

@@ -10,14 +10,22 @@ const path = require('path');
 const initPassport = require('./config/passport.js');
 const connectToDB = require('./config/db.js');
 
-const { handleSocketConnection } = require('./controllers/socketController.js');
+const { initSocketConnection } = require('./controllers/socketController.js');
+const { checkNotificationDueTime, populateNotifications } = require('./controllers/notificationController.js');
 
 const PORT = process.env.PORT || 3000;
 
 // Init Express App
 const app = express();
 
-handleSocketConnection(PORT);
+initSocketConnection(PORT);
+
+populateNotifications();
+
+// Check for event due time
+setInterval(_ => {
+    checkNotificationDueTime();
+}, 1000)
 
 // Passport Config
 initPassport(passport);

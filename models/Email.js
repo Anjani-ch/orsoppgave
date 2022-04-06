@@ -17,6 +17,6 @@ const emailObj = {
 
 const emailSchema = new mongoose.Schema(emailObj);
 
-const Email = mongoose.model('Notification', emailSchema);
+const Email = mongoose.model('Email', emailSchema);
 
 module.exports = { Email, emailObj };

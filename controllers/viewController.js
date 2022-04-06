@@ -1,10 +1,12 @@
-const { getYear } = require('../modules/date.js');
+const { getYear, formatWithDateAndTime } = require('../modules/date.js');
 
 const { Message } = require('../models/Message.js');
 
 const { getAllUsers } = require('./userController.js');
 const { getAllAdmins } = require('./adminController.js');
 // const { getSendtMessages, getReceivedMessages } = require('./messageController.js');
+const { getNotifications } = require('./notificationController.js');
+const { getEmails } = require('./emailController.js');
 
 const assignProperties = (target, source) => Object.assign(target, source);
 
@@ -139,10 +141,27 @@ const renderAdminDashboard = async (req, res, additionalProperties) => {
         const users = await getAllUsers();
         const admins = await getAllAdmins();
 
+        let emails = await getEmails();
+        let notifications = await getNotifications();
+
+        notifications = notifications.map(notification => {
+            const { dueTime } = notification;
+
+            return { ...notification._doc, dueTime: formatWithDateAndTime(dueTime) };
+        });
+
+        emails = emails.map(email => {
+            const { dueTime } = email;
+
+            return { ...email._doc._doc, dueTime: formatWithDateAndTime(dueTime) };
+        });
+
+        console.log(notifications)
+
         // const receivedMessages = await getReceivedMessages(req, res, req.user.email);
         const receivedMessages = await Message.find({ receiverEmail: req.user.email });
 
-        const viewProperties = { title: 'Dashboard', year: getYear(), receivedMessages, users, admins };
+        const viewProperties = { title: 'Dashboard', year: getYear(), receivedMessages, users, admins, emails, notifications };
 
         if(additionalProperties) assignProperties(viewProperties, additionalProperties);
 

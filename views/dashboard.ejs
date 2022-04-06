@@ -3,7 +3,7 @@
     <main class="container mt-3 mb-3 ml-auto mr-auto" id="dashboard">
         <h1 class="text-secondary mb-1">Dashboard</h1>
 
-        <section>
+        <section class="mb-4">
             <% if(users.length) { %>
                 <div id="user-table" class="table">
                     <h2>Users:</h2>
@@ -42,7 +42,7 @@
         </section>
 
         <section>
-            <h1 class="text-secondary mt-4">Plan Events:</h1>
+            <h1 class="text-secondary">Plan Events:</h1>
 
             <div class="table" id="notification-table">
                 <h2>Notifications:</h2>
@@ -63,23 +63,21 @@
                     <button type="submit" class="form-btn contrast-primary">Add</button>
                 </form>
 
-                <div class="table-row text-center contrast-primary">
+                <div class="table-row text-center contrast-primary <%= !notifications.length ? 'd-none-important' : '' %>">
                     <p>Message</p>
                     <p>Due</p>
                     <p>Actions</p>
                 </div>
 
-                <div class="table-row text-center">
-                    <p>message</p>
-                    <p>04.04.22 (16:00)</p>
-                    <p><i class="fa-solid fa-trash delete delete-user"></i></p>
-                </div>
-
-                <div class="table-row text-center">
-                    <p>message</p>
-                    <p>04.04.22 (16:00)</p>
-                    <p><i class="fa-solid fa-trash delete delete-user"></i></p>
-                </div>
+                <% if(notifications.length) { %>
+                    <% notifications.forEach(notification => { %>
+                        <div class="table-row text-center" data-notification-wrapper="<%= notification._id %>">
+                            <p><%= notification.message %></p>
+                            <p><%= notification.dueTime %></p>
+                            <p data-id="<%= notification._id %>"><i class="fa-solid fa-trash delete delete-event"></i></p>
+                        </div>
+                    <% }); %>
+                <% } %>
             </div>
 
             <div class="table" id="email-table">
@@ -106,23 +104,21 @@
                     <button type="submit" class="form-btn contrast-primary">Add</button>
                 </form>
 
-                <div class="table-row text-center contrast-primary">
+                <div class="table-row text-center contrast-primary <%= !emails.length ? 'd-none-important' : '' %>">
                     <p>Subject</p>
                     <p>Due</p>
                     <p>Actions</p>
                 </div>
 
-                <div class="table-row text-center">
-                    <p>subject</p>
-                    <p>04.04.22 (16:00)</p>
-                    <p><i class="fa-solid fa-trash delete delete-event"></i></p>
-                </div>
-
-                <div class="table-row text-center">
-                    <p>subject</p>
-                    <p>04.04.22 (16:00)</p>
-                    <p><i class="fa-solid fa-trash delete delete-event"></i></p>
-                </div>
+                <% if(emails.length) { %>
+                    <% emails.forEach(email => { %>
+                        <div class="table-row text-center" data-email-wrapper="<%= email._id %>">
+                            <p><%= email.subject %></p>
+                            <p><%= email.dueTime %></p>
+                            <p data-id="<%= email._id %>"><i class="fa-solid fa-trash delete delete-event"></i></p>
+                        </div>
+                    <% }); %>
+                <% } %>
             </div>
         </section>
     </main>

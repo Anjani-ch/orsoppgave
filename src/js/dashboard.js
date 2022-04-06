@@ -7,6 +7,8 @@ if(dashboard) {
     const addEmailBtn = document.querySelector('#add-email-btn');
     const addNotificationForm = document.querySelector('#add-notification-form');
     const addEmailForm = document.querySelector('#add-email-form');
+    const notificationTable = document.querySelector('#notification-table');
+    const emailTable = document.querySelector('#email-table');
 
 
     dashboard.addEventListener('click', e => {
@@ -148,8 +150,6 @@ if(dashboard) {
     addEmailForm.addEventListener('submit', e => {
         e.preventDefault();
 
-        // email/create
-
         const { emailSubject, emailBody, emailTime } = e.target;
 
         const date = new Date(emailTime.value);
@@ -163,11 +163,91 @@ if(dashboard) {
                 dueTime: date
             };
 
+            fetch(window.location.origin + '/email/create', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+
             console.log(data)
 
             // e.target.reset();
         } else {
             alert('Time cannot be before the time now');
+        }
+    });
+
+    notificationTable.addEventListener('click', e => {
+        if(e.target.classList.contains('delete-event')) {
+            const parentEl = e.target.parentElement;
+            const id = parentEl.getAttribute('data-id');
+
+            const alert = { message: '', type: '' };
+
+            fetch(window.location.origin + '/notification/' + id, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then(res => res.json())
+            .then(data => {
+                const currTableRow = parentEl.parentElement;
+                const parentTable = currTableRow.parentElement;
+
+                let tableRowsInTable;
+
+                currTableRow.remove();
+
+                tableRowsInTable = Array.from(parentTable.children).filter(child => child.classList.contains('table-row'))
+
+                if(tableRowsInTable.length === 1) parentTable.classList.add('d-none-important');
+
+                alert.message = 'Deleted notification';
+                alert.type = 'success';
+            })
+            .catch(err => {
+                alert.message = 'Error deleting notification';
+                alert.type = 'error';
+
+                console.log(err);
+            })
+            .finally(_ => e.target.prepend(createAlert(alert.message, alert.type)));
+        }
+    });
+
+    emailTable.addEventListener('click', e => {
+        if(e.target.classList.contains('delete-event')) {
+            const parentEl = e.target.parentElement;
+            const id = parentEl.getAttribute('data-id');
+    
+            const alert = { message: '', type: '' };
+    
+            fetch(window.location.origin + 'email/' + id, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then(res => res.json())
+            .then(data => {
+                const currTableRow = parentEl.parentElement;
+                const parentTable = currTableRow.parentElement;
+    
+                let tableRowsInTable;
+    
+                currTableRow.remove();
+    
+                tableRowsInTable = Array.from(parentTable.children).filter(child => child.classList.contains('table-row'))
+    
+                if(tableRowsInTable.length === 1) parentTable.classList.add('d-none-important');
+    
+                alert.message = 'Deleted email';
+                alert.type = 'success';
+            })
+            .catch(err => {
+                alert.message = 'Error deleting email';
+                alert.type = 'error';
+    
+                console.log(err);
+            })
+            .finally(_ => e.target.prepend(createAlert(alert.message, alert.type)));
         }
     });
 }
