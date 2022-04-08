@@ -45,7 +45,6 @@ const getEmails = async _ => {
         return results;
     } catch (err) {
         console.log(err);
-        res.status(500).json({ msg: 'Error getting emails' });
     }
 };
 

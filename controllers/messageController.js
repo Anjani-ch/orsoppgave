@@ -1,6 +1,6 @@
-const { renderInbox } = require('./viewController.js');
-
 const emailValidator = require('email-validator');
+
+const { renderInbox } = require('./viewController.js');
 
 const { Message } = require('../models/Message.js');
 const { User } = require('../models/User.js');
@@ -8,7 +8,6 @@ const { Admin } = require('../models/Admin.js');
 const { SuperAdmin } = require('../models/SuperAdmin.js');
 
 // ADD FIX: circular dependency (https://stackoverflow.com/questions/64713565/accessing-non-existent-property-padlevels-of-module-exports-inside-circular-de)
-// IDEA: Return errors in JSON-format and return success redirect in JSON-format
 
 const createMessage = async (req, res) => {
     const { receiver, subject, body } = req.body;
@@ -60,7 +59,6 @@ const getSendtMessages = async (req, res, email) => {
         return messages;
     } catch (err) {
         console.log(err);
-        res.status(500).json({ msg: 'Error retreving messages' });
     }
 };
 
@@ -71,7 +69,6 @@ const getReceivedMessages = async (req, res, email) => {
         return messages;
     } catch (err) {
         console.log(err);
-        res.status(500).json({ msg: 'Error retreving messages' });
     }
 };
 

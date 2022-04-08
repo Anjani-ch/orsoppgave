@@ -50,7 +50,6 @@ const getUser = async id => {
         return user;
     } catch (err) {
         console.log(err);
-        res.status(500).json({ msg: 'Error getting user' });
     }
 }
 
@@ -61,7 +60,6 @@ const getAllUsers = async _ => {
         return results;
     } catch (err) {
         console.log(err);
-        res.status(500).json({ msg: 'Error getting users' });
     }
 };
 
