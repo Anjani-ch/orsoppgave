@@ -23,7 +23,8 @@ const createEmail = async (req, res, data) => {
 
     try {
         await email.save();
-        console.log(email)
+        
+        return { ...data, id: email.id };
     } catch (err) {
         console.log(err);
     }

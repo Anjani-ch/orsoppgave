@@ -6,9 +6,12 @@ const router = express.Router();
 
 router.post('/create', async (req, res) => {
     try {        
-        await createEmail(req, res, req.body);
+        const result = await createEmail(req, res, req.body);
+
+        res.json({ msg: 'Email created', result  });
     } catch (err) {
         console.log(err);
+        res.status(500).json({ msg: 'Error creating email' });
     }
 });
 
@@ -17,8 +20,11 @@ router.delete('/:id', async (req, res) => {
 
     try {
         await deleteEmail(req, res, id);
+
+        res.json({ msg: 'Email deleted' });
     } catch (err) {
         console.log(err);   
+        res.status(500).json({ msg: 'Error deleting email' });
     }
 });
 

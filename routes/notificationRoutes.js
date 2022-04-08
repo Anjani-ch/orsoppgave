@@ -5,10 +5,10 @@ const { createNotification, deleteNotification } = require('../controllers/notif
 const router = express.Router();
 
 router.post('/create', async (req, res) => {
-    try {        
-        await createNotification(req, res, req.body);
+    try {
+        const result = await createNotification(req, res, req.body);
 
-        res.json({ msg: 'Notification created' });
+        res.json({ msg: 'Notification created', result  });
     } catch (err) {
         console.log(err);
         res.status(500).json({ msg: 'Error creating notification' });
@@ -16,10 +16,8 @@ router.post('/create', async (req, res) => {
 });
 
 router.delete('/:id', async (req, res) => {
-    const { id } = req.params;
-
     try {
-        await deleteNotification(req, res, id);
+        await deleteNotification(req, res, req.params.id);
 
         res.json({ msg: 'Notification deleted' });
     } catch (err) {

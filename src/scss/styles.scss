@@ -31,6 +31,10 @@ ul {
     list-style: none;
 }
 
+main {
+    position: relative;
+}
+
 // Navbar
 body > nav {
     padding: 15px 0px;
@@ -412,20 +416,20 @@ body > nav {
 
 // Dashboard
 #dashboard {
+    button {
+        font-size: 1.1rem !important;
+        padding: 5px 10px;
+
+        &,
+        &:hover {
+            transform: scale(1);
+            margin-left: 0;
+        }
+    }
+    
     .table {
         width: 100%;
         margin: 20px 0px;
-
-        button {
-            font-size: 1.1rem !important;
-            padding: 5px 10px;
-
-            &,
-            &:hover {
-                transform: scale(1);
-                margin-left: 0;
-            }
-        }
 
         &-row {
             display: grid;

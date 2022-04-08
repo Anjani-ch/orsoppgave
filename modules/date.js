@@ -14,6 +14,8 @@ const getTime = _ => {
 }
 
 const formatWithDateAndTime = inputDate => {
+    inputDate = new Date(inputDate);
+
     const year = inputDate.getFullYear().toString();
     const month = inputDate.getMonth();
     const date = inputDate.getDate();

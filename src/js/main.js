@@ -12,7 +12,11 @@ import './inbox.js';
 import './settings.js';
 import './dashboard.js';
 
-import { io } from 'socket.io-client';
+import {
+    connectSocketClient,
+    handleSocketNotification,
+    handleSocketEmail
+} from './controllers/socketController.js';
 
 import { THEME_STORAGE_KEY } from './keys.js';
 import updateRootTheme from './utilities/updateRootTheme.js';
@@ -29,28 +33,9 @@ window.addEventListener('DOMContentLoaded', e => {
         .then(res => res.json())
         .then(({ user }) => {
             if(user) {
-                const socket = io('http://localhost:5000');
-
-                socket.on('notification-sendt', payload => {
-                    console.log('data-received');
-                    console.log(payload);
-                });
-
-                socket.on('send-notification', notification => {
-                    console.log('notification live from server');
-                    console.log(notification);
-                    const notificatonElement = document.querySelector(`[data-notification-wrapper="${notification._id}"]`);
-
-                    notificatonElement.remove();
-                });
-
-                socket.on('send-email', email => {
-                    console.log('email live from server');
-                    console.log(email);
-                    const emailElement = document.querySelector(`[data-notification-wrapper="${email._id}"]`);
-
-                    emailElement.remove();
-                });
+                connectSocketClient();
+                handleSocketNotification();
+                handleSocketEmail();
             }
         })
         .catch(err => console.log(err));

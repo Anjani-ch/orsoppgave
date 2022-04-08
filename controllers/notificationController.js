@@ -1,6 +1,7 @@
 const { Notification } = require('../models/Notification.js');
 
 const { sendNotificationToClient } = require('./socketController.js');
+const { formatWithDateAndTime } = require('../modules/date.js');
 
 let notificationSchedules = [];
 
@@ -24,6 +25,10 @@ const createNotification = async (req, res, data) => {
         await notification.save();
 
         notificationSchedules.push(notification);
+
+        data.dueTime = formatWithDateAndTime(data.dueTime);
+
+        return { ...data, id: notification.id };
     } catch (err) {
         console.log(err);
     }
@@ -31,7 +36,7 @@ const createNotification = async (req, res, data) => {
 
 const deleteNotification = async id => {
     try {
-        await Notification.deleteOne({ _id: id });
+        await Notification.deleteOne({ id });
 
         const { index } = notificationSchedules.filter((notification, index) => {
             let result;
@@ -49,7 +54,7 @@ const deleteNotification = async id => {
         });
         notificationSchedules.splice(index, 1);
     } catch (err) {
-        console.log(err);
+        console.log(err.message);
     }
 };
 
@@ -69,11 +74,14 @@ const checkNotificationDueTime = async _ => {
         const { dueTime } = notification;
 
         const now = new Date(Date.now());
+        const dueTimeDate = new Date(dueTime).getTime();
 
         const isDueTime = dueTime.getHours() === now.getHours() && dueTime.getMinutes() === now.getMinutes() && now.getSeconds() === 0;
 
         if(isDueTime) {
             sendNotificationToClient(notification);
+            deleteNotification(notification.id);
+        } else if(now > dueTimeDate) {
             deleteNotification(notification.id);
         }
     });

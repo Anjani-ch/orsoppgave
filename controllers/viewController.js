@@ -156,8 +156,6 @@ const renderAdminDashboard = async (req, res, additionalProperties) => {
             return { ...email._doc._doc, dueTime: formatWithDateAndTime(dueTime) };
         });
 
-        console.log(notifications)
-
         // const receivedMessages = await getReceivedMessages(req, res, req.user.email);
         const receivedMessages = await Message.find({ receiverEmail: req.user.email });
 

@@ -104,7 +104,7 @@ if(dashboard) {
         if(!addNotificationForm.classList.contains('d-none')) {
             e.target.innerText = 'Close';
         } else {
-            e.target.innerText = 'Send Message';
+            e.target.innerText = 'Add Notifications';
         }
     });
 
@@ -114,7 +114,7 @@ if(dashboard) {
         if(!addEmailForm.classList.contains('d-none')) {
             e.target.innerText = 'Close';
         } else {
-            e.target.innerText = 'Send Message';
+            e.target.innerText = 'Add Email';
         }
     });
 
@@ -138,8 +138,27 @@ if(dashboard) {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             })
+            .then(res => res.json())
+            .then(({ result }) => {
+                const tableRow = document.createElement('DIV');
 
-            console.log(data)
+                const tableRowsInTable = Array.from(notificationTable.children).filter(child => child.classList.contains('table-row'));
+
+                if(tableRowsInTable.length === 1) notificationTable.classList.remove('d-none');
+
+                tableRow.className = 'table-row text-center';
+
+                tableRow.setAttribute('data-notification-wrapper', result.id);
+
+                tableRow.innerHTML = `
+                    <p>${result.message}</p>
+                    <p>${result.dueTime}</p>
+                    <p data-id="${result._id}"><i class="fa-solid fa-trash delete delete-event"></i></p>
+                `;
+
+                notificationTable.appendChild(tableRow);
+            })
+            .catch(err => console.log(err))
 
             // e.target.reset();
         } else {
@@ -169,8 +188,6 @@ if(dashboard) {
                 body: JSON.stringify(data)
             })
 
-            console.log(data)
-
             // e.target.reset();
         } else {
             alert('Time cannot be before the time now');
@@ -185,8 +202,7 @@ if(dashboard) {
             const alert = { message: '', type: '' };
 
             fetch(window.location.origin + '/notification/' + id, {
-                method: 'DELETE',
-                headers: { 'Content-Type': 'application/json' }
+                method: 'DELETE'
             })
             .then(res => res.json())
             .then(data => {
@@ -197,9 +213,12 @@ if(dashboard) {
 
                 currTableRow.remove();
 
-                tableRowsInTable = Array.from(parentTable.children).filter(child => child.classList.contains('table-row'))
+                tableRowsInTable = Array.from(parentTable.children).filter(child => child.classList.contains('table-row'));
 
-                if(tableRowsInTable.length === 1) parentTable.classList.add('d-none-important');
+                console.log(tableRowsInTable.length);
+                console.log(parentTable);
+
+                if(tableRowsInTable.length === 1) parentTable.classList.add('d-none');
 
                 alert.message = 'Deleted notification';
                 alert.type = 'success';
@@ -222,8 +241,7 @@ if(dashboard) {
             const alert = { message: '', type: '' };
     
             fetch(window.location.origin + 'email/' + id, {
-                method: 'DELETE',
-                headers: { 'Content-Type': 'application/json' }
+                method: 'DELETE'
             })
             .then(res => res.json())
             .then(data => {
@@ -234,9 +252,9 @@ if(dashboard) {
     
                 currTableRow.remove();
     
-                tableRowsInTable = Array.from(parentTable.children).filter(child => child.classList.contains('table-row'))
+                tableRowsInTable = Array.from(parentTable.children).filter(child => child.classList.contains('table-row'));
     
-                if(tableRowsInTable.length === 1) parentTable.classList.add('d-none-important');
+                if(tableRowsInTable.length === 1) parentTable.classList.add('d-none');
     
                 alert.message = 'Deleted email';
                 alert.type = 'success';
