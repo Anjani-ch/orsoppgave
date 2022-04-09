@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 const dotenv = require('dotenv');
 const yargs = require('yargs');
 const emailValidator = require('email-validator');
@@ -27,9 +25,9 @@ dotenv.config();
     ];
 
     requiredArgs.forEach(arg => {
-        const isValidArg = typeof args[arg] == 'null' || typeof args[arg] == 'undefined' || args[arg] == 'null' || args[arg] == 'undefined';
+        const isInvalidArg = typeof args[arg] == 'null' || typeof args[arg] == 'undefined' || args[arg] == 'null' || args[arg] == 'undefined';
 
-        if(isValidArg) {
+        if(isInvalidArg) {
             argErrors.push(`MISSING ARGUMENT: ${arg}`);
         }
     });
@@ -48,8 +46,8 @@ dotenv.config();
                 username,
                 email,
                 password,
-                wantsEmailNotifications: typeof wantsEmailNotifications != null && typeof wantsEmailNotifications != undefined ? true : false,
-                wantsPushNotifications: typeof wantsPushNotifications != null && typeof wantsPushNotifications != undefined ? true : false
+                wantsEmailNotifications: typeof wantsEmailNotifications != null && typeof wantsEmailNotifications != undefined && wantsEmailNotifications != 'true' ? true : false,
+                wantsPushNotifications: typeof wantsPushNotifications != null && typeof wantsPushNotifications != undefined && wantsPushNotifications != 'true' ? true : false
             };
     +
             await connectToDB(process.env.MONGO_URI);
@@ -83,7 +81,11 @@ dotenv.config();
                 console.log('USER CREATED');
             } else {
                 console.log(`ERROR${errors.length > 1 ? 'S' : ''} CREATING USER:`);
-                errors.forEach(err => console.log(err));
+                errors.forEach(err => {
+                    console.log('-------------------------');
+                    console.log(err);
+                    console.log('-------------------------');
+                });
             }
     
             process.exit(0);
@@ -93,6 +95,10 @@ dotenv.config();
         }
     } else {
         console.log(`ARGUMENT ERROR${argErrors.length > 1 ? 'S': ''}:`);
-        argErrors.forEach(err => console.log(err));
+        argErrors.forEach(err => {
+            console.log('-------------------------');
+            console.log(err);
+            console.log('-------------------------');
+        });
     }
 })();
