@@ -13,7 +13,7 @@ const initSocketConnection = serverPort => {
 };
 
 const sendNotificationToClient = notification => {
-    io.emit('send-notification', {
+    io.sockets.emit('send-notification', {
         ...notification._doc,
         dueTime: formatWithDateAndTime(notification.dueTime)
     });
