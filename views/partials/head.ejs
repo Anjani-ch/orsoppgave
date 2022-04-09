@@ -23,6 +23,10 @@
                     <li class="d-inline mx-1"><a href="/job-experience" class="text-primary">Job Experience</a></li>
                     <li class="d-inline mx-1"><a href="/education" class="text-primary">Education</a></li>
                     <li class="d-inline mx-1"><a href="/projects" class="text-primary">Projects</a></li>
+
+                    <% if (user.isAdmin) { %>
+                        <li class="d-inline mx-1"><a href="/admin/dashboard" class="text-primary">Dashboard</a></li>
+                    <% } %>
                 <% } %>
             </ul>
 
@@ -36,16 +40,10 @@
                     <div id="profile-dropdown-wrapper" class="position-relative">
                         <div id="profile-dropdown-btn" class="text-primary"><%= user.username %> <i class="text-primary fa-solid fa-chevron-down"></i></div>
 
-                        <div id="profile-dropdown-content" class="contrast-primary lighten position-absolute d-none <%= user.isAdmin ? 'is-admin' : '' %>">
+                        <div id="profile-dropdown-content" class="contrast-primary lighten position-absolute d-none">
                             <div class="profile-dropdown-item">
                                 <a href="/settings" class="text-primary">Settings</a>
                             </div>
-
-                            <% if (user.isAdmin) { %>
-                                <div class="profile-dropdown-item">
-                                    <a href="/admin/dashboard" class="text-primary">Dashboard</a>
-                                </div>
-                            <% } %>
 
                             <div class="profile-dropdown-item">
                                 <form action="/user/logout" method="POST">

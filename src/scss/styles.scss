@@ -88,10 +88,6 @@ body > nav {
                 width: 100%;
                 min-width: 95px;
 
-                &.is-admin {
-                    bottom: -95px;
-                }
-
                 .profile-dropdown-item {
                     $dropdown-font-size: 1rem;
 
