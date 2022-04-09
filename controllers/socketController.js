@@ -1,3 +1,5 @@
+const { formatWithDateAndTime } = require('../modules/date.js');
+
 let io;
 
 const initSocketConnection = serverPort => {
@@ -11,7 +13,10 @@ const initSocketConnection = serverPort => {
 };
 
 const sendNotificationToClient = notification => {
-    io.emit('send-notification', notification);
+    io.emit('send-notification', {
+        ...notification._doc,
+        dueTime: formatWithDateAndTime(notification.dueTime)
+    });
 };
 
 module.exports = { initSocketConnection, sendNotificationToClient };

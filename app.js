@@ -39,6 +39,7 @@ initPassport(passport);
 (async _ => {
     try {
         await connectToDB(process.env.MONGO_URI);
+        console.log('Connected to DB...');
     
         initSocketConnection(PORT);
         app.listen(PORT, _ => {

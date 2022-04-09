@@ -1,4 +1,5 @@
 import createAlert from './utilities/createAlert.js';
+import createTableElement from './utilities/createTableElement.js';
 
 const dashboard = document.querySelector('#dashboard');
 
@@ -46,21 +47,9 @@ if(dashboard) {
                     let tableRowsInTable;
 
                     if(request.method === 'PUT') {
-                        const tableRow = document.createElement('DIV');
-
-                        const { username, email, isAdmin, _id } = data.user;
-
                         let tableRowsInAdminTable;
-
-                        tableRow.className = 'table-row text-center';
-
-                        tableRow.innerHTML = `
-                            <p>${username}</p>
-                            <p>${email}</p>
-                            <p data-userId="${_id}" data-isAdmin="${isAdmin}"><i class="fa-solid fa-trash delete delete-user admin-action"></i></p>
-                        `;
                         
-                        adminTable.appendChild(tableRow);
+                        adminTable.appendChild(createTableElement(data.user, 'user'));
 
                         tableRowsInAdminTable = Array.from(adminTable.children).filter(child => child.classList.contains('table-row'));
 
@@ -140,23 +129,11 @@ if(dashboard) {
             })
             .then(res => res.json())
             .then(({ result }) => {
-                const tableRow = document.createElement('DIV');
-
                 const tableRowsInTable = Array.from(notificationTable.children).filter(child => child.classList.contains('table-row'));
 
                 if(tableRowsInTable.length === 1) notificationTable.classList.remove('d-none');
 
-                tableRow.className = 'table-row text-center';
-
-                tableRow.setAttribute('data-notification-wrapper', result.id);
-
-                tableRow.innerHTML = `
-                    <p>${result.message}</p>
-                    <p>${result.dueTime}</p>
-                    <p data-id="${result._id}"><i class="fa-solid fa-trash delete delete-event"></i></p>
-                `;
-
-                notificationTable.appendChild(tableRow);
+                notificationTable.appendChild(createTableElement(result, 'notification'));
             })
             .catch(err => console.log(err))
 

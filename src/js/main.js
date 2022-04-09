@@ -7,6 +7,7 @@ import './footer.js';
 import './particleEffect.js';
 import './collapse.js';
 import './alert.js';
+import './toast.js';
 import './profileDropdown';
 import './inbox.js';
 import './settings.js';
@@ -20,6 +21,7 @@ import {
 
 import { THEME_STORAGE_KEY } from './keys.js';
 import updateRootTheme from './utilities/updateRootTheme.js';
+import createToast from './utilities/createToast.js';
 
 window.addEventListener('DOMContentLoaded', e => {
     const body = document.querySelector('body');
@@ -36,6 +38,8 @@ window.addEventListener('DOMContentLoaded', e => {
                 connectSocketClient();
                 handleSocketNotification(notification => {
                     const toastContainer = document.querySelector('.toast-container');
+
+                    toastContainer.appendChild(createToast(notification));
                     console.log('callback notification')
                 });
                 handleSocketEmail();

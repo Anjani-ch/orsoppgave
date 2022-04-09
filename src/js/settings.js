@@ -47,11 +47,8 @@ if(settings) {
         if(isThemeSelectElement) {
             const themeInStorage = sessionStorage.getItem(THEME_STORAGE_KEY); 
             const selectedTheme = e.target.value;
-            console.log('storage', themeInStorage)
-            console.log('selected', selectedTheme)
 
             if(!themeInStorage || (themeInStorage !== selectedTheme)) {
-                console.log('if')
                 const requestOptions = {
                     method: 'PATCH',
                     headers: { 'Content-Type': 'application/json' },
@@ -60,10 +57,8 @@ if(settings) {
 
                 fetch('/user/update', requestOptions)
                     .then(_ => {
-                        console.log('made request');
                         // Update Theme In Storage
                         sessionStorage.setItem(THEME_STORAGE_KEY, selectedTheme);
-                        // console.log('theme: ', selectedTheme);
                         updateRootTheme(selectedTheme);
                     })
                     .catch(err => {
