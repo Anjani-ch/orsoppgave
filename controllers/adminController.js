@@ -47,6 +47,8 @@ const deleteAdmin = async (req, res, id) => {
 const updateAdmin = async (req, res, body) => {
     try {
         await Admin.updateOne({ _id: req.user.id }, body);
+
+        res.status(200).json({ msg: 'Updated user data' });
     } catch (err) {
         console.log(err);
         res.status(500).json({ msg: 'Error updating admin' });

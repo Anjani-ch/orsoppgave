@@ -10,6 +10,7 @@
 @import 'alerts';
 @import 'collapse';
 @import 'cards';
+@import 'toast';
 
 // Reset
 * {
@@ -80,8 +81,6 @@ body > nav {
             }
 
             #profile-dropdown-content {
-                $dropdown-font-size: 1rem;
-
                 padding: 5px 10px;
                 border-radius: 5px;
                 bottom: -70px;
@@ -94,21 +93,23 @@ body > nav {
                 }
 
                 .profile-dropdown-item {
-                    cursor: pointer;
+                    $dropdown-font-size: 1rem;
+
                     font-size: $dropdown-font-size;
                     margin: 3px 0px;
+                    cursor: pointer;
 
                     > * {
                         font-size: $dropdown-font-size;
                     }
-                }
 
-                [type=submit] {
-                    background: transparent;
-                    border: 0;
-                    cursor: pointer;
-                    color: var(--text-primary);
-                    font-size: $dropdown-font-size;
+                    [type=submit] {
+                        background: transparent;
+                        border: 0;
+                        cursor: pointer;
+                        color: var(--text-primary);
+                        font-size: $dropdown-font-size;
+                    }
                 }
             }
         }

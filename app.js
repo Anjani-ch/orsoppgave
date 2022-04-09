@@ -18,22 +18,41 @@ const PORT = process.env.PORT || 3000;
 // Init Express App
 const app = express();
 
-initSocketConnection(PORT);
-
 populateNotifications();
-
-// Check for event due time
-setInterval(_ => {
-    checkNotificationDueTime();
-}, 1000)
 
 // Passport Config
 initPassport(passport);
 
 // Connect To DB
-connectToDB(process.env.MONGO_URI)
-    .then(_ => app.listen(PORT, _ => console.log(`Server running on port ${PORT}`)))
-    .catch(err => console.log(err));
+// connectToDB(process.env.MONGO_URI)
+//     .then(_ => {
+//         initSocketConnection(PORT);
+
+//         app.listen(PORT, _ => console.log(`Server running on port ${PORT}`));
+//         // Check for event due time
+//         setInterval(_ => {
+//             checkNotificationDueTime();
+//         }, 1000)
+//     })
+//     .catch(err => console.log(err));
+
+(async _ => {
+    try {
+        await connectToDB(process.env.MONGO_URI);
+    
+        initSocketConnection(PORT);
+        app.listen(PORT, _ => {
+            console.log(`Server running on port ${PORT}`);
+            
+            // Check for event due time
+            setInterval(_ => {
+                checkNotificationDueTime();
+            }, 1000)
+        });
+    } catch (err) {
+        console.log(err);
+    }
+})();
 
 // Set EJS Engine
 app.set('view engine', 'ejs');

@@ -34,7 +34,10 @@ window.addEventListener('DOMContentLoaded', e => {
         .then(({ user }) => {
             if(user) {
                 connectSocketClient();
-                handleSocketNotification();
+                handleSocketNotification(notification => {
+                    const toastContainer = document.querySelector('.toast-container');
+                    console.log('callback notification')
+                });
                 handleSocketEmail();
             }
         })

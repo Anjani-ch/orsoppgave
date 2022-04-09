@@ -1,6 +1,10 @@
 <%- include('./partials/head.ejs') %>
 
     <main class="container ml-auto mr-auto py-2" id="sitemap">
+        <% if(user) {%>
+            <%- include('./partials/notifications.ejs') %>
+        <% } %>
+        
         <h1>Sitemap</h1>
 
         <section id="sitemap-content">

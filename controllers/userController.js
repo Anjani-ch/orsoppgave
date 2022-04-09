@@ -36,7 +36,11 @@ const deleteUser = async (req, res, id) => {
 
 const updateUser = async (req, res, body) => {
     try {
+        console.log(body);
+        console.log(req.user.id)
         await User.updateOne({ _id: req.user.id }, body);
+
+        res.status(200).json({ msg: 'Updated user data' });
     } catch (err) {
         console.log(err);
         res.status(500).json({ msg: 'Error updating user' });
