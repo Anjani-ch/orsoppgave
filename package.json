@@ -8,7 +8,8 @@
     "serve": "nodemon app.js",
     "sass": "sass --watch src/scss/styles.scss src/css/styles.css --style compressed",
     "webpack-prod": "webpack --mode production",
-    "webpack-dev": "webpack -w --mode development"
+    "webpack-dev": "webpack -w --mode development",
+    "create-super-admin": "node config/createSuperAdmin.js"
   },
   "repository": {
     "type": "git",
@@ -32,7 +33,8 @@
     "passport": "^0.5.2",
     "passport-local": "^1.0.0",
     "socket.io": "^4.4.1",
-    "socket.io-client": "^4.4.1"
+    "socket.io-client": "^4.4.1",
+    "yargs": "^17.4.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.8",
