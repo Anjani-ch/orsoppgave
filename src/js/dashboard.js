@@ -137,7 +137,7 @@ if(dashboard) {
             })
             .catch(err => console.log(err))
 
-            // e.target.reset();
+            e.target.reset();
         } else {
             alert('Time cannot be before the time now');
         }

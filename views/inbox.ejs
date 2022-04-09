@@ -8,24 +8,24 @@
 
         <button id="add-msg-btn" class="btn btn-primary">Send Message</button>
 
-        <%- include('./partials/alert.ejs') %>
+        <div id="inbox-errors"></div>
 
-        <form action="/message/create" method="POST" id="add-msg-form" class="mb-3 d-none">
+        <form id="add-msg-form" class="mb-3 d-none">
             <div class="form-field position-relative">
                 <label for="msg-receiver" class="text-secondary">Send to:</label>
-                <input type="text" name="receiver" id="msg-receiver" placeholder="Email" value="<%= typeof receiver != 'undefined' ? receiver : '' %>">
+                <input type="text" name="receiver" id="msg-receiver" placeholder="Email">
                 
                 <div class="search-results position-absolute contrast-primary d-none" id="email-search-results"></div>
             </div>
 
             <div class="form-field">
                 <label for="msg-subject" class="text-secondary">Subject</label>
-                <input type="text" name="subject" id="msg-subject" placeholder="Subject" value="<%= typeof subject != 'undefined' ? subject : '' %>">
+                <input type="text" name="subject" id="msg-subject" placeholder="Subject">
             </div>
 
             <div class="form-field">
                 <label for="msg-body" class="text-secondary">Message</label>
-                <textarea type="text" name="body" id="msg-body" placeholder="Message"><%= typeof body != 'undefined' ? body : '' %></textarea>
+                <textarea type="text" name="body" id="msg-body" placeholder="Message"></textarea>
             </div>
 
             <button type="submit" class="form-btn contrast-primary">Send</button>

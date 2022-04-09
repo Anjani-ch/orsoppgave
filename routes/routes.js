@@ -63,6 +63,6 @@ router.use('/notification', require('./notificationRoutes.js'));
 router.use('/email', require('./notificationRoutes.js'));
 
 // 404 Route
-router.use((req, res) => render404(req, res));
+router.use((req, res, next) => render404(req, res));
 
 module.exports = router;

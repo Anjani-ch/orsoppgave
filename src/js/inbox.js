@@ -1,6 +1,8 @@
 const inbox = document.querySelector('#inbox');
+import createAlert from './utilities/createAlert.js';
 
 if(inbox) {
+    const addMsgForm = document.querySelector('#add-msg-form');
     const addMsgBtn = document.querySelector('#add-msg-btn');
     const msgReceiverInput = document.querySelector('#msg-receiver');
     const searchResults = document.querySelector('#email-search-results');
@@ -19,8 +21,6 @@ if(inbox) {
     });
 
     addMsgBtn.addEventListener('click', e => {
-        const addMsgForm = document.querySelector('#add-msg-form');
-
         addMsgForm.classList.toggle('d-none');
 
         if(!addMsgForm.classList.contains('d-none')) {
@@ -50,6 +50,42 @@ if(inbox) {
                     });
                 } else {
                     searchResults.innerHTML = '';
+                }
+            })
+            .catch(err => console.log(err));
+    });
+
+    addMsgForm.addEventListener('submit', e => {
+        e.preventDefault();
+
+        const { receiver, subject, body } = e.target;
+
+        const data = {
+            receiver: receiver.value,
+            subject: subject.value,
+            body: body.value
+        };
+
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        };
+
+        fetch('/message/create', requestOptions)
+            .then(res => res.json())
+            .then(({ errors, redirect }) => {
+                console.log(errors)
+                if(errors) {
+                    errors.forEach(err => {
+                        const inboxErrors = document.querySelector('#inbox-errors');
+
+                        inboxErrors.appendChild(createAlert(err, 'error'));
+                    });
+                }
+
+                if(redirect) {
+                    window.location.href = redirect;
                 }
             })
             .catch(err => console.log(err));

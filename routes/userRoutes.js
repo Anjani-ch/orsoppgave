@@ -11,7 +11,7 @@ const router = express.Router();
 
 // User Get Searched Route
 router.get('/', async (req, res) => {
-    const { email:queryEmail } = req.params;
+    const { email:queryEmail } = req.query;
 
     if(queryEmail) {
         try {

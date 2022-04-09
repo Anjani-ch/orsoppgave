@@ -1,10 +1,8 @@
 const { getYear, formatWithDateAndTime } = require('../modules/date.js');
 
-const { Message } = require('../models/Message.js');
-
 const { getAllUsers } = require('./userController.js');
 const { getAllAdmins } = require('./adminController.js');
-// const { getSendtMessages, getReceivedMessages } = require('./messageController.js');
+const { getSendtMessages, getReceivedMessages } = require('./messageController.js');
 const { getNotifications } = require('./notificationController.js');
 const { getEmails } = require('./emailController.js');
 
@@ -15,8 +13,7 @@ const renderIndex = async (req, res, additionalProperties) => {
         const viewProperties = { title: 'Home', year: getYear() };
 
         if(req.isAuthenticated()) {
-            // const receivedMessages = await getReceivedMessages(req, res, req.user.email);
-            const receivedMessages = await Message.find({ receiverEmail: req.user.email });
+            const receivedMessages = await getReceivedMessages(req, res, req.user.email);
 
             assignProperties(viewProperties, { receivedMessages });
         }
@@ -32,8 +29,7 @@ const renderIndex = async (req, res, additionalProperties) => {
 
 const renderJobExperience = async (req, res, additionalProperties) => {
     try {
-        // const receivedMessages = await getReceivedMessages(req, res, req.user.email);
-        const receivedMessages = await Message.find({ senderEmail: req.user.email });
+        const receivedMessages = await getReceivedMessages(req, res, req.user.email);
 
         const viewProperties = { title: 'Job Experience', year: getYear(), receivedMessages };
 
@@ -48,8 +44,7 @@ const renderJobExperience = async (req, res, additionalProperties) => {
 
 const renderEducation = async (req, res, additionalProperties) => {
     try {
-        // const receivedMessages = await getReceivedMessages(req, res, req.user.email);
-        const receivedMessages = await Message.find({ receiverEmail: req.user.email });
+        const receivedMessages = await getReceivedMessages(req, res, req.user.email);
 
         const viewProperties = { title: 'Education', year: getYear(), receivedMessages };
 
@@ -64,8 +59,7 @@ const renderEducation = async (req, res, additionalProperties) => {
 
 const renderProjects = async (req, res, additionalProperties) => {
     try {
-        // const receivedMessages = await getReceivedMessages(req, res, req.user.email);
-        const receivedMessages = await Message.find({ receiverEmail: req.user.email });
+        const receivedMessages = await getReceivedMessages(req, res, req.user.email);
 
         const viewProperties = { title: 'Projects', year: getYear(), receivedMessages };
 
@@ -80,8 +74,7 @@ const renderProjects = async (req, res, additionalProperties) => {
 
 const renderSettings = async (req, res, additionalProperties) => {
     try {
-        // const receivedMessages = await getReceivedMessages(req, res, req.user.email);
-        const receivedMessages = await Message.find({ receiverEmail: req.user.email });
+        const receivedMessages = await getReceivedMessages(req, res, req.user.email);
 
         const viewProperties = { title: 'Settings', year: getYear(), receivedMessages };
 
@@ -96,10 +89,8 @@ const renderSettings = async (req, res, additionalProperties) => {
 
 const renderInbox = async (req, res, additionalProperties) => {
     try {
-        // const sendtMessages = await getSendtMessages(req, res, req.user.email);
-        // const receivedMessages = await getReceivedMessages(req, res, req.user.email);
-        const sendtMessages = await Message.find({ senderEmail: req.user.email });
-        const receivedMessages = await Message.find({ receiverEmail: req.user.email });
+        const sendtMessages = await getSendtMessages(req, res, req.user.email);
+        const receivedMessages = await getReceivedMessages(req, res, req.user.email);
 
         const viewProperties = { title: 'Inbox', year: getYear(), sendtMessages, receivedMessages };
 
@@ -144,6 +135,9 @@ const renderAdminDashboard = async (req, res, additionalProperties) => {
         let emails = await getEmails();
         let notifications = await getNotifications();
 
+        let receivedMessages;
+        let viewProperties;
+
         notifications = notifications.map(notification => {
             const { dueTime } = notification;
 
@@ -156,10 +150,9 @@ const renderAdminDashboard = async (req, res, additionalProperties) => {
             return { ...email._doc._doc, dueTime: formatWithDateAndTime(dueTime) };
         });
 
-        // const receivedMessages = await getReceivedMessages(req, res, req.user.email);
-        const receivedMessages = await Message.find({ receiverEmail: req.user.email });
+        receivedMessages = await getReceivedMessages(req, res, req.user.email);
 
-        const viewProperties = { title: 'Dashboard', year: getYear(), receivedMessages, users, admins, emails, notifications };
+        viewProperties = { title: 'Dashboard', year: getYear(), receivedMessages, users, admins, emails, notifications };
 
         if(additionalProperties) assignProperties(viewProperties, additionalProperties);
 
@@ -171,19 +164,21 @@ const renderAdminDashboard = async (req, res, additionalProperties) => {
 };
 
 const render404 = async (req, res, additionalProperties) => {
-    try {
-        // const receivedMessages = await getReceivedMessages(req, res, req.user.email);
-        const receivedMessages = await Message.find({ receiverEmail: req.user.email });
+    let viewProperties = { title: '404', year: getYear() };
 
-        const viewProperties = { title: '404', year: getYear(), receivedMessages };
+    try {
+        if(req.user) {
+            const receivedMessages = await getReceivedMessages(req, res, req.user.email);
+
+            assignProperties(viewProperties, { receivedMessages });
+        }
 
         if (additionalProperties) assignProperties(viewProperties, additionalProperties);
-
-        res.status(404).render('404', viewProperties);   
     } catch (err) {
         console.log(err);
-        res.status(500).json({ msg: 'Error rendering view' });
     }
+
+    res.status(404).render('404', viewProperties);
 };
 
 module.exports = {

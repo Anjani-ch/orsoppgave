@@ -5,19 +5,6 @@ const { formatWithDateAndTime } = require('../modules/date.js');
 
 let notificationSchedules = [];
 
-/* 
-const notificationObj = {
-    message: {
-        type: String,
-        required: true,
-    },
-    dueTime: {
-        type: Date,
-        required: true
-    },
-};
-*/
-
 const createNotification = async (req, res, data) => {
     const notification = new Notification(data);
     

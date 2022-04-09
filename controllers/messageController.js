@@ -1,13 +1,9 @@
 const emailValidator = require('email-validator');
 
-const { renderInbox } = require('./viewController.js');
-
 const { Message } = require('../models/Message.js');
 const { User } = require('../models/User.js');
 const { Admin } = require('../models/Admin.js');
 const { SuperAdmin } = require('../models/SuperAdmin.js');
-
-// ADD FIX: circular dependency (https://stackoverflow.com/questions/64713565/accessing-non-existent-property-padlevels-of-module-exports-inside-circular-de)
 
 const createMessage = async (req, res) => {
     const { receiver, subject, body } = req.body;
@@ -34,6 +30,7 @@ const createMessage = async (req, res) => {
         }
     } catch (err) {
         console.log(err);
+        res.status(500).json({ msg: 'Error creating message' });
     }
 
     if(!errors.length) {
@@ -42,13 +39,13 @@ const createMessage = async (req, res) => {
     
             await msg.save();
     
-            res.redirect('/inbox');
+            res.status(201).json({ redirect: '/inbox' });
         } catch(err) {
             console.log(err);
             res.status(500).json({ msg: 'Error creating message' });
         }
     } else {
-        renderInbox(req, res, { errors, ...req.body });
+        res.status(500).json({ errors });
     }
 };
 
