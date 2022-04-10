@@ -21,7 +21,7 @@ import {
 
 import { THEME_STORAGE_KEY } from './keys.js';
 import updateRootTheme from './utilities/updateRootTheme.js';
-import createToast from './utilities/createToast.js';
+import { createToastAndAppend } from './utilities/createToast.js';
 
 window.addEventListener('DOMContentLoaded', e => {
     const body = document.querySelector('body');
@@ -36,12 +36,11 @@ window.addEventListener('DOMContentLoaded', e => {
         .then(({ user }) => {
             if(user) {
                 connectSocketClient();
-                handleSocketNotification(notification => {
-                    const toastContainer = document.querySelector('.toast-container');
 
-                    toastContainer.appendChild(createToast(notification));
-                    console.log('callback notification')
-                });
+                if(user.wantsPushNotifications) {
+                    handleSocketNotification(createToastAndAppend);
+                }
+
                 handleSocketEmail();
             }
         })

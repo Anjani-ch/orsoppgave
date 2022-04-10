@@ -1,6 +1,7 @@
 import { THEME_STORAGE_KEY, SETTINGS_SECTION_SESSION_KEY } from './keys.js';
-import createAlert from './utilities/createAlert.js';
+import { createToastAndAppend } from './utilities/createToast.js';
 import updateRootTheme from './utilities/updateRootTheme.js';
+import { handleSocketNotification, connectSocketClient, disconnectSocketClient } from './controllers/socketController.js';
 
 const settings = document.querySelector('#settings');
 const settingsAside = document.querySelector('#settings-aside');
@@ -84,9 +85,9 @@ if(settings) {
     });
 
     accountOptions.addEventListener('change', e => {
-        let requestOptions;
-
         const updatedData = {};
+
+        let requestOptions;
 
         switch(e.target.id) {
             case 'mail-notification':
@@ -94,6 +95,13 @@ if(settings) {
                 break;
             case 'push-notification':
                 updatedData.wantsPushNotifications = e.target.checked;
+
+                if(e.target.checked) {
+                    handleSocketNotification(createToastAndAppend);
+                } else {
+                    disconnectSocketClient();
+                    connectSocketClient();
+                }
                 break;
         }
 
