@@ -25,4 +25,11 @@ const createToast = data => {
     return toast;
 };
 
-export default createToast;
+const createToastAndAppend = data => {
+    const toastContainer = document.querySelector('.toast-container');
+
+    toastContainer.appendChild(createToast(data));
+    console.log('callback notification')
+};
+
+export { createToast, createToastAndAppend };
