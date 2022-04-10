@@ -22,10 +22,10 @@ const formatWithDateAndTime = inputDate => {
     const hours = inputDate.getHours();
     const minutes = inputDate.getMinutes();
 
-    const formatedMonth = `${month > 10 ? month : '0' + month}`;
-    const formatedDate = `${date > 10 ? date : '0' + date}`;
+    const formatedMonth = `${month < 10 ? '0' + month : month}`;
+    const formatedDate = `${date < 10 ? '0' + date : date}`;
     const formatedYear = year[year.length - 2] + year[year.length - 1];
-    const formatedTime = `${hours > 10 ? hours : '0' + hours}:${minutes > 10 ? minutes : '0' + minutes}`;
+    const formatedTime = `${hours < 10 ? '0' + hours : hours}:${minutes < 10 ? '0' + minutes : minutes}`;
     const formatedResult = `${formatedMonth}.${formatedDate}.${formatedYear} (${formatedTime})`;
 
     return formatedResult;
