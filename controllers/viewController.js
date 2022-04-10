@@ -119,8 +119,14 @@ const renderLogin = async (req, res, additionalProperties) => {
     res.render('login', viewProperties);
 };
 
-const renderSitemap = (req, res, additionalProperties) => {
+const renderSitemap = async (req, res, additionalProperties) => {
     const viewProperties = { title: 'Sitemap', year: getYear() };
+
+    if(req.isAuthenticated()) {
+        const receivedMessages = await getReceivedMessages(req, res, req.user.email);
+
+        assignProperties(viewProperties, { receivedMessages });
+    }
 
     if(additionalProperties) assignProperties(viewProperties, additionalProperties);
 
