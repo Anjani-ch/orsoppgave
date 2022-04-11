@@ -1,7 +1,8 @@
+const { formatWithDateAndTime, isDueTime } = require('../modules/date.js');
+
 const { Notification } = require('../models/Notification.js');
 
 const { sendNotificationToClient } = require('./socketController.js');
-const { formatWithDateAndTime } = require('../modules/date.js');
 
 let notificationSchedules = [];
 
@@ -23,23 +24,9 @@ const createNotification = async (req, res, data) => {
 
 const deleteNotification = async id => {
     try {
-        await Notification.deleteOne({ id });
+        await Notification.deleteOne({ _id: id });
 
-        const { index } = notificationSchedules.filter((notification, index) => {
-            let result;
-
-            if(notification.id === id) {
-                result = {
-                    notification,
-                    index
-                }
-            } else {
-                result = false;
-            }
-
-            return result;
-        });
-        notificationSchedules.splice(index, 1);
+        notificationSchedules = notificationSchedules.filter(notification => notification.id !== id);
     } catch (err) {
         console.log(err.message);
     }
@@ -56,16 +43,14 @@ const getNotifications = async _ => {
     }
 };
 
-const checkNotificationDueTime = async _ => {    
+const checkNotificationDueTime = async _ => {
     notificationSchedules.forEach(notification => {
         const { dueTime } = notification;
 
         const now = new Date(Date.now());
-        const dueTimeDate = new Date(dueTime).getTime();
+        const dueTimeDate = new Date(dueTime.getTime());
 
-        const isDueTime = dueTime.getHours() === now.getHours() && dueTime.getMinutes() === now.getMinutes() && now.getSeconds() === 0;
-
-        if(isDueTime) {
+        if(isDueTime(dueTime)) {
             sendNotificationToClient(notification);
             deleteNotification(notification.id);
         } else if(now > dueTimeDate) {

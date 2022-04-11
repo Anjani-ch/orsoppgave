@@ -28,7 +28,13 @@ const createTableElement = (data, type) => {
             thirdColumn.setAttribute('data-id', data.id);
             break;
         case 'email':
-            return;
+            firstColumn.innerText = data.subject;
+            secondColumn.innerText = data.dueTime;
+
+            deleteIcon.className += 'delete-event';
+
+            tableRow.setAttribute('data-email-wrapper', data.id);
+            thirdColumn.setAttribute('data-id', data.id);
             break;
     }
 
@@ -40,5 +46,13 @@ const createTableElement = (data, type) => {
 
     return tableRow;
 };
+
+/* 
+<div class="table-row text-center" data-email-wrapper="<%= email._id %>">
+    <p><%= email.subject %></p>
+    <p><%= email.dueTime %></p>
+    <p data-id="<%= email._id %>"><i class="fa-solid fa-trash delete delete-event"></i></p>
+</div>
+*/
 
 export default createTableElement;

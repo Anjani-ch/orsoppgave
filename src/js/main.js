@@ -3,7 +3,6 @@ import '../css/styles.css';
 
 // Scripts
 import './navbar.js';
-import './footer.js';
 import './particleEffect.js';
 import './collapse.js';
 import './alert.js';
@@ -12,6 +11,7 @@ import './profileDropdown';
 import './inbox.js';
 import './settings.js';
 import './dashboard.js';
+import './footer.js';
 
 import {
     connectSocketClient,
@@ -22,6 +22,7 @@ import {
 import { THEME_STORAGE_KEY } from './keys.js';
 import updateRootTheme from './utilities/updateRootTheme.js';
 import { createToastAndAppend } from './utilities/createToast.js';
+import getUser from './utilities/getUser.js';
 
 window.addEventListener('DOMContentLoaded', e => {
     const body = document.querySelector('body');
@@ -31,18 +32,13 @@ window.addEventListener('DOMContentLoaded', e => {
 
     updateRootTheme(userTheme);
 
-    fetch('/user')
-        .then(res => res.json())
-        .then(({ user }) => {
-            if(user) {
-                connectSocketClient();
+    getUser(user => {
+        connectSocketClient();
 
-                if(user.wantsPushNotifications) {
-                    handleSocketNotification(createToastAndAppend);
-                }
+        if(user.wantsPushNotifications) {
+            handleSocketNotification(createToastAndAppend);
+        }
 
-                handleSocketEmail();
-            }
-        })
-        .catch(err => console.log(err));
+        handleSocketEmail();
+    });
 });

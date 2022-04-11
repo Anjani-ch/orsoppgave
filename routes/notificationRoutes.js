@@ -2,9 +2,11 @@ const express = require('express');
 
 const { createNotification, deleteNotification } = require('../controllers/notificationController.js');
 
+const { isLoggedIn } = require('../middleware/authMiddleware.js');
+
 const router = express.Router();
 
-router.post('/create', async (req, res) => {
+router.post('/create', isLoggedIn, async (req, res) => {
     try {
         const result = await createNotification(req, res, req.body);
 
@@ -15,9 +17,9 @@ router.post('/create', async (req, res) => {
     }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', isLoggedIn, async (req, res) => {
     try {
-        await deleteNotification(req, res, req.params.id);
+        await deleteNotification(req.params.id);
 
         res.json({ msg: 'Notification deleted' });
     } catch (err) {

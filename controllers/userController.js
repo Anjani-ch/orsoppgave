@@ -1,5 +1,6 @@
 const { logCreatedUser, logDeletedUser } = require('./logController.js');
 const { hashPassword } = require('../controllers/bcryptController.js');
+const { subcribeForEmails } = require('../controllers/mailchimpController.js');
 
 const { User } = require('../models/User.js');
 
@@ -12,6 +13,10 @@ const createUser = async (req, res, userData) => {
         await user.save();
 
         logCreatedUser(user);
+
+        if(user.wantsEmailNotifications) {
+            await subcribeForEmails(user);
+        }
 
         req.flash('successMsg', 'You are now registered');
         res.status(201).redirect('/login');
@@ -36,8 +41,6 @@ const deleteUser = async (req, res, id) => {
 
 const updateUser = async (req, res, body) => {
     try {
-        console.log(body);
-        console.log(req.user.id)
         await User.updateOne({ _id: req.user.id }, body);
 
         res.status(200).json({ msg: 'Updated user data' });

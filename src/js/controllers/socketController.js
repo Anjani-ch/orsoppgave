@@ -22,15 +22,12 @@ const handleSocketNotification = callback => {
         }
 
         callback(notification);
-
-        console.log('notification live from server');
-        console.log(notification);
     });
 };
 
 const handleSocketEmail = _ => {
     socket.on('send-email', email => {
-        const emailElement = document.querySelector(`[data-notification-wrapper="${email._id}"]`);
+        const emailElement = document.querySelector(`[data-email-wrapper="${email.id}"]`);
 
         if(emailElement) {
             const parentElement = emailElement.parentElement;
@@ -42,9 +39,6 @@ const handleSocketEmail = _ => {
 
             if(parentElementChildren.length === 1) parentElement.classList.add('d-none');
         }
-
-        console.log('email live from server');
-        console.log(email);
     });
 };
 

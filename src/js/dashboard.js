@@ -164,6 +164,15 @@ if(dashboard) {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             })
+            .then(res => res.json())
+            .then(({ result }) => {
+                const tableRowsInTable = Array.from(emailTable.children).filter(child => child.classList.contains('table-row'));
+
+                if(tableRowsInTable.length === 1) emailTable.classList.remove('d-none');
+
+                emailTable.appendChild(createTableElement(result, 'email'));
+            })
+            .catch(err => console.log(err))
 
             // e.target.reset();
         } else {
@@ -192,9 +201,6 @@ if(dashboard) {
 
                 tableRowsInTable = Array.from(parentTable.children).filter(child => child.classList.contains('table-row'));
 
-                console.log(tableRowsInTable.length);
-                console.log(parentTable);
-
                 if(tableRowsInTable.length === 1) parentTable.classList.add('d-none');
 
                 alert.message = 'Deleted notification';
@@ -206,7 +212,7 @@ if(dashboard) {
 
                 console.log(err);
             })
-            .finally(_ => e.target.prepend(createAlert(alert.message, alert.type)));
+            .finally(_ => notificationTable.prepend(createAlert(alert.message, alert.type)));
         }
     });
 
@@ -217,7 +223,7 @@ if(dashboard) {
     
             const alert = { message: '', type: '' };
     
-            fetch(window.location.origin + 'email/' + id, {
+            fetch(window.location.origin + '/email/' + id, {
                 method: 'DELETE'
             })
             .then(res => res.json())
@@ -242,7 +248,7 @@ if(dashboard) {
     
                 console.log(err);
             })
-            .finally(_ => e.target.prepend(createAlert(alert.message, alert.type)));
+            .finally(_ => emailTable.prepend(createAlert(alert.message, alert.type)));
         }
     });
 }

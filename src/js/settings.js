@@ -87,11 +87,26 @@ if(settings) {
     accountOptions.addEventListener('change', e => {
         const updatedData = {};
 
-        let requestOptions;
+        let updateRequestOptions;
 
         switch(e.target.id) {
             case 'mail-notification':
+                const subscriptionRequestOptions = {
+                    method: 'POST',
+                };
+
+                let subscriptionRequestUrl = window.location.origin;
+
                 updatedData.wantsEmailNotifications = e.target.checked;
+
+                if(e.target.checked) {
+                    subscriptionRequestUrl += '/email/subscribe';
+                } else {
+                    subscriptionRequestUrl += '/email/unsubscribe';
+                }
+
+                fetch(subscriptionRequestUrl, subscriptionRequestOptions)
+                    .catch(err => console.log(err))
                 break;
             case 'push-notification':
                 updatedData.wantsPushNotifications = e.target.checked;
@@ -105,13 +120,13 @@ if(settings) {
                 break;
         }
 
-        requestOptions = {
+        updateRequestOptions = {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updatedData)
         };
 
-        fetch('/user/update', requestOptions)
+        fetch('/user/update', updateRequestOptions)
             .catch(err => console.log(err));
     });
     

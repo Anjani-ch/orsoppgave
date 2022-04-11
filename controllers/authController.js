@@ -66,6 +66,13 @@ const handleSignup = async (req, res) => {
 
         createUser(req, res, userData);
     } else {
+        console.log(mailNotification)
+        req.body = {
+            ...req.body,
+            mailNotification,
+            pushNotification
+        };
+        console.log({...req.body})
         renderSignup(req, res, { errors, ...req.body });
     }
 };

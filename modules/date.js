@@ -17,7 +17,7 @@ const formatWithDateAndTime = inputDate => {
     inputDate = new Date(inputDate);
 
     const year = inputDate.getFullYear().toString();
-    const month = inputDate.getMonth();
+    const month = inputDate.getMonth() + 1;
     const date = inputDate.getDate();
     const hours = inputDate.getHours();
     const minutes = inputDate.getMinutes();
@@ -31,4 +31,12 @@ const formatWithDateAndTime = inputDate => {
     return formatedResult;
 };
 
-module.exports = { getYear, getTime, formatWithDateAndTime };
+const isDueTime = dueTime => {
+    const now = new Date(Date.now());
+
+    const result = (dueTime.getHours() === now.getHours()) && (dueTime.getMinutes() === now.getMinutes()) && (now.getSeconds() === 0) && (now.getDate() === dueTime.getDate()) && (now.getMonth() === dueTime.getMonth()) && (now.getFullYear() === dueTime.getFullYear());
+
+    return result;
+};
+
+module.exports = { getYear, getTime, formatWithDateAndTime, isDueTime };

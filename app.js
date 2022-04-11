@@ -12,6 +12,7 @@ const connectToDB = require('./config/db.js');
 
 const { initSocketConnection } = require('./controllers/socketController.js');
 const { checkNotificationDueTime, populateNotifications } = require('./controllers/notificationController.js');
+const { checkEmailDueTime, populateEmails } = require('./controllers/emailController.js');
 
 const PORT = process.env.PORT || 3000;
 
@@ -19,23 +20,12 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 populateNotifications();
+populateEmails();
 
 // Passport Config
 initPassport(passport);
 
 // Connect To DB
-// connectToDB(process.env.MONGO_URI)
-//     .then(_ => {
-//         initSocketConnection(PORT);
-
-//         app.listen(PORT, _ => console.log(`Server running on port ${PORT}`));
-//         // Check for event due time
-//         setInterval(_ => {
-//             checkNotificationDueTime();
-//         }, 1000)
-//     })
-//     .catch(err => console.log(err));
-
 (async _ => {
     try {
         await connectToDB(process.env.MONGO_URI);
@@ -48,6 +38,7 @@ initPassport(passport);
             // Check for event due time
             setInterval(_ => {
                 checkNotificationDueTime();
+                checkEmailDueTime();
             }, 1000)
         });
     } catch (err) {

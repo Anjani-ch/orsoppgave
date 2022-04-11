@@ -28,12 +28,12 @@
                 </div>
 
                 <div class="form-field checkbox">
-                    <input type="checkbox" name="mailNotification" id="mail-notification">
+                    <input type="checkbox" name="mailNotification" id="mail-notification" <%= typeof mailNotification != 'undefined' && mailNotification != 'undefined' ? 'checked' : '' %>>
                     <label for="mail-notification" class="text-primary">I want to receive e-mail notifications.</label>
                 </div>
 
                 <div class="form-field checkbox">
-                    <input type="checkbox" name="pushNotification" id="push-notification">
+                    <input type="checkbox" name="pushNotification" id="push-notification" <%= typeof pushNotification != 'undefined' && pushNotification != 'undefined' ? 'checked' : '' %>>
                     <label for="push-notification" class="text-primary">I want to receive push notifications.</label>
                 </div>
 

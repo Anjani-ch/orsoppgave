@@ -65,7 +65,7 @@
                 <button type="submit" class="form-btn contrast-primary">Add</button>
             </form>
 
-            <div class="table <%= !notifications.length ? 'd-none' : '' %>" id="notification-table">
+            <div class="table<%= !notifications.length ? ' d-none' : '' %>" id="notification-table">
                 <div class="table-row text-center contrast-primary">
                     <p>Message</p>
                     <p>Due</p>
@@ -106,7 +106,7 @@
                 <button type="submit" class="form-btn contrast-primary">Add</button>
             </form>
 
-            <div class="table <%= !emails.length ? 'd-none' : '' %>" id="email-table">
+            <div class="table<%= !emails.length ? ' d-none' : '' %>" id="email-table">
                 <div class="table-row text-center contrast-primary">
                     <p>Subject</p>
                     <p>Due</p>

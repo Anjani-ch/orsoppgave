@@ -19,4 +19,11 @@ const sendNotificationToClient = notification => {
     });
 };
 
-module.exports = { initSocketConnection, sendNotificationToClient };
+const sendEmailToClient = email => {
+    io.sockets.emit('send-email', {
+        ...email._doc,
+        dueTime: formatWithDateAndTime(notification.dueTime)
+    });
+};
+
+module.exports = { initSocketConnection, sendNotificationToClient, sendEmailToClient };
