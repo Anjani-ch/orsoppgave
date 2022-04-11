@@ -1,10 +1,8 @@
-// .env Config
-require('dotenv').config();
-
 const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
+const dotenv = require('dotenv');
 const path = require('path');
 
 const initPassport = require('./config/passport.js');
@@ -18,6 +16,9 @@ const PORT = process.env.PORT || 3000;
 
 // Init Express App
 const app = express();
+
+// .env config
+dotenv.config({ path: path.join(__dirname, '.env.local') });
 
 populateNotifications();
 populateEmails();
