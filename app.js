@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 // .env config
-dotenv.config({ path: path.join(__dirname, '.env.local') });
+dotenv.config();
 
 populateNotifications();
 populateEmails();

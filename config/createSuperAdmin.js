@@ -12,7 +12,7 @@ const { SuperAdmin } = require('../models/SuperAdmin.js');
 
 const args = yargs.argv;
 
-dotenv.config({ path: path.join(__dirname, '.env.local') });
+dotenv.config();
 
 (async _ => {
     const argErrors = [];
