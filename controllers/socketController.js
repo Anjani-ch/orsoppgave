@@ -22,7 +22,7 @@ const sendNotificationToClient = notification => {
 const sendEmailToClient = email => {
     io.sockets.emit('send-email', {
         ...email._doc,
-        dueTime: formatWithDateAndTime(notification.dueTime)
+        dueTime: formatWithDateAndTime(email.dueTime)
     });
 };
 

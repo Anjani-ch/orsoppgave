@@ -152,6 +152,7 @@ const renderAdminDashboard = async (req, res, additionalProperties) => {
 
         emails = emails.map(email => {
             const { dueTime } = email;
+            console.log({...email._doc, dueTime: formatWithDateAndTime(dueTime)})
 
             return { ...email._doc, dueTime: formatWithDateAndTime(dueTime) };
         });

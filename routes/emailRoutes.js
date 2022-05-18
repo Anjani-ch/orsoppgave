@@ -10,7 +10,7 @@ const router = express.Router();
 router.post('/create', isLoggedIn, async (req, res) => {
     try {        
         const result = await createEmail(req, res, req.body);
-        console.log(result)
+
         res.json({ msg: 'Email created', result  });
     } catch (err) {
         console.log(err);

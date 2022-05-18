@@ -1,3 +1,6 @@
+// .env config
+require('dotenv').config();
+
 const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
@@ -16,9 +19,6 @@ const PORT = process.env.PORT || 3000;
 
 // Init Express App
 const app = express();
-
-// .env config
-dotenv.config();
 
 populateNotifications();
 populateEmails();

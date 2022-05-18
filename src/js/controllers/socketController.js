@@ -27,7 +27,7 @@ const handleSocketNotification = callback => {
 
 const handleSocketEmail = _ => {
     socket.on('send-email', email => {
-        const emailElement = document.querySelector(`[data-email-wrapper="${email.id}"]`);
+        const emailElement = document.querySelector(`[data-email-wrapper="${email._id}"]`);
 
         if(emailElement) {
             const parentElement = emailElement.parentElement;

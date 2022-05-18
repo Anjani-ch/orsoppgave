@@ -1,4 +1,4 @@
-const { isDueTime } = require('../modules/date.js');
+const { isDueTime, formatWithDateAndTime } = require('../modules/date.js');
 
 const { Email } = require('../models/Email.js');
 
@@ -12,7 +12,11 @@ const createEmail = async (req, res, data) => {
 
     try {
         await email.save();
-        
+
+        emailSchedules.push(email);
+
+        data.dueTime = formatWithDateAndTime(data.dueTime);
+
         return { ...data, id: email.id };
     } catch (err) {
         console.log(err);
@@ -45,7 +49,7 @@ const checkEmailDueTime = async _ => {
 
         const now = new Date(Date.now());
         const dueTimeDate = new Date(dueTime).getTime();
-        console.log(dueTime)
+
         if(isDueTime(dueTime)) {
             sendEmail(email);
             sendEmailToClient(email);
@@ -59,7 +63,7 @@ const checkEmailDueTime = async _ => {
 const populateEmails = async _ => {
     try {
         let results = await Email.find();
-
+        
         emailSchedules = results;
     } catch (err) {
         console.log(err);

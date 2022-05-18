@@ -1,5 +1,4 @@
 const axios = require('axios');
-const res = require('express/lib/response');
 
 const API_KEY = process.env.MAILCHIMP_API_KEY;
 
@@ -19,11 +18,11 @@ const subcribeForEmails = async user => {
     };
 
     const requestHeaders = {
-        auth: {
-            username: 'anjanic',
-            password: API_KEY
-        }
-    };
+    auth: {
+        username: 'anjanic',
+        password: API_KEY
+    }
+};
 
     try {
         await axios.post(url, requestData, requestHeaders);
@@ -33,16 +32,14 @@ const subcribeForEmails = async user => {
 };
 
 const unsubcribeForEmails = async user => {
-    const { email } = user;
-
-    const url = `${API_URL}/lists/${LIST_ID}/members/${email}`;
+    const url = `${API_URL}/lists/${LIST_ID}/members/${user.email}`;
 
     const requestHeaders = {
-        auth: {
-            username: 'anjanic',
-            password: API_KEY
-        }
-    };
+    auth: {
+        username: 'anjanic',
+        password: API_KEY
+    }
+};
 
     try {
         await axios.delete(url, requestHeaders);
@@ -52,8 +49,23 @@ const unsubcribeForEmails = async user => {
 };
 
 const sendEmail = async email => {
-    console.log(email);
-    res.json(email);
+    try {
+        const CAMPAIGN_ID = 8873617;
+
+        const requestHeaders = {
+            auth: {
+                username: 'anjanic',
+                password: API_KEY
+            }
+        };
+        
+        console.log('SEND EMAIL')
+
+        await axios.post(`${API_URL}/campaigns/${CAMPAIGN_ID}/actions/send`, {}, requestHeaders);
+    } catch(err) {
+        console.log('ERROR:');
+        console.log(err.response.data);
+    }
 };
 
 module.exports = { subcribeForEmails, unsubcribeForEmails, sendEmail };
