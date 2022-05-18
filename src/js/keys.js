@@ -1,4 +1,0 @@
-const THEME_STORAGE_KEY = 'theme';
-const SETTINGS_SECTION_SESSION_KEY = 'settings-section';
-
-export { THEME_STORAGE_KEY, SETTINGS_SECTION_SESSION_KEY };
